@@ -194,10 +194,10 @@ function LandingPage(): React.JSX.Element {
         anchor="right"
         open={mobileMenuOpen}
         onClose={() => setMobileMenuOpen(false)}
-        PaperProps={{ sx: { bgcolor: COLORS.bgDark, color: COLORS.textMain, width: '100%', maxWidth: 300 } }}
+        PaperProps={{ sx: { bgcolor: 'background.paper', color: 'text.primary', width: '100%', maxWidth: 300 } }}
       >
         <Box sx={{ p: 3, display: 'flex', justifyContent: 'flex-end' }}>
-          <IconButton onClick={() => setMobileMenuOpen(false)} sx={{ color: COLORS.textMain }}>
+          <IconButton onClick={() => setMobileMenuOpen(false)} sx={{ color: 'text.primary' }}>
             <CloseIcon />
           </IconButton>
         </Box>
@@ -226,7 +226,7 @@ function LandingPage(): React.JSX.Element {
                   fullWidth
                   variant="outlined"
                   onClick={() => navigate('/sign-in')}
-                  sx={{ borderColor: COLORS.border, color: COLORS.textMain, py: 1.5 }}
+                  sx={{ borderColor: COLORS.border, color: 'text.primary', py: 1.5 }}
                 >
                   Log In
                 </Button>
@@ -431,7 +431,7 @@ function LandingPage(): React.JSX.Element {
             </Stack>
 
             {/* Illustration Placeholder */}
-            <Box sx={{ flex: 1, height: '400px', bgcolor: '#020617', borderRadius: '32px', border: `1px solid ${COLORS.border}`, position: 'relative', overflow: 'hidden' }}>
+            <Box sx={{ flex: 1, height: '400px', bgcolor: 'background.default', borderRadius: '32px', border: `1px solid ${COLORS.border}`, position: 'relative', overflow: 'hidden' }}>
               <Box sx={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 <AutoAwesomeIcon sx={{ fontSize: 100, color: COLORS.primary, opacity: 0.2 }} />
                 <Typography variant="h6" sx={{ position: 'absolute', bottom: 40, color: COLORS.textMuted }}>AI Processing Engine</Typography>
@@ -442,7 +442,7 @@ function LandingPage(): React.JSX.Element {
       </Box>
 
       {/* ================= FAQ SECTION ================= */}
-      <Box id="faq" sx={{ py: 12, bgcolor: COLORS.bgDark }}>
+      <Box id="faq" sx={{ py: 12, bgcolor: 'background.paper' }}>
         <Container maxWidth="md">
           <Typography variant="h3" fontWeight="bold" textAlign="center" sx={{ mb: 6 }}>Frequently Asked Questions</Typography>
 
