@@ -135,7 +135,7 @@ function LoginPage(): React.JSX.Element {
           width: '100%',
           border: '1px solid',
           borderColor: 'divider',
-          boxShadow: '0 4px 20px rgba(0,0,0,0.05)' // Shadow halus
+          boxShadow: 2 // Shadow halus
         }}
       >
         <Stack spacing={3} alignItems="center">
@@ -255,7 +255,7 @@ function LoginPage(): React.JSX.Element {
                   fontSize: '1rem',
                   fontWeight: 'bold',
                   color: 'white',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  boxShadow: 3
                 }}
               >
                 {mutation.isPending ? 'Signing In...' : 'Sign In'}

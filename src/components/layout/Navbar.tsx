@@ -71,10 +71,11 @@ function Navbar(): React.JSX.Element {
         position="sticky" // Ganti ke sticky agar navbar tetap terlihat saat scroll
         elevation={0}
         sx={{
-          backgroundColor: 'rgba(30, 41, 59, 0.85)', // #1E293B dengan transparansi
-          backdropFilter: 'blur(12px)', // Efek kaca buram modern
-          borderBottom: '1px solid rgba(255,255,255,0.08)',
-          color: '#F1F5F9',
+          backgroundColor: 'rgba(255, 255, 255, 0.9)',
+          backdropFilter: 'blur(12px)',
+          borderBottom: '1px solid',
+          borderColor: 'divider',
+          color: 'text.primary',
           top: 0,
           zIndex: 1100,
         }}
@@ -103,7 +104,7 @@ function Navbar(): React.JSX.Element {
                 noWrap
                 sx={{
                   fontWeight: 700,
-                  color: '#F1F5F9',
+                  color: 'text.primary',
                   fontSize: { xs: '1rem', md: '1.25rem' },
                   display: { xs: 'none', sm: 'block' } // Hidden on Extra Small screens
                 }}
@@ -123,12 +124,12 @@ function Navbar(): React.JSX.Element {
                       fontWeight: isActive(item.path) ? 700 : 500,
                       textTransform: 'none',
                       fontSize: '0.95rem',
-                      color: isActive(item.path) ? '#F97316' : '#CBD5E1',
+                      color: isActive(item.path) ? 'secondary.main' : 'text.secondary',
                       position: 'relative',
                       px: 2,
                       '&:hover': {
-                        color: '#F97316',
-                        bgcolor: 'rgba(255,255,255,0.03)'
+                        color: 'secondary.main',
+                        bgcolor: 'action.hover'
                       },
                       // Garis bawah kecil untuk menu aktif
                       '&::after': isActive(item.path) ? {
@@ -139,7 +140,7 @@ function Navbar(): React.JSX.Element {
                         transform: 'translateX(-50%)',
                         width: '20px',
                         height: '2px',
-                        bgcolor: '#F97316',
+                        bgcolor: 'secondary.main',
                         borderRadius: '2px'
                       } : {}
                     }}
@@ -162,8 +163,9 @@ function Navbar(): React.JSX.Element {
                   sx={{
                     width: { xs: 32, md: 40 }, // Responsive size
                     height: { xs: 32, md: 40 },
-                    border: '2px solid #FACC15',
-                    boxShadow: '0 0 0 2px rgba(250, 204, 21, 0.25)',
+                    border: '2px solid',
+                    borderColor: 'warning.main',
+                    boxShadow: 2,
                     bgcolor: 'primary.main',
                     fontSize: '1rem',
                     fontWeight: 'bold',
@@ -181,9 +183,10 @@ function Navbar(): React.JSX.Element {
                 PaperProps={{
                   sx: {
                     mt: 1.5,
-                    bgcolor: '#0F172A',
-                    color: '#F1F5F9',
-                    border: '1px solid rgba(255,255,255,0.1)',
+                    bgcolor: 'background.paper',
+                    color: 'text.primary',
+                    border: '1px solid',
+                    borderColor: 'divider',
                     minWidth: 150
                   }
                 }}
@@ -194,7 +197,7 @@ function Navbar(): React.JSX.Element {
                   <Person3Outlined fontSize="small" sx={{ mr: 1 }} />
                   My Profile
                 </MenuItem>
-                <MenuItem onClick={handleLogout} sx={{ color: '#EF4444', fontWeight: 600 }}>
+                <MenuItem onClick={handleLogout} sx={{ color: 'error.main', fontWeight: 600 }}>
                   <Logout fontSize="small" sx={{ mr: 1 }} />
                   Log Out
                 </MenuItem>
@@ -203,7 +206,7 @@ function Navbar(): React.JSX.Element {
               {/* Mobile Menu Toggle */}
               {isMobile && (
                 <IconButton onClick={toggleDrawer(true)} edge="end" sx={{ ml: 0.5 }}>
-                  <MenuIcon sx={{ color: '#F1F5F9', fontSize: 28 }} />
+                  <MenuIcon sx={{ color: 'text.primary', fontSize: 28 }} />
                 </IconButton>
               )}
             </Box>
@@ -219,10 +222,11 @@ function Navbar(): React.JSX.Element {
         onClose={toggleDrawer(false)}
         PaperProps={{
           sx: {
-            backgroundColor: '#0F172A',
-            color: '#F1F5F9',
+            backgroundColor: 'background.paper',
+            color: 'text.primary',
             width: 280,
-            borderLeft: '1px solid rgba(255,255,255,0.1)'
+            borderLeft: '1px solid',
+            borderColor: 'divider'
           },
         }}
       >
@@ -247,15 +251,15 @@ function Navbar(): React.JSX.Element {
                     }}
                     sx={{
                       borderRadius: 2,
-                      backgroundColor: active ? 'rgba(249,115,22,0.15)' : 'transparent',
-                      '&:hover': { backgroundColor: 'rgba(255,255,255,0.05)' }
+                      backgroundColor: active ? 'action.selected' : 'transparent',
+                      '&:hover': { backgroundColor: 'action.hover' }
                     }}
                   >
                     <ListItemText
                       primary={item.text}
                       primaryTypographyProps={{
                         fontWeight: active ? 700 : 500,
-                        color: active ? '#F97316' : '#E2E8F0',
+                        color: active ? 'secondary.main' : 'text.secondary',
                       }}
                     />
                   </ListItemButton>
@@ -265,7 +269,7 @@ function Navbar(): React.JSX.Element {
           </List>
 
           {/* Drawer Footer (Optional: Logout) */}
-          <Box sx={{ mt: 'auto', pt: 2, borderTop: '1px solid rgba(255,255,255,0.1)' }}>
+          <Box sx={{ mt: 'auto', pt: 2, borderTop: '1px solid', borderColor: 'divider' }}>
             <Button fullWidth variant="outlined" color="error" size="small">
               Log Out
             </Button>

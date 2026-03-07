@@ -172,7 +172,7 @@ function RegisterPage(): React.JSX.Element {
             textAlign: 'center',
             border: '1px solid',
             borderColor: 'divider',
-            boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+            boxShadow: 2
           }}
         >
           <Box
@@ -325,7 +325,7 @@ function RegisterPage(): React.JSX.Element {
                   fontSize: '1rem',
                   fontWeight: 'bold',
                   color:'white',
-                  boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                  boxShadow: 3
                 }}
               >
                 {mutation.isPending ? 'Creating Account...' : 'Create Account'}

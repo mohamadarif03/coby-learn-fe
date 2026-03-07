@@ -61,7 +61,7 @@ function TaskItem({ task, onUpdateStatus, onDelete, onEdit }: TaskItemProps): Re
         '&:hover': {
           borderColor: 'primary.main',
           transform: 'translateY(-2px)',
-          boxShadow: '0 4px 12px rgba(0,0,0,0.05)'
+          boxShadow: 2
         }
       }}
     >

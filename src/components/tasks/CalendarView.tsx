@@ -280,7 +280,7 @@ function CalendarView({ tasks, onAddTask, onEditTask }: CalendarViewProps): Reac
                   sx={{
                     p: 2, borderRadius: 3, bgcolor: 'background.default', border: '1px solid', borderColor: 'divider',
                     cursor: 'pointer', transition: '0.2s',
-                    '&:hover': { transform: 'translateY(-2px)', borderColor: 'primary.main', boxShadow: '0 4px 12px rgba(0,0,0,0.05)' }
+                    '&:hover': { transform: 'translateY(-2px)', borderColor: 'primary.main', boxShadow: 2 }
                   }}
                 >
                   <Typography variant="subtitle2" fontWeight="bold" sx={{ textDecoration: task.completed ? 'line-through' : 'none', color: task.completed ? 'text.secondary' : 'text.primary', mb: 1 }}>

@@ -66,7 +66,7 @@ function ForgotPasswordPage(): React.JSX.Element {
                     width: '100%',
                     border: '1px solid',
                     borderColor: 'divider',
-                    boxShadow: '0 4px 20px rgba(0,0,0,0.05)'
+                    boxShadow: 2
                 }}
             >
                 <Stack spacing={3} alignItems="center">
@@ -116,7 +116,7 @@ function ForgotPasswordPage(): React.JSX.Element {
                                     fontSize: '1rem',
                                     fontWeight: 'bold',
                                     color: 'white',
-                                    boxShadow: '0 4px 12px rgba(0,0,0,0.15)'
+                                    boxShadow: 3
                                 }}
                             >
                                 {mutation.isPending ? 'Sending...' : 'Send Reset Link'}

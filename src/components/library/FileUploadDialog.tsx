@@ -258,7 +258,7 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
                   },
                   '& .Mui-selected': {
                     bgcolor: 'background.paper',
-                    boxShadow: '0 2px 8px rgba(0,0,0,0.05)',
+                    boxShadow: 1,
                     color: 'primary.main'
                   },
                   '& .MuiTabs-indicator': { display: 'none' }
@@ -368,7 +368,7 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
                 py: 1,
                 borderRadius: 2,
                 fontWeight: 'bold',
-                boxShadow: '0 4px 14px 0 rgba(99, 102, 241, 0.3)'
+                boxShadow: 4
               }}
             >
               Generate Summary

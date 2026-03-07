@@ -17,7 +17,7 @@ function MainLayout(): React.JSX.Element {
         sx={{
           bgcolor: 'background.paper',
           borderRadius: '16px',
-          boxShadow: '0px 4px 20px rgba(0, 0, 0, 0.05)',
+          boxShadow: 2,
           p: 0,
           overflow: 'hidden',
         }}

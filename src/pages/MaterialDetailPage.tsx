@@ -103,8 +103,9 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
       elevation={0}
       sx={{
         borderRadius: '24px',
-        bgcolor: '#1E293B',
-        border: '1px solid #334155',
+        bgcolor: 'background.paper',
+        border: '1px solid',
+        borderColor: 'divider',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
@@ -113,14 +114,14 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
       }}
     >
       {/* Chat Header */}
-      <Box sx={{ p: 2, borderBottom: '1px solid #334155', display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: '#0F172A' }}>
-        <Avatar sx={{ bgcolor: '#F97316', width: 32, height: 32 }}>
+      <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: 'background.default' }}>
+        <Avatar sx={{ bgcolor: 'secondary.main', width: 32, height: 32 }}>
           <SmartToyIcon sx={{ fontSize: 20 }} />
         </Avatar>
         <Box>
-          <Typography variant="subtitle2" fontWeight="bold" sx={{ color: 'white' }}>AI Tutor</Typography>
-          <Typography variant="caption" sx={{ color: '#10B981', display: 'flex', alignItems: 'center', gap: 0.5 }}>
-            <Box component="span" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: '#10B981' }} />
+          <Typography variant="subtitle2" fontWeight="bold" sx={{ color: 'text.primary' }}>AI Tutor</Typography>
+          <Typography variant="caption" sx={{ color: 'success.main', display: 'flex', alignItems: 'center', gap: 0.5 }}>
+            <Box component="span" sx={{ width: 6, height: 6, borderRadius: '50%', bgcolor: 'success.main' }} />
             Online
           </Typography>
         </Box>
@@ -132,7 +133,7 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
         sx={{ flexGrow: 1, p: 2, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 1.5 }}
       >
         {messages.length === 0 && (
-          <Typography variant="caption" sx={{ textAlign: 'center', color: '#64748B', mt: 4 }}>
+          <Typography variant="caption" sx={{ textAlign: 'center', color: 'text.secondary', mt: 4 }}>
             Tanyakan apa saja tentang materi ini!
           </Typography>
         )}
@@ -148,8 +149,8 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
             <Paper sx={{
               p: 1.5,
               borderRadius: msg.role === 'user' ? '16px 16px 0 16px' : '16px 16px 16px 0',
-              bgcolor: msg.role === 'user' ? '#F97316' : '#334155',
-              color: 'white'
+              bgcolor: msg.role === 'user' ? 'secondary.main' : 'action.selected',
+              color: msg.role === 'user' ? 'white' : 'text.primary'
             }}>
               <ReactMarkdown
                 remarkPlugins={[remarkGfm]}
@@ -161,7 +162,7 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
                 {msg.message}
               </ReactMarkdown>
             </Paper>
-            <Typography variant="caption" sx={{ color: '#64748B', mt: 0.5, display: 'block', textAlign: msg.role === 'user' ? 'right' : 'left' }}>
+            <Typography variant="caption" sx={{ color: 'text.secondary', mt: 0.5, display: 'block', textAlign: msg.role === 'user' ? 'right' : 'left' }}>
               {msg.role === 'user' ? 'You' : 'AI'} • {new Date(msg.created_at).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' })}
             </Typography>
           </Box>
@@ -169,7 +170,7 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
 
         {chatMutation.isPending && (
           <Box sx={{ alignSelf: 'flex-start', maxWidth: '85%' }}>
-            <Paper sx={{ p: 1.5, borderRadius: '16px 16px 16px 0', bgcolor: '#334155', color: '#94A3B8' }}>
+            <Paper sx={{ p: 1.5, borderRadius: '16px 16px 16px 0', bgcolor: 'action.selected', color: 'text.secondary' }}>
               <Typography variant="body2" sx={{ fontStyle: 'italic' }}>AI sedang mengetik...</Typography>
             </Paper>
           </Box>
@@ -177,7 +178,7 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
       </Box>
 
       {/* Chat Footer */}
-      <Box sx={{ p: 2, borderTop: '1px solid #334155', bgcolor: '#0F172A', display: 'flex', gap: 1 }}>
+      <Box sx={{ p: 2, borderTop: '1px solid', borderColor: 'divider', bgcolor: 'background.default', display: 'flex', gap: 1 }}>
         <TextField
           variant="outlined"
           placeholder="Ask something..."
@@ -189,9 +190,9 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
           disabled={chatMutation.isPending}
           sx={{
             '& .MuiOutlinedInput-root': {
-              bgcolor: '#1E293B', borderRadius: '10px', color: 'white',
-              '& fieldset': { borderColor: '#334155' },
-              '&:hover fieldset': { borderColor: '#64748B' },
+              bgcolor: 'background.paper', borderRadius: '10px', color: 'text.primary',
+              '& fieldset': { borderColor: 'divider' },
+              '&:hover fieldset': { borderColor: 'text.secondary' },
             }
           }}
         />
@@ -199,9 +200,9 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
           onClick={handleSendChat}
           disabled={!chatInput.trim() || chatMutation.isPending}
           sx={{
-            bgcolor: '#F97316', color: 'white', borderRadius: '10px',
-            '&:hover': { bgcolor: '#ea580c' },
-            '&.Mui-disabled': { bgcolor: '#334155', color: '#64748B' }
+            bgcolor: 'secondary.main', color: 'white', borderRadius: '10px',
+            '&:hover': { bgcolor: 'secondary.dark' },
+            '&.Mui-disabled': { bgcolor: 'action.selected', color: 'text.secondary' }
           }}
         >
           <SendIcon fontSize="small" />
@@ -279,11 +280,11 @@ function MaterialDetailPage(): React.JSX.Element {
     });
   };
 
-  if (isLoading) return <Box sx={{ p: 4, bgcolor: '#0F172A', minHeight: '100vh' }}><Skeleton height={400} sx={{ bgcolor: '#1E293B' }} /></Box>;
+  if (isLoading) return <Box sx={{ p: 4, bgcolor: 'background.default', minHeight: '100vh' }}><Skeleton height={400} sx={{ bgcolor: 'background.paper' }} /></Box>;
   if (isError || !material) return <Alert severity="error">Gagal memuat materi.</Alert>;
 
   return (
-    <Box sx={{ bgcolor: '#0F172A', minHeight: '100vh', color: 'white', pb: 10 }}>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', color: 'text.primary', pb: 10 }}>
       <Box sx={{ maxWidth: 1600, mx: 'auto', px: { xs: 2, md: 4 }, pt: 4 }}>
 
         <Box sx={{ mb: 4 }}>
@@ -332,19 +333,19 @@ function MaterialDetailPage(): React.JSX.Element {
               elevation={0}
               sx={{
                 p: 4, borderRadius: '24px',
-                bgcolor: '#1E293B', border: '1px solid #334155',
+                bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider',
                 minHeight: 500, mb: 4
               }}
             >
-              <Typography variant="h6" fontWeight="bold" sx={{ mb: 3, color: 'white' }}>
+              <Typography variant="h6" fontWeight="bold" sx={{ mb: 3, color: 'text.primary' }}>
                 Material Summary
               </Typography>
-              <Box sx={{ color: '#CBD5E1', lineHeight: 1.8 }}>
+              <Box sx={{ color: 'text.secondary', lineHeight: 1.8 }}>
                 <ReactMarkdown
                   remarkPlugins={[remarkGfm]}
                   components={{
-                    h1: ({ node, ...props }) => <Typography variant="h4" fontWeight="bold" sx={{ color: 'white', mt: 3, mb: 2 }} {...props} />,
-                    h2: ({ node, ...props }) => <Typography variant="h5" fontWeight="bold" sx={{ color: 'white', mt: 2, mb: 1 }} {...props} />,
+                    h1: ({ node, ...props }) => <Typography variant="h4" fontWeight="bold" sx={{ color: 'text.primary', mt: 3, mb: 2 }} {...props} />,
+                    h2: ({ node, ...props }) => <Typography variant="h5" fontWeight="bold" sx={{ color: 'text.primary', mt: 2, mb: 1 }} {...props} />,
                     p: ({ node, ...props }) => <Typography variant="body1" sx={{ mb: 2 }} {...props} />,
                     li: ({ node, ...props }) => <li style={{ marginBottom: '8px', marginLeft: '20px' }} {...props} />,
                   }}
@@ -352,41 +353,41 @@ function MaterialDetailPage(): React.JSX.Element {
                   {material.summary || '_No summary available yet._'}
                 </ReactMarkdown>
               </Box>
-              <Divider sx={{ my: 4, borderColor: '#334155' }} />
-              <Typography variant="caption" sx={{ color: '#64748B' }}>Last updated just now</Typography>
+              <Divider sx={{ my: 4, borderColor: 'divider' }} />
+              <Typography variant="caption" sx={{ color: 'text.secondary' }}>Last updated just now</Typography>
             </Paper>
 
             {/* Quiz History */}
-            <Typography variant="h5" fontWeight="bold" sx={{ mb: 3, color: 'white' }}>
+            <Typography variant="h5" fontWeight="bold" sx={{ mb: 3, color: 'text.primary' }}>
               Quiz History
             </Typography>
             <Stack spacing={2}>
               {isLoadingQuizzes ? (
-                <Skeleton height={100} sx={{ bgcolor: '#1E293B', borderRadius: 3 }} />
+                <Skeleton height={100} sx={{ bgcolor: 'background.paper', borderRadius: 3 }} />
               ) : quizzes && quizzes.length > 0 ? (
                 quizzes.map((quiz, index) => (
                   <Paper
                     key={quiz.id}
                     elevation={0}
                     sx={{
-                      p: 3, borderRadius: '16px', bgcolor: '#1E293B', border: '1px solid #334155',
+                      p: 3, borderRadius: '16px', bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider',
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-                      transition: '0.2s', '&:hover': { borderColor: '#F97316', transform: 'translateY(-2px)' }
+                      transition: '0.2s', '&:hover': { borderColor: 'secondary.main', transform: 'translateY(-2px)' }
                     }}
                   >
                     <Box>
-                      <Typography variant="h6" fontWeight="bold" sx={{ color: 'white' }}>Quiz #{(quizzes?.length || 0) - index}</Typography>
-                      <Typography variant="body2" sx={{ color: '#94A3B8' }}>{quiz.question_count} Questions • {formatDate(quiz.created_at)}</Typography>
+                      <Typography variant="h6" fontWeight="bold" sx={{ color: 'text.primary' }}>Quiz #{(quizzes?.length || 0) - index}</Typography>
+                      <Typography variant="body2" sx={{ color: 'text.secondary' }}>{quiz.question_count} Questions • {formatDate(quiz.created_at)}</Typography>
                     </Box>
                     <Box sx={{ display: 'flex', alignItems: 'center', gap: 3 }}>
                       {quiz.score !== null ? (
                         <Box sx={{ textAlign: 'right' }}>
-                          <Typography variant="caption" sx={{ color: '#94A3B8', display: 'block' }}>SCORE</Typography>
-                          <Typography variant="h4" fontWeight="bold" sx={{ color: '#10B981', lineHeight: 1 }}>{quiz.score}</Typography>
+                          <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block' }}>SCORE</Typography>
+                          <Typography variant="h4" fontWeight="bold" sx={{ color: 'success.main', lineHeight: 1 }}>{quiz.score}</Typography>
                         </Box>
                       ) : (
                         <Box sx={{ textAlign: 'right' }}>
-                          <Typography variant="caption" sx={{ color: '#F97316', display: 'block' }}>PENDING</Typography>
+                          <Typography variant="caption" sx={{ color: 'secondary.main', display: 'block' }}>PENDING</Typography>
                         </Box>
                       )}
                       <Button
@@ -394,10 +395,10 @@ function MaterialDetailPage(): React.JSX.Element {
                         onClick={() => quiz.score !== null ? navigate(`/quiz/result/${quiz.id}`) : navigate(`/quiz/${quiz.id}`)}
                         sx={{
                           borderRadius: '10px', textTransform: 'none', px: 3,
-                          borderColor: quiz.score !== null ? '#334155' : 'none',
-                          color: quiz.score !== null ? '#CBD5E1' : 'white',
-                          bgcolor: quiz.score !== null ? 'transparent' : '#F97316',
-                          '&:hover': { bgcolor: quiz.score !== null ? '#334155' : '#ea580c' }
+                          borderColor: quiz.score !== null ? 'divider' : 'none',
+                          color: quiz.score !== null ? 'text.secondary' : 'white',
+                          bgcolor: quiz.score !== null ? 'transparent' : 'secondary.main',
+                          '&:hover': { bgcolor: quiz.score !== null ? 'action.hover' : 'secondary.dark' }
                         }}
                       >
                         {quiz.score !== null ? 'Review' : 'Start'}
@@ -406,8 +407,8 @@ function MaterialDetailPage(): React.JSX.Element {
                   </Paper>
                 ))
               ) : (
-                <Paper sx={{ p: 4, textAlign: 'center', bgcolor: '#1E293B', borderRadius: '16px', border: '1px dashed #334155' }}>
-                  <Typography color="#64748B">Belum ada riwayat kuis.</Typography>
+                <Paper sx={{ p: 4, textAlign: 'center', bgcolor: 'background.paper', borderRadius: '16px', border: '1px dashed', borderColor: 'divider' }}>
+                  <Typography color="text.secondary">Belum ada riwayat kuis.</Typography>
                 </Paper>
               )}
             </Stack>
@@ -423,8 +424,8 @@ function MaterialDetailPage(): React.JSX.Element {
                   fullWidth variant="contained" startIcon={<AutoAwesomeIcon />}
                   onClick={() => setOpenQuizDialog(true)} disabled={quizMutation.isPending}
                   sx={{
-                    bgcolor: '#F97316', color: 'white', py: 1.5, borderRadius: '12px', fontWeight: 'bold', textTransform: 'none',
-                    '&:hover': { bgcolor: '#ea580c' }
+                    bgcolor: 'secondary.main', color: 'white', py: 1.5, borderRadius: '12px', fontWeight: 'bold', textTransform: 'none',
+                    '&:hover': { bgcolor: 'secondary.dark' }
                   }}
                 >
                   {quizMutation.isPending ? 'Generating...' : 'Generate New Quiz'}
@@ -433,8 +434,8 @@ function MaterialDetailPage(): React.JSX.Element {
                   fullWidth variant="contained" startIcon={<StyleIcon />}
                   onClick={handleCreateFlashcard} disabled={flashcardMutation.isPending}
                   sx={{
-                    bgcolor: '#334155', color: 'white', py: 1.5, borderRadius: '12px', fontWeight: 'bold', textTransform: 'none',
-                    '&:hover': { bgcolor: '#475569' }
+                    bgcolor: 'action.selected', color: 'text.primary', py: 1.5, borderRadius: '12px', fontWeight: 'bold', textTransform: 'none',
+                    '&:hover': { bgcolor: 'action.hover' }
                   }}
                 >
                   {flashcardMutation.isPending ? 'Creating...' : 'Create Flashcards'}

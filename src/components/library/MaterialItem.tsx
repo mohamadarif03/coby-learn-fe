@@ -23,10 +23,10 @@ interface MaterialItemProps {
 
 const getIcon = (type: string) => {
   switch (type) {
-    case 'pdf': return <PictureAsPdfIcon sx={{ color: '#EF4444', fontSize: 32 }} />;
-    case 'youtube': return <YouTubeIcon sx={{ color: '#FF0000', fontSize: 32 }} />;
-    case 'quiz': return <QuizIcon sx={{ color: '#F97316', fontSize: 32 }} />;
-    default: return <DescriptionIcon sx={{ color: '#3B82F6', fontSize: 32 }} />;
+    case 'pdf': return <PictureAsPdfIcon sx={{ color: 'error.main', fontSize: 32 }} />;
+    case 'youtube': return <YouTubeIcon sx={{ color: 'error.main', fontSize: 32 }} />;
+    case 'quiz': return <QuizIcon sx={{ color: 'secondary.main', fontSize: 32 }} />;
+    default: return <DescriptionIcon sx={{ color: 'primary.main', fontSize: 32 }} />;
   }
 };
 

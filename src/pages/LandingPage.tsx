@@ -39,17 +39,17 @@ import StarIcon from '@mui/icons-material/Star';
 // Assets
 import logo from '../assets/logo.png';
 
-// --- THEME CONSTANTS ---
+// --- THEME CONSTANTS (Light Mode Compatible) ---
 const COLORS = {
-  bgDark: '#020617',     // Slate 950
-  bgCard: '#0F172A',     // Slate 900
+  bgLight: '#F8FAFC',    // Light background
+  bgCard: '#FFFFFF',     // Card background
   primary: '#3B82F6',    // Blue 500
-  primaryGlow: 'rgba(59, 130, 246, 0.5)',
-  accent: '#F97316',     // Orange 500
-  accentGlow: 'rgba(249, 115, 22, 0.5)',
-  textMain: '#F8FAFC',
-  textMuted: '#94A3B8',
-  border: 'rgba(148, 163, 184, 0.1)',
+  primaryGlow: 'rgba(59, 130, 246, 0.3)',
+  accent: '#F97316',     // Orange 500 (secondary in theme)
+  accentGlow: 'rgba(249, 115, 22, 0.3)',
+  textMain: '#1E293B',   // Dark text for light mode
+  textMuted: '#64748B',  // Muted text
+  border: 'rgba(15, 23, 42, 0.1)', // Light borders
 };
 
 function LandingPage(): React.JSX.Element {
@@ -81,9 +81,9 @@ function LandingPage(): React.JSX.Element {
 
   return (
     <Box sx={{
-      bgcolor: COLORS.bgDark,
+      bgcolor: 'background.default',
       minHeight: '100vh',
-      color: COLORS.textMain,
+      color: 'text.primary',
       fontFamily: '"Inter", sans-serif',
       overflowX: 'hidden'
     }}>
@@ -93,7 +93,7 @@ function LandingPage(): React.JSX.Element {
         position="fixed"
         elevation={0}
         sx={{
-          bgcolor: scrolled ? 'rgba(2, 6, 23, 0.85)' : 'transparent',
+          bgcolor: scrolled ? 'rgba(248, 250, 252, 0.9)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
           borderBottom: scrolled ? `1px solid ${COLORS.border}` : 'none',
           transition: 'all 0.3s ease',
@@ -144,7 +144,7 @@ function LandingPage(): React.JSX.Element {
                         textTransform: 'none',
                         fontWeight: 'bold',
                         color: 'white',
-                        boxShadow: `0 0 20px ${COLORS.primaryGlow}`,
+                        boxShadow: 4,
                         '&:hover': { bgcolor: '#2563EB' }
                       }}
                     >
@@ -294,7 +294,7 @@ function LandingPage(): React.JSX.Element {
                 borderRadius: '16px',
                 fontWeight: 'bold',
                 color: 'white',
-                boxShadow: `0 0 30px ${COLORS.accentGlow}`,
+                boxShadow: 6,
                 '&:hover': { bgcolor: '#EA580C', transform: 'translateY(-2px)', transition: '0.2s' }
               }}
             >
@@ -324,12 +324,12 @@ function LandingPage(): React.JSX.Element {
               position: 'relative',
               borderRadius: '24px',
               border: `1px solid ${COLORS.border}`,
-              background: 'rgba(15, 23, 42, 0.6)',
+              background: `rgba(255, 255, 255, 0.8)`,
               backdropFilter: 'blur(20px)',
               p: 1.5,
               mx: 'auto',
               maxWidth: '1100px',
-              boxShadow: '0 25px 100px -20px rgba(0, 0, 0, 0.7)'
+              boxShadow: 20
             }}
           >
             <Box
@@ -343,7 +343,7 @@ function LandingPage(): React.JSX.Element {
       </Box>
 
       {/* ================= FEATURES SECTION ================= */}
-      <Box id="features" sx={{ py: 12, bgcolor: '#020617' }}>
+      <Box id="features" sx={{ py: 12, bgcolor: 'background.paper' }}>
         <Container maxWidth="lg">
           <Box sx={{ textAlign: 'center', mb: 8 }}>
             <Typography variant="h3" fontWeight="bold" sx={{ mb: 2 }}>Why CobyLearnAi?</Typography>
@@ -451,7 +451,7 @@ function LandingPage(): React.JSX.Element {
             { q: "Can I upload handwritten notes?", a: "Currently we support text-based PDFs and raw text. Handwriting recognition is in our roadmap!" },
             { q: "How accurate is the AI?", a: "We use advanced LLMs to ensure high accuracy, but we always recommend reviewing the summaries against your original notes." }
           ].map((faq, idx) => (
-            <Accordion key={idx} sx={{ bgcolor: COLORS.bgCard, color: COLORS.textMain, mb: 2, border: `1px solid ${COLORS.border}`, '&:before': { display: 'none' }, borderRadius: '12px !important' }}>
+            <Accordion key={idx} sx={{ bgcolor: 'background.paper', color: 'text.primary', mb: 2, border: `1px solid ${COLORS.border}`, '&:before': { display: 'none' }, borderRadius: '12px !important' }}>
               <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: COLORS.textMuted }} />}>
                 <Typography fontWeight="bold" fontSize="1.1rem">{faq.q}</Typography>
               </AccordionSummary>
@@ -505,7 +505,7 @@ function LandingPage(): React.JSX.Element {
       </Box>
 
       {/* ================= FOOTER ================= */}
-      <Box sx={{ py: 8, borderTop: `1px solid ${COLORS.border}`, bgcolor: '#0F172A' }}>
+      <Box sx={{ py: 8, borderTop: `1px solid ${COLORS.border}`, bgcolor: 'background.paper' }}>
         <Container maxWidth="lg">
           <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems="center">
             <Box sx={{ mb: { xs: 4, md: 0 } }}>

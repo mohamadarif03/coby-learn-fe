@@ -424,7 +424,7 @@ function DailyQuizPage(): React.JSX.Element {
         Quit
       </Button>
 
-      <Paper sx={{ p: { xs: 2, md: 6 }, borderRadius: '24px', boxShadow: '0 10px 40px -10px rgba(0,0,0,0.1)' }}>
+      <Paper sx={{ p: { xs: 2, md: 6 }, borderRadius: '24px', boxShadow: 4 }}>
         {/* Progress */}
         <Box sx={{ mb: 4 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>

@@ -90,7 +90,7 @@ function ProfilePage(): React.JSX.Element {
                                 fontSize: '2.5rem',
                                 border: '4px solid',
                                 borderColor: 'background.paper',
-                                boxShadow: '0 0 0 4px rgba(99, 102, 241, 0.2)'
+                                boxShadow: 3
                             }}
                         >
                             {username ? username.charAt(0).toUpperCase() : <AccountCircleIcon sx={{ fontSize: 60 }} />}
@@ -152,7 +152,7 @@ function ProfilePage(): React.JSX.Element {
                                         fontWeight: 'bold',
                                         textTransform: 'none',
                                         color:'white',
-                                        boxShadow: '0 4px 14px 0 rgba(79, 70, 229, 0.4)'
+                                        boxShadow: 4
                                     }}
                                 >
                                     {mutation.isPending ? 'Saving...' : 'Save Changes'}

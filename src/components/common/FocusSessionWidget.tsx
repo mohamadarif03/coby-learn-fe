@@ -184,8 +184,9 @@ function FocusSessionWidget(): React.JSX.Element {
       sx={{
         p: 3, 
         borderRadius: '24px', 
-        bgcolor: '#1E293B', // Background sama dengan card lain
-        border: '1px solid #334155',
+        bgcolor: 'background.paper',
+        border: '1px solid',
+        borderColor: 'divider',
         display: 'flex', 
         flexDirection: 'column', // Force column layout untuk sidebar
         alignItems: 'center', 
@@ -205,19 +206,19 @@ function FocusSessionWidget(): React.JSX.Element {
         
         {/* Header Widget */}
         <Box sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1, mb: 1 }}>
-          <Typography variant="subtitle2" fontWeight="bold" sx={{ color: '#F97316', textTransform: 'uppercase', letterSpacing: 1 }}>
+          <Typography variant="subtitle2" fontWeight="bold" sx={{ color: 'secondary.main', textTransform: 'uppercase', letterSpacing: 1 }}>
             Focus Timer
           </Typography>
           {isTimerRunning && (
-            <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: '#EF4444', animation: 'pulse 1.5s infinite' }} />
+            <Box sx={{ width: 8, height: 8, borderRadius: '50%', bgcolor: 'error.main', animation: 'pulse 1.5s infinite' }} />
           )}
-          <IconButton size="small" onClick={() => setOpenSettings(true)} sx={{ color: '#64748B', p: 0.5 }}>
+          <IconButton size="small" onClick={() => setOpenSettings(true)} sx={{ color: 'text.secondary', p: 0.5 }}>
             <SettingsIcon fontSize="small" />
           </IconButton>
         </Box>
 
         {/* Big Timer */}
-        <Typography variant="h1" fontWeight="800" sx={{ color: 'white', letterSpacing: 2, fontSize: '3.5rem', lineHeight: 1 }}>
+        <Typography variant="h1" fontWeight="800" sx={{ color: 'text.primary', letterSpacing: 2, fontSize: '3.5rem', lineHeight: 1 }}>
           {formatTime(timeLeft)}
         </Typography>
 
@@ -229,10 +230,10 @@ function FocusSessionWidget(): React.JSX.Element {
             onClick={toggleTimer} 
             startIcon={isTimerRunning ? <PauseIcon /> : <PlayArrowIcon />} 
             sx={{ 
-              bgcolor: '#F97316', color: 'white', fontWeight: 'bold', 
+              bgcolor: 'secondary.main', color: 'white', fontWeight: 'bold', 
               borderRadius: '12px', py: 1, textTransform: 'none', 
-              boxShadow: '0 4px 14px 0 rgba(249, 115, 22, 0.39)',
-              '&:hover': { bgcolor: '#ea580c' } 
+              boxShadow: 4,
+              '&:hover': { bgcolor: 'secondary.dark' } 
             }}
           >
             {isTimerRunning ? 'Pause' : 'Start Focus'}
@@ -241,12 +242,13 @@ function FocusSessionWidget(): React.JSX.Element {
           <IconButton 
             onClick={handleResetTimer} 
             sx={{ 
-              color: '#94A3B8', 
-              border: '1px solid #334155', 
+              color: 'text.secondary', 
+              border: '1px solid', 
+              borderColor: 'divider',
               borderRadius: '12px',
               width: 42,
               height: 42,
-              '&:hover': { bgcolor: '#334155', color: 'white' }
+              '&:hover': { bgcolor: 'action.hover', color: 'text.primary' }
             }}
           >
             <RefreshIcon fontSize="small" />
@@ -258,31 +260,34 @@ function FocusSessionWidget(): React.JSX.Element {
       <Box 
         sx={{ 
           width: '100%', 
-          bgcolor: '#0F172A', // Darker background untuk membedakan area
+          bgcolor: 'background.default',
           p: 2, 
           borderRadius: '16px', 
-          border: '1px solid #334155' 
+          border: '1px solid',
+          borderColor: 'divider'
         }}
       >
         <Box sx={{ display: 'flex', gap: 1.5, alignItems: 'center', mb: 2 }}>
           {/* Album Art / Icon */}
           <Box sx={{ 
             width: 48, height: 48, borderRadius: '10px', 
-            bgcolor: '#1E293B', display: 'flex', alignItems: 'center', 
-            justifyContent: 'center', overflow: 'hidden', flexShrink: 0 
+            bgcolor: 'background.paper', display: 'flex', alignItems: 'center', 
+            justifyContent: 'center', overflow: 'hidden', flexShrink: 0,
+            border: '1px solid',
+            borderColor: 'divider'
           }}>
              {isPlaying ? 
                <img src="https://media.giphy.com/media/v1.Y2lkPTc5MGI3NjExazF5ZHR0aDhmaDhmaDhmaDhmaDhmaDhmaDhmaDhmaDhmaC9lcD12MV9pbnRlcm5hbF9naWZfYnlfaWQmY3Q9cw/XMaB779YcmP9m/giphy.gif" alt="playing" style={{ width: '100%', opacity: 0.8 }} /> 
-               : <VolumeUpIcon sx={{ color: '#64748B', fontSize: 20 }} />
+               : <VolumeUpIcon sx={{ color: 'text.secondary', fontSize: 20 }} />
              }
           </Box>
           
           {/* Info Text */}
           <Box sx={{ flexGrow: 1, minWidth: 0 }}>
-            <Typography variant="body2" fontWeight="bold" sx={{ color: 'white', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <Typography variant="body2" fontWeight="bold" sx={{ color: 'text.primary', lineHeight: 1.2, whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {currentInfo.name}
             </Typography>
-            <Typography variant="caption" sx={{ color: '#64748B', display: 'block', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+            <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
               {currentInfo.desc}
             </Typography>
           </Box>
@@ -294,8 +299,9 @@ function FocusSessionWidget(): React.JSX.Element {
              onClick={toggleMusic} 
              size="small"
              sx={{ 
-               color: 'white', bgcolor: '#334155', 
-               '&:hover': { bgcolor: '#475569' }, 
+               color: 'text.primary', 
+               bgcolor: 'action.selected', 
+               '&:hover': { bgcolor: 'action.hover' }, 
                width: 32, height: 32 
              }}
            >
@@ -307,12 +313,12 @@ function FocusSessionWidget(): React.JSX.Element {
              value={isPlaying ? 100 : 0} 
              sx={{ 
                flexGrow: 1, height: 4, borderRadius: 2, 
-               bgcolor: '#1E293B', 
+               bgcolor: 'background.paper', 
                '& .MuiLinearProgress-bar': { bgcolor: '#10B981' } 
              }} 
            />
            
-           <IconButton onClick={handleSkip} size="small" sx={{ color: '#94A3B8', '&:hover': { color: 'white' } }}>
+           <IconButton onClick={handleSkip} size="small" sx={{ color: 'text.secondary', '&:hover': { color: 'text.primary' } }}>
              <SkipNextIcon fontSize="small" />
            </IconButton>
         </Box>
@@ -323,7 +329,7 @@ function FocusSessionWidget(): React.JSX.Element {
           size="small"
           onClick={() => setOpenMusicSearch(true)}
           startIcon={<MusicNoteIcon fontSize="small" />}
-          sx={{ mt: 1.5, fontSize: '0.7rem', color: '#F97316', textTransform: 'none', py: 0.5, '&:hover': { color: '#64748B', bgcolor: 'transparent' } }}
+          sx={{ mt: 1.5, fontSize: '0.7rem', color: 'secondary.main', textTransform: 'none', py: 0.5, '&:hover': { color: 'text.secondary', bgcolor: 'transparent' } }}
         >
           Change Station
         </Button>
@@ -338,21 +344,22 @@ function FocusSessionWidget(): React.JSX.Element {
         PaperProps={{
           sx: { 
             borderRadius: '24px', 
-            bgcolor: '#1E293B', 
-            color: 'white',
+            bgcolor: 'background.paper', 
+            color: 'text.primary',
             textAlign: 'center',
             p: 2,
-            border: '1px solid #F97316',
-            boxShadow: '0 0 50px rgba(249, 115, 22, 0.3)' 
+            border: '2px solid',
+            borderColor: 'secondary.main',
+            boxShadow: 10 
           }
         }}
       >
         <DialogContent sx={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 2 }}>
           <Box sx={{ animation: 'shake 0.5s infinite' }}>
-            <AccessAlarmIcon sx={{ fontSize: 80, color: '#F97316' }} />
+            <AccessAlarmIcon sx={{ fontSize: 80, color: 'secondary.main' }} />
           </Box>
           <Typography variant="h4" fontWeight="bold">Time's Up!</Typography>
-          <Typography variant="body1" sx={{ color: '#CBD5E1' }}>
+          <Typography variant="body1" sx={{ color: 'text.secondary' }}>
             Great job focusing! Take a short break now.
           </Typography>
         </DialogContent>
@@ -363,9 +370,9 @@ function FocusSessionWidget(): React.JSX.Element {
             onClick={stopAlarmAndReset}
             startIcon={<CheckCircleIcon />}
             sx={{ 
-              bgcolor: '#F97316', color: 'white', fontWeight: 'bold', 
+              bgcolor: 'secondary.main', color: 'white', fontWeight: 'bold', 
               borderRadius: 50, px: 4,
-              '&:hover': { bgcolor: '#ea580c' } 
+              '&:hover': { bgcolor: 'secondary.dark' } 
             }}
           >
             Stop Alarm
@@ -374,29 +381,29 @@ function FocusSessionWidget(): React.JSX.Element {
       </Dialog>
 
       {/* === 2. MODAL SETTINGS === */}
-      <Dialog open={openSettings} onClose={() => setOpenSettings(false)} maxWidth="xs" fullWidth PaperProps={{ sx: { borderRadius: '24px', bgcolor: '#1E293B', color: 'white', border: '1px solid #334155' } }}>
+      <Dialog open={openSettings} onClose={() => setOpenSettings(false)} maxWidth="xs" fullWidth PaperProps={{ sx: { borderRadius: '24px', bgcolor: 'background.paper', color: 'text.primary', border: '1px solid', borderColor: 'divider' } }}>
         <DialogTitle sx={{ textAlign: 'center', pt: 3, pb: 1 }}>
           <Typography variant="h6" fontWeight="bold" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
-            <TimerIcon sx={{ color: '#F97316' }} /> Set Duration
+            <TimerIcon sx={{ color: 'secondary.main' }} /> Set Duration
           </Typography>
         </DialogTitle>
         <DialogContent sx={{ textAlign: 'center', pb: 4 }}>
           <Box sx={{ my: 4, position: 'relative', display: 'inline-block' }}>
             <TextField variant="standard" type="number" value={focusDuration} onChange={handleInputChange} inputProps={{ min: 1, max: 180, style: { textAlign: 'center', fontSize: '3.5rem', fontWeight: '800', color: 'white', padding: 0 } }} sx={{ width: '120px', '& .MuiInput-underline:before': { borderBottom: 'none' }, '& .MuiInput-underline:after': { borderBottom: 'none' }, '& .MuiInput-underline:hover:not(.Mui-disabled):before': { borderBottom: 'none' } }} />
-            <Typography variant="subtitle1" sx={{ color: '#94A3B8', position: 'absolute', bottom: 10, right: -40, fontWeight: 'bold' }}>min</Typography>
+            <Typography variant="subtitle1" sx={{ color: 'text.secondary', position: 'absolute', bottom: 10, right: -40, fontWeight: 'bold' }}>min</Typography>
           </Box>
           <Box sx={{ px: 2, mb: 4 }}>
-            <Slider value={typeof focusDuration === 'number' ? focusDuration : 0} onChange={handleSliderChange} min={5} max={120} step={1} sx={{ color: '#F97316', height: 6, '& .MuiSlider-thumb': { width: 20, height: 20, bgcolor: 'white', border: '4px solid #F97316' }, '& .MuiSlider-rail': { bgcolor: '#334155', opacity: 1 } }} />
+            <Slider value={typeof focusDuration === 'number' ? focusDuration : 0} onChange={handleSliderChange} min={5} max={120} step={1} sx={{ color: 'secondary.main', height: 6, '& .MuiSlider-thumb': { width: 20, height: 20, bgcolor: 'background.paper', border: '4px solid', borderColor: 'secondary.main' }, '& .MuiSlider-rail': { bgcolor: 'divider', opacity: 1 } }} />
           </Box>
-          <Typography variant="caption" sx={{ color: '#64748B', mb: 1.5, display: 'block', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 'bold' }}>Quick Presets</Typography>
+          <Typography variant="caption" sx={{ color: 'text.secondary', mb: 1.5, display: 'block', textTransform: 'uppercase', letterSpacing: 1, fontWeight: 'bold' }}>Quick Presets</Typography>
           <Box sx={{ display: 'flex', justifyContent: 'center', gap: 1, flexWrap: 'wrap' }}>
             {PRESET_DURATIONS.map((preset) => (
-              <Chip key={preset} label={`${preset}m`} onClick={() => setFocusDuration(preset)} sx={{ bgcolor: focusDuration === preset ? '#F97316' : '#334155', color: focusDuration === preset ? 'white' : '#94A3B8', fontWeight: 'bold', border: 'none', '&:hover': { bgcolor: focusDuration === preset ? '#ea580c' : '#475569' } }} />
+              <Chip key={preset} label={`${preset}m`} onClick={() => setFocusDuration(preset)} sx={{ bgcolor: focusDuration === preset ? 'secondary.main' : 'action.selected', color: focusDuration === preset ? 'white' : 'text.secondary', fontWeight: 'bold', border: 'none', '&:hover': { bgcolor: focusDuration === preset ? 'secondary.dark' : 'action.hover' } }} />
             ))}
           </Box>
         </DialogContent>
         <DialogActions sx={{ justifyContent: 'center', pb: 3, px: 3 }}>
-          <Button onClick={applySettings} fullWidth variant="contained" size="large" sx={{ bgcolor: '#F97316', color: 'white', fontWeight: 'bold', borderRadius: '10px', px: 4, py: 1, textTransform: 'none', '&:hover': { bgcolor: '#ea580c' } }}>Start Focus</Button>
+          <Button onClick={applySettings} fullWidth variant="contained" size="large" sx={{ bgcolor: 'secondary.main', color: 'white', fontWeight: 'bold', borderRadius: '10px', px: 4, py: 1, textTransform: 'none', '&:hover': { bgcolor: 'secondary.dark' } }}>Start Focus</Button>
         </DialogActions>
       </Dialog>
 
