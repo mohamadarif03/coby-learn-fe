@@ -1,5 +1,6 @@
 import React from 'react';
 import { Paper, Typography, Box, LinearProgress, useTheme } from '@mui/material';
+import { Assignment } from '@mui/icons-material';
 
 type ToDoWidgetProps = {
   completed: number;
@@ -14,7 +15,6 @@ function ToDoWidget({ completed, total }: ToDoWidgetProps): React.JSX.Element {
     <Paper
       sx={{
         height: '100%',
-        p: 2,
         elevation: 1,
         bgcolor: 'background.paper',
         display: 'flex',        // Flexbox
@@ -22,21 +22,38 @@ function ToDoWidget({ completed, total }: ToDoWidgetProps): React.JSX.Element {
         justifyContent: 'center' // Konten di tengah secara vertikal
       }}
     >
-      <Box sx={{ mb: 2 }}>
-        <Typography variant="h6" fontWeight="bold" sx={{ color: 'text.primary' }}>
-          To-Do List
-        </Typography>
-        <Typography variant="body2" sx={{ color: 'text.secondary' }}>
-          You have completed <strong>{completed}</strong> out of <strong>{total}</strong> tasks today.
-        </Typography>
+      <Box sx={{ mb: 3 }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', gap: 2, mb: 1 }}>
+          <Box>
+            <Typography variant="h6" sx={{ color: 'text.primary', fontWeight: 600 }}>
+              To-Do List
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary', fontWeight: 400 }}>
+              You have completed <strong>{completed}</strong> out of <strong>{total}</strong> tasks today.
+            </Typography>
+          </Box>
+          <Box
+            sx={{
+              width: 40,
+              height: 40,
+              borderRadius: '50%',
+              bgcolor: 'rgba(74, 144, 226, 0.1)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center'
+            }}
+          >
+            <Assignment sx={{ color: 'primary.main', fontSize: 20 }} />
+          </Box>
+        </Box>
       </Box>
 
       <Box>
         <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, justifyContent: 'space-between' }}>
-          <Typography variant="body2" fontWeight="500" sx={{ color: 'text.secondary' }}>
+          <Typography variant="body2" sx={{ color: 'text.secondary' }}>
             Daily Progress
           </Typography>
-          <Typography variant="body2" fontWeight="700" sx={{ color: 'primary.main' }}>
+          <Typography variant="body2" sx={{ color: 'primary.main', fontWeight: 400 }}>
             {Math.round(percent)}%
           </Typography>
         </Box>

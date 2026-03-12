@@ -25,7 +25,10 @@ function MainLayout(): React.JSX.Element {
         <Navbar />
         <Box 
           component="main" 
-          sx={{ p: { xs: 3, md: 4 } }}
+          sx={{ 
+            p: { xs: '20px', md: 4 }, // Theme spacing: 3 = 24px, 4 = 32px
+            px: '20px'           // Specific string value must be quoted
+          }}
         >
           <Outlet /> 
         </Box>

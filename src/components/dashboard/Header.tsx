@@ -11,10 +11,23 @@ function Header({ username }: HeaderProps): React.JSX.Element {
 
   return (
     <>
-      <Typography variant="h4" component="h1" sx={{ color: 'text.primary', mb: 0.5 }}>
+      <Typography
+        component="h3"
+        variant="h4" // Default for mobile
+        sx={{
+          color: 'text.primary',
+          mb: 0.5,
+          fontWeight: 500,
+          // Responsive font size mapping
+          fontSize: {
+            xs: '1.5rem', // h4-ish
+            md: '2.125rem' // h3-ish
+          }
+        }}
+      >
         Hello {username || 'Student'}!
       </Typography>
-      <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4 }}>
+      <Typography variant="body1" sx={{ color: 'text.secondary', mb: 4, fontWeight: 500 }}>
         {currentDate}
       </Typography>
     </>

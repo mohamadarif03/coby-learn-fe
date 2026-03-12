@@ -37,9 +37,6 @@ function DayStreakWidget(): React.JSX.Element {
         display: 'flex',       // Pastikan flex container
         alignItems: 'center',  // Vertikal center
         transition: 'transform 0.2s',
-        '&:hover': {
-          transform: 'translateY(-2px)'
-        }
       }}
     >
       {/* Icon Circle */}
@@ -51,23 +48,23 @@ function DayStreakWidget(): React.JSX.Element {
           width: 64,  // Ukuran fix biar tidak gepeng
           height: 64,
           minWidth: 64, // Mencegah penyusutan di layar kecil
-          bgcolor: isDone ? 'rgba(249, 115, 22, 0.15)' : 'action.hover',
+          bgcolor: isDone ? 'rgba(249, 115, 22, 0.15)' : 'rgba(255, 167, 38, 0.1)',
           borderRadius: '50%',
           mr: 3,
           transition: '0.3s',
         }}
       >
         <LocalFireDepartmentIcon
-          sx={{ color: isDone ? 'secondary.main' : 'text.secondary', fontSize: 32, transition: '0.3s' }}
+          sx={{ color: isDone ? '#F97316' : '#FFA726', fontSize: 32, transition: '0.3s' }}
         />
       </Box>
 
       {/* Text Info */}
       <Box sx={{ flexGrow: 1 }}>
         <Typography
-          variant="h4" // Font lebih besar sedikit biar gagah
+          variant="h4"
           component="div"
-          sx={{ color: 'text.primary', fontWeight: '800', lineHeight: 1 }}
+          sx={{ color: 'text.primary', fontWeight: '700', lineHeight: 1, fontSize: '2rem' }}
         >
           {streakCount}
         </Typography>
@@ -76,19 +73,14 @@ function DayStreakWidget(): React.JSX.Element {
           variant="body1"
           sx={{
             mt: 0.5,
-            color: isDone ? '#22C55E' : 'text.secondary',
-            fontWeight: isDone ? 600 : 500,
+            color: 'text.secondary',
+            fontWeight: 600,
             letterSpacing: '0.02em'
           }}
         >
-          {isDone ? 'Streak Active!' : 'Day Streak'}
+          Day Streak
         </Typography>
       </Box>
-
-      {/* Optional: Indicator kanan (bisa dihapus jika tidak suka) */}
-      {isDone && (
-        <Box sx={{ width: 10, height: 10, borderRadius: '50%', bgcolor: 'success.main', boxShadow: '0 0 10px rgba(16, 185, 129, 0.6)' }} />
-      )}
     </Paper>
   );
 }

@@ -1,5 +1,6 @@
 import React from 'react';
-import { Paper, Typography, Box, Skeleton } from '@mui/material';
+import { Paper, Typography, Box, Skeleton, IconButton } from '@mui/material';
+import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useQuery } from '@tanstack/react-query';
 import { getDailyQuizStatus } from '../../services/apiLibraryService';
 
@@ -11,7 +12,7 @@ function FocusSessionWidget(): React.JSX.Element {
 
   if (isLoading) {
     return (
-      <Paper sx={{ p: 2, height: '100%', bgcolor: 'background.paper' }}>
+      <Paper sx={{ p: 2, borderRadius: 2, height: '100%', bgcolor: 'background.paper' }}>
         <Skeleton width="70%" height={24} sx={{ mb: 1 }} />
         <Skeleton width="50%" height={20} sx={{ mb: 2 }} />
         <Box sx={{ display: 'flex', gap: 1 }}>
@@ -46,9 +47,9 @@ function FocusSessionWidget(): React.JSX.Element {
   return (
     <Paper
       sx={{
-        p: 2,
+        p: 3,
         bgcolor: 'background.paper',
-        elevation: 1,
+        boxShadow: '0 4px 14px rgba(0,0,0,0.05)',
         height: '100%',
         display: 'flex',
         flexDirection: 'column',
@@ -56,27 +57,58 @@ function FocusSessionWidget(): React.JSX.Element {
       }}
     >
       {/* Header */}
-      <Box sx={{ mb: 2 }}>
-        <Typography
-          variant="body2"
-          sx={{ 
-            color: 'text.secondary',
-            fontSize: '0.875rem',
-            mb: 0.5
-          }}
-        >
-          You're on a
-        </Typography>
-        <Typography
-          variant="h6"
-          sx={{ 
-            color: 'text.primary',
-            fontWeight: 700,
-            fontSize: '1.1rem'
-          }}
-        >
-          {streakCount}-day streak
-        </Typography>
+      <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', mb: 3 }}>
+        <Box>
+          <Typography
+            variant="body1"
+            sx={{ 
+              color: 'text.primary',
+              fontSize: '1rem',
+              mb: 0.5,
+              fontWeight: 400,
+              lineHeight: 1.2
+            }}
+          >
+            You're on a
+          </Typography>
+          <Typography
+            variant="h6"
+            sx={{ 
+              color: 'text.primary',
+              fontWeight: 500,
+              fontSize: '1.1rem',
+              lineHeight: 1.2
+            }}
+          >
+            {streakCount}-day streak
+          </Typography>
+        </Box>
+        
+        {/* Navigation Buttons */}
+        <Box sx={{ display: 'flex', gap: 0.5 }}>
+          <IconButton 
+            size="small" 
+            sx={{ 
+              width: 32, 
+              height: 32,
+              bgcolor: 'action.hover',
+              '&:hover': { bgcolor: 'action.selected' }
+            }}
+          >
+            <ChevronLeft fontSize="small" sx={{ color: 'text.secondary' }} />
+          </IconButton>
+          <IconButton 
+            size="small" 
+            sx={{ 
+              width: 32, 
+              height: 32,
+              bgcolor: 'primary.main',
+              '&:hover': { bgcolor: 'primary.dark' }
+            }}
+          >
+            <ChevronRight fontSize="small" sx={{ color: 'white' }} />
+          </IconButton>
+        </Box>
       </Box>
 
       {/* Calendar Grid */}
@@ -98,7 +130,7 @@ function FocusSessionWidget(): React.JSX.Element {
                 textAlign: 'center',
                 color: 'text.secondary',
                 fontSize: '0.75rem',
-                fontWeight: 500
+                fontWeight: 600
               }}
             >
               {day}
@@ -122,17 +154,17 @@ function FocusSessionWidget(): React.JSX.Element {
               <Box
                 key={index}
                 sx={{
-                  width: 32,
+                  width: 40,
                   height: 32,
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  borderRadius: '50%',
-                  bgcolor: isToday ? 'primary.main' : 'transparent',
+                  borderRadius: isToday ? 3 : 2,
+                  bgcolor: isToday ? 'primary.main' : 'grey.100',
                   color: isToday ? 'white' : 'text.primary',
                   fontWeight: isToday ? 700 : 500,
                   fontSize: '0.875rem',
-                  border: isToday ? 'none' : '1px solid',
+                  border: 'none',
                   borderColor: isToday ? 'transparent' : 'divider',
                   transition: 'all 0.2s ease-in-out',
                   mx: 'auto'

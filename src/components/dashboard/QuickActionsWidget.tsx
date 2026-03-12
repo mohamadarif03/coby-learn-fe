@@ -10,10 +10,10 @@ function QuickActionsWidget(): React.JSX.Element {
   return (
     <Paper sx={{ 
       p: 2, // 2 * 8px = 16px 
-      elevation: 1,
+      boxShadow: '0 4px 14px rgba(0,0,0,0.05)',
       bgcolor: 'background.paper'
     }}>
-      <Typography variant="h6" component="h2" sx={{ mb: 3, fontWeight: 600 }}>
+      <Typography variant="h6" component="h2" sx={{ mb: 2, fontWeight: 500, color: 'text.primary' }}>
         Quick Actions
       </Typography>
       <Stack spacing={2}>
@@ -27,8 +27,6 @@ function QuickActionsWidget(): React.JSX.Element {
             py: 1.5, 
             color: 'white',
             textTransform: 'none',
-            borderRadius: 2,
-            fontWeight: 600
           }}
         >
           Add Task
@@ -41,7 +39,6 @@ function QuickActionsWidget(): React.JSX.Element {
           sx={{ 
             py: 1.5, 
             textTransform: 'none',
-            borderRadius: 2,
             borderColor: 'divider',
             color: 'text.secondary',
             fontWeight: 500,

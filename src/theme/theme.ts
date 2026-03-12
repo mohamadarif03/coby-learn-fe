@@ -4,7 +4,7 @@ export const theme = createTheme({
   palette: {
     mode: 'light',
 
-    primary: { 
+    primary: {
       light: '#EDF4FC',
       main: '#4A90E2',
       dark: '#386CAA'
@@ -17,6 +17,7 @@ export const theme = createTheme({
     },
 
     grey: {
+      100: '#F8FAFC', // Very light grey for backgrounds
       300: '#C1C1C1', // Light grey for borders and dividers
       500: '#9E9E9E', // Medium grey for disabled elements
     },
@@ -75,9 +76,13 @@ export const theme = createTheme({
 
   typography: {
     fontFamily: '"Poppins", "Roboto", "Helvetica", "Arial", sans-serif',
-    h4: { fontWeight: 700 },
-    h5: { fontWeight: 700 },
-    h6: { fontWeight: 600 },
+
+    h1: { fontWeight: 800 },
+    h2: { fontWeight: 700 },
+    h3: { fontWeight: 700 },
+    h4: { fontWeight: 600 },
+    h5: { fontWeight: 500 },
+    h6: { fontWeight: 400 },
 
     button: {
       textTransform: 'none',
@@ -92,7 +97,7 @@ export const theme = createTheme({
           borderRadius: 16, // Consistent with global shape
           backgroundColor: '#FFFFFF',
           boxShadow: 'shadows[1]', // Foundation Blue-tinted shadow
-          padding: 10,
+          padding: 24, // 3 * 8px for more spacious feel
           border: '1px solid rgba(26, 50, 79, 0.06)', // Light border with Foundation Blue tint
         },
       },
@@ -100,15 +105,18 @@ export const theme = createTheme({
 
     MuiButton: {
       styleOverrides: {
-        root: {
-          borderRadius: 16, // Increased from 8px for modern feel
+        root: ({ theme }) => ({
+          borderRadius: 8,
           paddingTop: 10,
           paddingBottom: 10,
-        },
+          // This spreads all caption properties (fontSize, fontWeight, etc.)
+          ...theme.typography.caption,
+          textTransform: 'none', // Buttons are uppercase by default in MUI
+        }),
         contained: {
-          boxShadow: '0px 2px 4px rgba(26, 50, 79, 0.08)', // Subtle depth for buttons
+          boxShadow: '0px 2px 4px rgba(26, 50, 79, 0.08)',
           '&:hover': {
-            boxShadow: '0px 4px 8px rgba(26, 50, 79, 0.12)', // Enhanced on hover
+            boxShadow: '0px 4px 8px rgba(26, 50, 79, 0.12)',
           },
         },
       },

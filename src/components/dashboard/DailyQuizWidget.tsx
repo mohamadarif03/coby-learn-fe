@@ -1,12 +1,11 @@
-// src/components/dashboard/SummaryWidget.tsx
 import React from 'react';
 import { Paper, Typography, Button, Box, Skeleton } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useQuery } from '@tanstack/react-query';
-import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
+import { CheckCircleOutline, Lightbulb } from '@mui/icons-material';
 import { getDailyQuizStatus } from '../../services/apiLibraryService';
 
-function SummaryWidget(): React.JSX.Element {
+function DailyQuizWidget(): React.JSX.Element {
   const navigate = useNavigate();
 
   const { data: status, isLoading } = useQuery({
@@ -28,16 +27,31 @@ function SummaryWidget(): React.JSX.Element {
         bgcolor: 'background.paper',
       }}
     >
-      <Typography
-        variant="h6"
-        sx={{ mb: 1, fontWeight: 600, color: 'text.primary' }}
-      >
-        Daily Quiz
-      </Typography>
+      <Box sx={{ display: 'flex', alignItems: 'center', gap: 2, mb: 2 }}>
+        <Box
+          sx={{
+            width: 40,
+            height: 40,
+            borderRadius: '50%',
+            bgcolor: 'primary.main',
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center'
+          }}
+        >
+          <Lightbulb sx={{ color: '#F5E3AF', fontSize: 20 }} />
+        </Box>
+        <Typography
+          variant="h6"
+          sx={{ fontWeight: 500, color: 'text.primary' }}
+        >
+          Daily Quiz
+        </Typography>
+      </Box>
 
       {isDone ? (
         <Box sx={{ textAlign: 'center', py: 2 }}>
-          <CheckCircleOutlineIcon sx={{ fontSize: 48, color: 'success.main', mb: 1 }} />
+          <CheckCircleOutline sx={{ fontSize: 48, color: 'success.main', mb: 1 }} />
           <Typography variant="body1" fontWeight="bold" sx={{ color: 'success.main' }}>
             All Done for Today!
           </Typography>
@@ -49,7 +63,7 @@ function SummaryWidget(): React.JSX.Element {
         <>
           <Typography
             variant="body2"
-            sx={{ color: 'text.secondary', mb: 3, lineHeight: 1.5 }}
+            sx={{ color: 'text.secondary', mb: 3, lineHeight: 1.5, fontWeight: 500 }}
           >
             Test your knowledge and keep your streak going! Don't break the chain.
           </Typography>
@@ -60,9 +74,7 @@ function SummaryWidget(): React.JSX.Element {
             fullWidth
             sx={{
               textTransform: 'none',
-              fontWeight: 600,
               py: 1.2,
-              borderRadius: 2,
               fontSize: '0.95rem',
               backgroundColor: 'primary.main',
               color: 'white',
@@ -79,5 +91,5 @@ function SummaryWidget(): React.JSX.Element {
   );
 }
 
-export default SummaryWidget;
+export default DailyQuizWidget;
   

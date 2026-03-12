@@ -78,12 +78,14 @@ function Navbar(): React.JSX.Element {
           borderBottom: '1px solid',
           borderColor: 'divider',
           color: 'text.primary',
+          py: { xs: 0.5, md: 1 },
+          borderRadius: 0,
           top: 0,
           zIndex: 1100,
         }}
       >
         <Container maxWidth="xl">
-          <Toolbar disableGutters sx={{ height: { xs: 48, md: 56 }, justifyContent: 'space-between' }}>
+          <Toolbar disableGutters sx={{ height: { xs: 30, md: 30 }, justifyContent: 'space-between' }}>
 
             {/* LEFT GROUP: LOGO */}
             <Box

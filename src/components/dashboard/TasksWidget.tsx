@@ -118,40 +118,49 @@ function TasksWidget(): React.JSX.Element {
   // Loading State
   if (isLoading) {
     return (
-      <Paper sx={{ p: 2, height: '100%', bgcolor: 'background.paper' }}>
+      <Box sx={{ height: '100%' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
           <Skeleton variant="text" width={120} height={32} />
           <Skeleton variant="rounded" width={80} height={32} />
         </Box>
-        <Skeleton variant="rounded" height={50} sx={{ mb: 1 }} />
-        <Skeleton variant="rounded" height={50} sx={{ mb: 1 }} />
-        <Skeleton variant="rounded" height={50} />
-      </Paper>
+        <Paper sx={{ p: 3, height: 'calc(100% - 60px)', bgcolor: 'background.paper', borderRadius: 4 }}>
+          <Skeleton variant="rounded" height={50} sx={{ mb: 1 }} />
+          <Skeleton variant="rounded" height={50} sx={{ mb: 1 }} />
+          <Skeleton variant="rounded" height={50} />
+        </Paper>
+      </Box>
     );
   }
 
   if (isError) {
     return (
-      <Paper sx={{ p: 2, height: '100%' }}>
-        <Alert severity="error">Gagal memuat tugas hari ini.</Alert>
-      </Paper>
+      <Box sx={{ height: '100%' }}>
+        <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
+          <Typography variant="h6" component="h2" fontWeight="bold" sx={{ color: 'text.primary' }}>
+            Today's Tasks
+          </Typography>
+        </Box>
+        <Paper sx={{ p: 3, height: 'calc(100% - 60px)', borderRadius: 4 }}>
+          <Alert severity="error">Gagal memuat tugas hari ini.</Alert>
+        </Paper>
+      </Box>
     );
   }
 
   const isEmpty = !tasks || tasks.length === 0;
 
   return (
-    <Paper sx={{ p: 2, elevation: 1, bgcolor: 'background.paper', height: '100%' }}>
-      
+    <Box sx={{ height: '100%' }}>
+      {/* Header outside Paper */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
-        <Typography variant="h6" component="h2" fontWeight="bold">
+        <Typography variant="h6" component="h2" fontWeight="bold" sx={{ color: 'text.primary' }}>
           Today's Tasks
         </Typography>
         <Button
           variant="contained"
           color="primary"
           size="small"
-          sx={{ color: 'white', textTransform: 'none' }}
+          sx={{ color: 'white', textTransform: 'none'}}
           startIcon={<Add />}
           onClick={() => setOpenAddDialog(true)}
         >
@@ -159,64 +168,67 @@ function TasksWidget(): React.JSX.Element {
         </Button>
       </Box>
 
-      {/* List Tasks */}
-      {isEmpty ? (
-        <Box sx={{ textAlign: 'center', py: 4, color: 'text.secondary' }}>
-          <Typography variant="body2">No tasks for today.</Typography>
-          <Typography variant="caption">Enjoy your free time!</Typography>
-        </Box>
-      ) : (
-        <List sx={{ p: 0, overflowY: 'auto', maxHeight: '300px' }}>
-          {tasks.map((task) => (
-            <ListItem
-              key={task.id}
-              disablePadding
-              sx={{
-                border: '1px solid',
-                borderColor: task.completed ? 'transparent' : 'divider',
-                borderRadius: 2,
-                mb: 1.5,
-                bgcolor: task.completed ? 'action.hover' : 'transparent',
-                transition: '0.2s',
-                '&:last-child': { mb: 0 },
-              }}
-            >
-              <Checkbox
-                edge="start"
-                checked={task.completed}
-                onChange={() => handleToggleStatus(task)}
-                tabIndex={-1}
-                disableRipple
-                sx={{ ml: 1 }}
-              />
-              <ListItemText
-                primary={
-                  <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-                    <Typography
-                      variant="body1"
-                      sx={{
-                        textDecoration: task.completed ? 'line-through' : 'none',
-                        color: task.completed ? 'text.secondary' : 'text.primary',
-                        fontWeight: 500
-                      }}
-                    >
-                      {task.label}
-                    </Typography>
-                    {!task.completed && (
-                      <Chip 
-                        label={task.priority} 
-                        size="small" 
-                        color={getPriorityColor(task.priority) as any} 
-                        sx={{ height: 20, fontSize: '0.65rem', textTransform: 'capitalize' }} 
-                      />
-                    )}
-                  </Box>
-                }
-              />
-            </ListItem>
-          ))}
-        </List>
-      )}
+      {/* Content inside Paper */}
+      <Paper sx={{ p: 3, elevation: 1, bgcolor: 'background.paper', height: 'calc(100% - 60px)' }}>
+        {/* List Tasks */}
+        {isEmpty ? (
+          <Box sx={{ textAlign: 'center', py: 4, color: 'text.secondary' }}>
+            <Typography variant="body2">No tasks for today.</Typography>
+            <Typography variant="caption">Enjoy your free time!</Typography>
+          </Box>
+        ) : (
+          <List sx={{ p: 0, overflowY: 'auto', maxHeight: '300px' }}>
+            {tasks.map((task) => (
+              <ListItem
+                key={task.id}
+                disablePadding
+                sx={{
+                  border: '1px solid',
+                  borderColor: task.completed ? 'transparent' : 'divider',
+                  borderRadius: 2,
+                  mb: 1.5,
+                  bgcolor: task.completed ? 'action.hover' : 'transparent',
+                  transition: '0.2s',
+                  '&:last-child': { mb: 0 },
+                }}
+              >
+                <Checkbox
+                  edge="start"
+                  checked={task.completed}
+                  onChange={() => handleToggleStatus(task)}
+                  tabIndex={-1}
+                  disableRipple
+                  sx={{ ml: 1 }}
+                />
+                <ListItemText
+                  primary={
+                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
+                      <Typography
+                        variant="body1"
+                        sx={{
+                          textDecoration: task.completed ? 'line-through' : 'none',
+                          color: task.completed ? 'text.secondary' : 'text.primary',
+                          fontWeight: 500
+                        }}
+                      >
+                        {task.label}
+                      </Typography>
+                      {!task.completed && (
+                        <Chip 
+                          label={task.priority} 
+                          size="small" 
+                          color={getPriorityColor(task.priority) as any} 
+                          sx={{ height: 20, fontSize: '0.65rem', textTransform: 'capitalize' }} 
+                        />
+                      )}
+                    </Box>
+                  }
+                />
+              </ListItem>
+            ))}
+          </List>
+        )}
+      </Paper>
 
       {/* Dialog Add Task */}
       <AddTaskDialog
@@ -224,7 +236,7 @@ function TasksWidget(): React.JSX.Element {
         onClose={() => setOpenAddDialog(false)}
         onSubmit={handleAddTaskSubmit}
       />
-    </Paper>
+    </Box>
   );
 }
 
