@@ -106,7 +106,7 @@ function FlashcardPage(): React.JSX.Element {
               justifyContent: 'center',
               flexDirection: 'column',
               p: 4,
-              borderRadius: '24px',
+              borderRadius: 2, // 2 * 8px = 16px
               bgcolor: '#1E293B', // Dark Background
               border: '1px solid #334155'
             }}
@@ -132,7 +132,7 @@ function FlashcardPage(): React.JSX.Element {
               justifyContent: 'center',
               flexDirection: 'column',
               p: 4,
-              borderRadius: '24px',
+              borderRadius: 2, // 2 * 8px = 16px
               bgcolor: '#FFF7ED', // Light Orange Background
               color: '#1E293B'
             }}

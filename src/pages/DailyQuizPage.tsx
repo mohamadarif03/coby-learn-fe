@@ -273,7 +273,7 @@ function DailyQuizPage(): React.JSX.Element {
   if (!quizData) {
     return (
       <Container maxWidth="sm" sx={{ py: 8 }}>
-        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate('/')} sx={{ mb: 4 }}>
+        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate('/dashboard')} sx={{ mb: 4 }}>
           Back to Dashboard
         </Button>
 
@@ -424,7 +424,7 @@ function DailyQuizPage(): React.JSX.Element {
         Quit
       </Button>
 
-      <Paper sx={{ p: { xs: 2, md: 6 }, borderRadius: '24px', boxShadow: 4 }}>
+      <Paper sx={{ p: { xs: 2, md: 6 }, borderRadius: 2, boxShadow: 4 }}>
         {/* Progress */}
         <Box sx={{ mb: 4 }}>
           <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 1 }}>

@@ -139,7 +139,7 @@ function LandingPage(): React.JSX.Element {
                       endIcon={<ArrowForwardIcon />}
                       sx={{
                         bgcolor: COLORS.primary,
-                        borderRadius: '50px',
+                        borderRadius: 2, // 2 * 8px = 16px
                         px: 3,
                         textTransform: 'none',
                         fontWeight: 'bold',
@@ -393,7 +393,7 @@ function LandingPage(): React.JSX.Element {
                   height: '100%',
                   bgcolor: COLORS.bgCard,
                   border: `1px solid ${COLORS.border}`,
-                  borderRadius: '24px',
+                  borderRadius: 2, // 2 * 8px = 16px
                   transition: '0.3s',
                   '&:hover': { transform: 'translateY(-10px)', borderColor: COLORS.primary }
                 }}>

@@ -8,8 +8,12 @@ function QuickActionsWidget(): React.JSX.Element {
     const navigate = useNavigate();
   
   return (
-    <Paper>
-      <Typography variant="h6" component="h2" sx={{ mb: 3 }}>
+    <Paper sx={{ 
+      p: 2, // 2 * 8px = 16px 
+      elevation: 1,
+      bgcolor: 'background.paper'
+    }}>
+      <Typography variant="h6" component="h2" sx={{ mb: 3, fontWeight: 600 }}>
         Quick Actions
       </Typography>
       <Stack spacing={2}>
@@ -19,18 +23,34 @@ function QuickActionsWidget(): React.JSX.Element {
           onClick={() => navigate('/tasks')}
           startIcon={<Add />}
           fullWidth
-          sx={{ py: 1.5, color: 'white' }}
+          sx={{ 
+            py: 1.5, 
+            color: 'white',
+            textTransform: 'none',
+            borderRadius: 2,
+            fontWeight: 600
+          }}
         >
           Add Task
         </Button>
         <Button
           variant="outlined"
-          color="primary"
           onClick={() => navigate('/library')}
-
           startIcon={<MenuBookOutlined />}
           fullWidth
-          sx={{ py: 1.5, borderColor: '#CBD5E1', color: '#CBD5E1' }}
+          sx={{ 
+            py: 1.5, 
+            textTransform: 'none',
+            borderRadius: 2,
+            borderColor: 'divider',
+            color: 'text.secondary',
+            fontWeight: 500,
+            '&:hover': {
+              borderColor: 'primary.main',
+              color: 'primary.main',
+              bgcolor: 'action.hover'
+            }
+          }}
         >
           Add Material
         </Button>

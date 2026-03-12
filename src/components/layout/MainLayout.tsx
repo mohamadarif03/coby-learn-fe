@@ -25,7 +25,7 @@ function MainLayout(): React.JSX.Element {
         <Navbar />
         <Box 
           component="main" 
-          sx={{ p: { xs: 2, md: 4 } }}
+          sx={{ p: { xs: 3, md: 4 } }}
         >
           <Outlet /> 
         </Box>

@@ -8,11 +8,6 @@ import {
   Avatar,
   Container,
   Button,
-  Drawer,
-  List,
-  ListItem,
-  ListItemButton,
-  ListItemText,
   Stack,
   useMediaQuery,
   useTheme,
@@ -23,7 +18,6 @@ import {
   Paper,
 } from '@mui/material';
 import { 
-  Menu as MenuIcon, 
   Logout, 
   Person3Outlined, 
   Home, 
@@ -58,10 +52,7 @@ function Navbar(): React.JSX.Element {
     queryFn: getDailyQuizStatus,
   });
 
-  const [open, setOpen] = React.useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
-
-  const toggleDrawer = (value: boolean) => () => setOpen(value);
 
   const handleLogout = async () => {
     try {
@@ -233,7 +224,7 @@ function Navbar(): React.JSX.Element {
         >
           <BottomNavigation
             value={location.pathname}
-            onChange={(event, newValue) => {
+            onChange={(_, newValue) => {
               navigate(newValue);
             }}
             showLabels

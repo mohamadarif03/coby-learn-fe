@@ -131,7 +131,7 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
       fullWidth
       PaperProps={{
         sx: {
-          borderRadius: '24px',
+          borderRadius: 2, // 2 * 8px = 16px
           overflow: 'hidden',
           position: 'relative'
         }

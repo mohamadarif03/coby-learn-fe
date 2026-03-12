@@ -13,7 +13,7 @@ function DayStreakWidget(): React.JSX.Element {
   // Skeleton loading state
   if (isLoading) {
     return (
-      <Paper sx={{ p: 3, borderRadius: 3, height: '100%', bgcolor: 'background.paper', display: 'flex', alignItems: 'center', border: '1px solid', borderColor: 'divider' }}>
+      <Paper sx={{ p: 2, height: '100%', bgcolor: 'background.paper', display: 'flex', alignItems: 'center', border: '1px solid', borderColor: 'divider' }}>
         <Skeleton variant="circular" width={56} height={56} sx={{ mr: 2 }} />
         <Box sx={{ width: '100%' }}>
           <Skeleton width="40%" height={30} />
@@ -30,10 +30,9 @@ function DayStreakWidget(): React.JSX.Element {
   return (
     <Paper
       sx={{
-        p: 3,
-        borderRadius: 4,
+        p: 2,
         bgcolor: 'background.paper',
-        boxShadow: '0 4px 18px rgba(0,0,0,0.25)',
+        elevation: 1,
         height: '100%',
         display: 'flex',       // Pastikan flex container
         alignItems: 'center',  // Vertikal center

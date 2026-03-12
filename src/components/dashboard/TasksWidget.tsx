@@ -118,7 +118,7 @@ function TasksWidget(): React.JSX.Element {
   // Loading State
   if (isLoading) {
     return (
-      <Paper sx={{ p: 3, borderRadius: 3, height: '100%', bgcolor: 'background.paper' }}>
+      <Paper sx={{ p: 2, height: '100%', bgcolor: 'background.paper' }}>
         <Box sx={{ display: 'flex', justifyContent: 'space-between', mb: 2 }}>
           <Skeleton variant="text" width={120} height={32} />
           <Skeleton variant="rounded" width={80} height={32} />
@@ -132,7 +132,7 @@ function TasksWidget(): React.JSX.Element {
 
   if (isError) {
     return (
-      <Paper sx={{ p: 3, borderRadius: 3, height: '100%' }}>
+      <Paper sx={{ p: 2, height: '100%' }}>
         <Alert severity="error">Gagal memuat tugas hari ini.</Alert>
       </Paper>
     );
@@ -141,7 +141,7 @@ function TasksWidget(): React.JSX.Element {
   const isEmpty = !tasks || tasks.length === 0;
 
   return (
-    <Paper sx={{ p: 3, borderRadius: 3, boxShadow: '0 4px 14px rgba(0,0,0,0.05)', bgcolor: 'background.paper', height: '100%' }}>
+    <Paper sx={{ p: 2, elevation: 1, bgcolor: 'background.paper', height: '100%' }}>
       
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 2 }}>
         <Typography variant="h6" component="h2" fontWeight="bold">
@@ -151,7 +151,7 @@ function TasksWidget(): React.JSX.Element {
           variant="contained"
           color="primary"
           size="small"
-          sx={{ color: 'white', textTransform: 'none', borderRadius: '8px' }}
+          sx={{ color: 'white', textTransform: 'none' }}
           startIcon={<Add />}
           onClick={() => setOpenAddDialog(true)}
         >

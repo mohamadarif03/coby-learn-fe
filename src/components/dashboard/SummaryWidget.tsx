@@ -15,7 +15,7 @@ function SummaryWidget(): React.JSX.Element {
   });
 
   if (isLoading) {
-    return <Skeleton variant="rounded" height={200} sx={{ borderRadius: 3 }} />;
+    return <Skeleton variant="rounded" height={200} />;
   }
 
   const isDone = status?.is_done ?? false;
@@ -23,9 +23,8 @@ function SummaryWidget(): React.JSX.Element {
   return (
     <Paper
       sx={{
-        p: 3,
-        borderRadius: 3,
-        boxShadow: '0 4px 18px rgba(0,0,0,0.25)',
+        p: 2,
+        elevation: 1,
         bgcolor: 'background.paper',
       }}
     >

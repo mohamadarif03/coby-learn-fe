@@ -8,6 +8,7 @@ import DayStreakWidget from '../components/dashboard/DayStreakWidget';
 import ToDoWidget from '../components/dashboard/ToDoWidget';
 import TasksWidget from '../components/dashboard/TasksWidget';
 import QuickActionsWidget from '../components/dashboard/QuickActionsWidget';
+import FocusSessionWidget from '../components/dashboard/FocusSessionWidget';
 
 import { getTasks } from '../services/apiTaskService';
 import { getDailyQuizStatus } from '../services/apiLibraryService';
@@ -40,11 +41,11 @@ function Dashboard(): React.JSX.Element {
   const completedTasks = tasks?.filter((t) => t.completed).length || 0;
 
   return (
-    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 8 }}>
+    <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: { xs: 12, md: 8 } }}>
       <Header username={dailyStatus?.username} />
 
       {/* Gunakan Container agar konten tidak mepet pinggir layar monitor ultra-wide */}
-      <Container maxWidth={false} sx={{ mt: 3, px: { xs: 2, md: 4 } }}>
+      <Container maxWidth={false} sx={{ mt: 3, px: { xs: 0, md: 4 } }}>
 
         {/* === MAIN LAYOUT: CSS GRID === */}
         <Box
@@ -61,13 +62,12 @@ function Dashboard(): React.JSX.Element {
           <Box
             sx={{
               display: 'grid',
-              // Mobile: 1 Kolom. Tablet ke atas: 2 Kolom rata
-              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr' },
+              // Mobile: 1 Kolom. Tablet ke atas: 3 Kolom untuk top row 
+              gridTemplateColumns: { xs: '1fr', md: '1fr 1fr 1fr' },
               gap: 3,
             }}
           >
             {/* Widget 1: ToDo */}
-            {/* Otomatis menempati 1 cell. Di HP full width, di Tablet separuh */}
             <Box sx={{ minHeight: '100%' }}>
               <ToDoWidget completed={completedTasks} total={totalTasks} />
             </Box>
@@ -77,6 +77,12 @@ function Dashboard(): React.JSX.Element {
               <DayStreakWidget />
             </Box>
 
+            {/* Widget 3: Focus Session (Calendar) */}
+            <Box sx={{ minHeight: '100%' }}>
+              <FocusSessionWidget />
+            </Box>
+
+            {/* Widget 4: Tasks (Full Width) */}
             <Box sx={{ gridColumn: '1 / -1' }}>
               <TasksWidget />
             </Box>

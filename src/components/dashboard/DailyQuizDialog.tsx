@@ -241,7 +241,7 @@ function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Ele
       onClose={onClose}
       fullWidth
       maxWidth="xs"
-      PaperProps={{ sx: { borderRadius: '24px', p: 1 } }}
+      PaperProps={{ sx: { borderRadius: 2, p: 1 } }}
     >
       {/* Tombol Close di pojok */}
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>

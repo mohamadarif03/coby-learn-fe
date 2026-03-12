@@ -102,7 +102,7 @@ const ChatWidget = ({ materialId }: ChatWidgetProps) => {
     <Paper
       elevation={0}
       sx={{
-        borderRadius: '24px',
+        borderRadius: 2, // 2 * 8px = 16px
         bgcolor: 'background.paper',
         border: '1px solid',
         borderColor: 'divider',
@@ -332,7 +332,7 @@ function MaterialDetailPage(): React.JSX.Element {
             <Paper
               elevation={0}
               sx={{
-                p: 4, borderRadius: '24px',
+                p: 4, borderRadius: 2, // 2 * 8px = 16px
                 bgcolor: 'background.paper', border: '1px solid', borderColor: 'divider',
                 minHeight: 500, mb: 4
               }}

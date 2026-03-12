@@ -182,7 +182,7 @@ function FocusSessionWidget(): React.JSX.Element {
     <Paper
       elevation={0}
       sx={{
-        p: 3, 
+        p: 2, // 2 * 8px = 16px 
         borderRadius: '24px', 
         bgcolor: 'background.paper',
         border: '1px solid',
@@ -343,7 +343,7 @@ function FocusSessionWidget(): React.JSX.Element {
         fullWidth
         PaperProps={{
           sx: { 
-            borderRadius: '24px', 
+            borderRadius: 2, // 2 * 8px = 16px 
             bgcolor: 'background.paper', 
             color: 'text.primary',
             textAlign: 'center',
@@ -381,7 +381,7 @@ function FocusSessionWidget(): React.JSX.Element {
       </Dialog>
 
       {/* === 2. MODAL SETTINGS === */}
-      <Dialog open={openSettings} onClose={() => setOpenSettings(false)} maxWidth="xs" fullWidth PaperProps={{ sx: { borderRadius: '24px', bgcolor: 'background.paper', color: 'text.primary', border: '1px solid', borderColor: 'divider' } }}>
+      <Dialog open={openSettings} onClose={() => setOpenSettings(false)} maxWidth="xs" fullWidth PaperProps={{ sx: { borderRadius: 2, bgcolor: 'background.paper', color: 'text.primary', border: '1px solid', borderColor: 'divider' } }}>
         <DialogTitle sx={{ textAlign: 'center', pt: 3, pb: 1 }}>
           <Typography variant="h6" fontWeight="bold" sx={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 1 }}>
             <TimerIcon sx={{ color: 'secondary.main' }} /> Set Duration

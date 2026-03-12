@@ -14,9 +14,8 @@ function ToDoWidget({ completed, total }: ToDoWidgetProps): React.JSX.Element {
     <Paper
       sx={{
         height: '100%',
-        p: 3,
-        borderRadius: 4, // Sedikit lebih bulat biar modern
-        boxShadow: '0 4px 14px rgba(0,0,0,0.05)',
+        p: 2,
+        elevation: 1,
         bgcolor: 'background.paper',
         display: 'flex',        // Flexbox
         flexDirection: 'column', // Susunan vertikal
