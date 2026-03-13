@@ -108,7 +108,7 @@ function LandingPage(): React.JSX.Element {
               sx={{ display: 'flex', alignItems: 'center', gap: 2, cursor: 'pointer' }}
             >
               <img src={logo} alt="CobyLearnAi" style={{ height: '40px' }} />
-              <Typography variant="h5" fontWeight="800" sx={{ letterSpacing: '-0.5px' }}>
+              <Typography variant="h5" fontWeight="800" sx={{ letterSpacing: '-0.5px', color: scrolled ? COLORS.textMain : '#FFFFFF' }}>
                 CobyLearn<Box component="span" sx={{ color: COLORS.accent }}>Ai</Box>
               </Typography>
             </Box>
@@ -120,7 +120,7 @@ function LandingPage(): React.JSX.Element {
                   <Button
                     key={item}
                     onClick={() => scrollToSection(item.toLowerCase().replace(/ /g, '-'))}
-                    sx={{ color: COLORS.textMuted, '&:hover': { color: COLORS.textMain }, textTransform: 'none', fontSize: '1rem' }}
+                    sx={{ color: scrolled ? COLORS.textMuted : '#FFFFFF', '&:hover': { color: scrolled ? COLORS.textMain : '#FFFFFF', opacity: 0.8 }, textTransform: 'none', fontSize: '1rem' }}
                   >
                     {item}
                   </Button>
@@ -153,22 +153,34 @@ function LandingPage(): React.JSX.Element {
                   ) : (
                     <>
                       <Button
+                        variant="outlined"
                         onClick={() => navigate('/sign-in')}
-                        sx={{ color: COLORS.textMain, textTransform: 'none', fontWeight: 'bold' }}
+                        sx={{ 
+                          color: scrolled ? COLORS.textMain : '#FFFFFF', 
+                          borderColor: scrolled ? COLORS.border : 'rgba(255,255,255,0.5)',
+                          textTransform: 'none', 
+                          fontWeight: 'bold',
+                          borderRadius: '8px',
+                          '&:hover': {
+                            borderColor: scrolled ? COLORS.textMain : '#FFFFFF',
+                            bgcolor: scrolled ? 'transparent' : 'rgba(255,255,255,0.1)'
+                          }
+                        }}
                       >
-                        Log In
+                        Login
                       </Button>
                       <Button
                         variant="contained"
                         onClick={() => navigate('/sign-up')}
                         sx={{
-                          bgcolor: COLORS.accent,
+                          bgcolor: COLORS.primary,
                           color: 'white',
-                          borderRadius: '12px',
+                          borderRadius: '8px',
                           px: 3,
                           textTransform: 'none',
                           fontWeight: 'bold',
-                          '&:hover': { bgcolor: 'primary.dark' }
+                          boxShadow: 'none',
+                          '&:hover': { bgcolor: '#2563EB', boxShadow: 'none' }
                         }}
                       >
                         Sign Up Free
@@ -180,7 +192,7 @@ function LandingPage(): React.JSX.Element {
 
               {/* Mobile Menu Button */}
               {isMobile && (
-                <IconButton onClick={() => setMobileMenuOpen(true)} sx={{ color: COLORS.textMain }}>
+                <IconButton onClick={() => setMobileMenuOpen(true)} sx={{ color: scrolled ? COLORS.textMain : '#FFFFFF' }}>
                   <MenuIcon fontSize="large" />
                 </IconButton>
               )}
@@ -247,22 +259,28 @@ function LandingPage(): React.JSX.Element {
       {/* ================= HERO SECTION ================= */}
       <Box sx={{
         position: 'relative',
-        pt: { xs: 16, md: 24 },
-        pb: { xs: 8, md: 16 },
+        pt: { xs: 20, md: 30 },
+        pb: { xs: 12, md: 24 },
         textAlign: 'center',
-        overflow: 'hidden'
+        overflow: 'hidden',
+        backgroundImage: 'url(/learn.jpg)',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
       }}>
-        {/* Background Gradients */}
+        {/* Overlay */}
         <Box sx={{
-          position: 'absolute', top: '-20%', left: '50%', transform: 'translateX(-50%)',
-          width: '800px', height: '800px', borderRadius: '50%',
-          background: `radial-gradient(circle, ${COLORS.primary}20 0%, transparent 70%)`,
-          filter: 'blur(80px)', zIndex: 0
+          position: 'absolute',
+          top: 0,
+          left: 0,
+          right: 0,
+          bottom: 0,
+          backgroundColor: 'rgba(17, 45, 93, 0.75)', // Transparent blue overlay
+          zIndex: 0
         }} />
 
         <Container maxWidth="lg" sx={{ position: 'relative', zIndex: 1 }}>
-          <Box sx={{ display: 'inline-block', px: 2, py: 0.5, bgcolor: 'rgba(59, 130, 246, 0.1)', borderRadius: '20px', border: `1px solid ${COLORS.primary}40`, mb: 3 }}>
-            <Typography variant="caption" fontWeight="bold" sx={{ color: COLORS.primary, letterSpacing: '1px' }}>
+          <Box sx={{ display: 'inline-block', px: 2, py: 0.5, bgcolor: 'rgba(255, 255, 255, 0.1)', borderRadius: '20px', border: `1px solid rgba(255, 255, 255, 0.2)`, mb: 3 }}>
+            <Typography variant="caption" fontWeight="bold" sx={{ color: '#E2E8F0', letterSpacing: '1px' }}>
               ✨ AI POWERED LEARNING ASSISTANT
             </Typography>
           </Box>
@@ -271,31 +289,29 @@ function LandingPage(): React.JSX.Element {
             fontSize: { xs: '3rem', md: '5rem' },
             lineHeight: 1.1,
             mb: 3,
-            background: `linear-gradient(to bottom right, #FFFFFF 30%, ${COLORS.textMuted})`,
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent'
+            color: '#FFFFFF'
           }}>
             Learn Smarter,<br /> Not Harder.
           </Typography>
 
-          <Typography variant="h5" sx={{ color: COLORS.textMuted, maxWidth: '700px', mx: 'auto', mb: 5, lineHeight: 1.6 }}>
+          <Typography variant="h5" sx={{ color: '#E2E8F0', maxWidth: '700px', mx: 'auto', mb: 5, lineHeight: 1.6 }}>
             Upload your study materials and let our AI create quizzes, flashcards, and summaries instantly. Track your progress and master any subject.
           </Typography>
 
-          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" sx={{ mb: 8 }}>
+          <Stack direction={{ xs: 'column', sm: 'row' }} spacing={2} justifyContent="center" sx={{ mb: 4 }}>
             <Button
               variant="contained"
               size="large"
               onClick={() => isLoggedIn ? navigate('/dashboard') : navigate('/sign-up')}
               sx={{
-                bgcolor: COLORS.accent,
+                bgcolor: COLORS.primary,
                 fontSize: '1.1rem',
                 px: 5, py: 1.8,
-                borderRadius: '16px',
+                borderRadius: '8px',
                 fontWeight: 'bold',
                 color: 'white',
                 boxShadow: 6,
-                '&:hover': { bgcolor: 'primary.dark', transform: 'translateY(-2px)', transition: '0.2s' }
+                '&:hover': { bgcolor: '#2563EB', transform: 'translateY(-2px)', transition: '0.2s' }
               }}
             >
               Start for Free
@@ -305,40 +321,19 @@ function LandingPage(): React.JSX.Element {
               size="large"
               onClick={() => scrollToSection('features')}
               sx={{
-                color: COLORS.textMain,
-                borderColor: COLORS.border,
+                color: '#FFFFFF',
+                borderColor: 'rgba(255, 255, 255, 0.5)',
                 fontSize: '1.1rem',
                 px: 5, py: 1.8,
-                borderRadius: '16px',
-                bgcolor: 'rgba(255,255,255,0.03)',
-                '&:hover': { bgcolor: 'rgba(255,255,255,0.08)', borderColor: COLORS.textMain }
+                borderRadius: '8px',
+                bgcolor: 'rgba(255,255,255,0.05)',
+                '&:hover': { bgcolor: 'rgba(255,255,255,0.1)', borderColor: '#FFFFFF' }
               }}
             >
               View Features
             </Button>
           </Stack>
 
-          {/* Hero Image Mockup */}
-          <Box
-            sx={{
-              position: 'relative',
-              borderRadius: '24px',
-              border: `1px solid ${COLORS.border}`,
-              background: `rgba(255, 255, 255, 0.8)`,
-              backdropFilter: 'blur(20px)',
-              p: 1.5,
-              mx: 'auto',
-              maxWidth: '1100px',
-              boxShadow: 20
-            }}
-          >
-            <Box
-              component="img"
-              src="https://images.unsplash.com/photo-1531403009284-440f080d1e12?q=80&w=2070&auto=format&fit=crop"
-              alt="Dashboard Preview"
-              sx={{ width: '100%', height: 'auto', display: 'block', borderRadius: '16px', opacity: 0.9 }}
-            />
-          </Box>
         </Container>
       </Box>
 
