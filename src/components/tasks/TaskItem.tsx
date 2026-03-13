@@ -1,5 +1,5 @@
 import React from 'react';
-import { Paper, Box, Typography, IconButton, Checkbox, Chip } from '@mui/material';
+import { Paper, Box, Typography, IconButton, Checkbox, Chip, useTheme } from '@mui/material';
 import DeleteOutlineIcon from '@mui/icons-material/DeleteOutline';
 import EditOutlinedIcon from '@mui/icons-material/EditOutlined';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
@@ -39,6 +39,14 @@ const formatDateTime = (isoString: string) => {
 };
 
 function TaskItem({ task, onUpdateStatus, onDelete, onEdit }: TaskItemProps): React.JSX.Element {
+  const theme = useTheme();
+  const taskItemTransition = theme.transitions.create(
+    ['transform', 'box-shadow', 'border-color', 'background-color', 'opacity'],
+    {
+      duration: theme.transitions.duration.shorter,
+      easing: theme.transitions.easing.easeInOut,
+    }
+  );
   
   // Panggil helper format di sini
   const displayDate = formatDateTime(task.dueDate);
@@ -54,7 +62,7 @@ function TaskItem({ task, onUpdateStatus, onDelete, onEdit }: TaskItemProps): Re
         borderColor: task.completed ? 'transparent' : 'divider',
         bgcolor: task.completed ? 'action.hover' : 'background.paper',
         opacity: task.completed ? 0.7 : 1,
-        transition: 'all 0.2s',
+        transition: taskItemTransition,
         display: 'flex',
         alignItems: 'flex-start',
         gap: 2,

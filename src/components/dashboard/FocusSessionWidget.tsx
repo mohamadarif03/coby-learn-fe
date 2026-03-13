@@ -1,11 +1,16 @@
 import React from 'react';
-import { Paper, Typography, Box, Skeleton, IconButton } from '@mui/material';
+import { Paper, Typography, Box, Skeleton, IconButton, Grow, useTheme } from '@mui/material';
 import { ChevronLeft, ChevronRight } from '@mui/icons-material';
 import { useQuery } from '@tanstack/react-query';
 import { getDailyQuizStatus } from '../../services/apiLibraryService';
 
 function FocusSessionWidget(): React.JSX.Element {
+  const theme = useTheme();
   const [weekOffset, setWeekOffset] = React.useState(0);
+  const dayChipTransition = theme.transitions.create(['transform', 'background-color', 'color'], {
+    duration: theme.transitions.duration.shorter,
+    easing: theme.transitions.easing.easeInOut,
+  });
 
   const { data: status, isLoading } = useQuery({
     queryKey: ['dailyQuizStatus'],
@@ -113,7 +118,10 @@ function FocusSessionWidget(): React.JSX.Element {
               width: 32, 
               height: 32,
               bgcolor: 'action.hover',
-              '&:hover': { bgcolor: 'action.selected' }
+              transition: theme.transitions.create(['background-color', 'transform'], {
+                duration: theme.transitions.duration.shortest,
+              }),
+              '&:hover': { bgcolor: 'action.selected', transform: 'translateX(-1px)' }
             }}
           >
             <ChevronLeft fontSize="small" sx={{ color: 'text.secondary' }} />
@@ -126,7 +134,10 @@ function FocusSessionWidget(): React.JSX.Element {
               width: 32, 
               height: 32,
               bgcolor: 'primary.main',
-              '&:hover': { bgcolor: 'primary.dark' }
+              transition: theme.transitions.create(['background-color', 'transform'], {
+                duration: theme.transitions.duration.shortest,
+              }),
+              '&:hover': { bgcolor: 'primary.dark', transform: 'translateX(1px)' }
             }}
           >
             <ChevronRight fontSize="small" sx={{ color: 'white' }} />
@@ -174,27 +185,31 @@ function FocusSessionWidget(): React.JSX.Element {
             const isToday = isSameDate(date, today);
             
             return (
-              <Box
-                key={index}
-                sx={{
-                  width: 40,
-                  height: 32,
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'center',
-                  borderRadius: isToday ? 3 : 2,
-                  bgcolor: isToday ? 'primary.main' : 'grey.100',
-                  color: isToday ? 'white' : 'text.primary',
-                  fontWeight: isToday ? 700 : 500,
-                  fontSize: '0.875rem',
-                  border: 'none',
-                  borderColor: isToday ? 'transparent' : 'divider',
-                  transition: 'all 0.2s ease-in-out',
-                  mx: 'auto'
-                }}
-              >
-                {dateNum}
-              </Box>
+              <Grow key={index} in timeout={theme.transitions.duration.shorter + index * 40}>
+                <Box
+                  sx={{
+                    width: 40,
+                    height: 32,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    borderRadius: isToday ? 3 : 2,
+                    bgcolor: isToday ? 'primary.main' : 'grey.100',
+                    color: isToday ? 'white' : 'text.primary',
+                    fontWeight: isToday ? 700 : 500,
+                    fontSize: '0.875rem',
+                    border: 'none',
+                    borderColor: isToday ? 'transparent' : 'divider',
+                    transition: dayChipTransition,
+                    mx: 'auto',
+                    '&:hover': {
+                      transform: isToday ? 'scale(1.05)' : 'translateY(-1px)',
+                    },
+                  }}
+                >
+                  {dateNum}
+                </Box>
+              </Grow>
             );
           })}
         </Box>

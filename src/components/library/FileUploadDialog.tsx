@@ -12,6 +12,8 @@ import {
   Tab,
   TextField,
   Paper,
+  Grow,
+  useTheme,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CloudUploadOutlinedIcon from '@mui/icons-material/CloudUploadOutlined';
@@ -36,6 +38,7 @@ interface FileUploadDialogProps {
 }
 
 function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDialogProps): React.JSX.Element {
+  const theme = useTheme();
   const [tabValue, setTabValue] = useState(0);
   const [file, setFile] = useState<File | null>(null);
   const [youtubeLink, setYoutubeLink] = useState('');
@@ -64,6 +67,14 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
     { title: 'Analyzing Content...', desc: 'Our AI is reading and understanding the context.' },
     { title: 'Generating Summary...', desc: 'Almost there! Creating your study notes.' },
   ];
+  const panelTransition = theme.transitions.create(['opacity', 'transform'], {
+    duration: theme.transitions.duration.shorter,
+    easing: theme.transitions.easing.easeInOut,
+  });
+  const iconButtonTransition = theme.transitions.create(['transform', 'background-color', 'color'], {
+    duration: theme.transitions.duration.shortest,
+    easing: theme.transitions.easing.easeInOut,
+  });
   // -------------------------------
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
@@ -199,7 +210,10 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
                   height: 8,
                   borderRadius: 4,
                   bgcolor: step === loadingStep ? 'primary.main' : 'action.hover',
-                  transition: 'all 0.3s ease'
+                  transition: theme.transitions.create(['width', 'background-color'], {
+                    duration: theme.transitions.duration.standard,
+                    easing: theme.transitions.easing.easeInOut,
+                  })
                 }}
               />
             ))}
@@ -211,7 +225,18 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
             <Typography variant="h6" component="div" fontWeight="800">
               Upload Material
             </Typography>
-            <IconButton aria-label="close" onClick={handleCloseDialog} sx={{ color: 'text.secondary' }}>
+            <IconButton
+              aria-label="close"
+              onClick={handleCloseDialog}
+              sx={{
+                color: 'text.secondary',
+                transition: iconButtonTransition,
+                '&:hover': {
+                  color: 'text.primary',
+                  transform: 'rotate(90deg)',
+                },
+              }}
+            >
               <CloseIcon />
             </IconButton>
           </DialogTitle>
@@ -254,7 +279,13 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
                     textTransform: 'none',
                     fontWeight: 600,
                     zIndex: 1,
-                    transition: '0.2s'
+                    transition: theme.transitions.create(['background-color', 'color', 'transform'], {
+                      duration: theme.transitions.duration.shorter,
+                      easing: theme.transitions.easing.easeInOut,
+                    }),
+                    '&:hover': {
+                      transform: 'translateY(-1px)',
+                    },
                   },
                   '& .Mui-selected': {
                     bgcolor: 'background.paper',
@@ -270,90 +301,156 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
               </Tabs>
             </Box>
 
-            {/* Panel PDF */}
-            <Box role="tabpanel" hidden={tabValue !== 0}>
-              {tabValue === 0 && (
-                !file ? (
-                  <Box
-                    {...getRootProps()}
-                    sx={{
-                      border: '2px dashed',
-                      borderColor: isDragActive ? 'primary.main' : 'divider',
-                      borderRadius: 3,
-                      p: 5,
-                      textAlign: 'center',
-                      cursor: 'pointer',
-                      bgcolor: isDragActive ? 'action.hover' : 'background.paper',
-                      transition: '0.2s',
-                      '&:hover': { borderColor: 'primary.main', bgcolor: 'action.hover' }
-                    }}
-                  >
-                    <input {...getInputProps()} />
-                    <Box sx={{
-                      width: 60, height: 60, borderRadius: '50%', bgcolor: 'primary.lighter',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center', mx: 'auto', mb: 2
-                    }}>
-                      <CloudUploadOutlinedIcon sx={{ fontSize: 32, color: 'primary.main' }} />
-                    </Box>
-                    <Typography variant="body1" fontWeight="600" gutterBottom>Click or drag PDF here</Typography>
-                    <Typography variant="caption" color="text.secondary">Supported formats: .pdf (Max 10MB)</Typography>
-                  </Box>
-                ) : (
-                  <Paper variant="outlined" sx={{ p: 2, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-                    <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
-                      <Box sx={{ p: 1, borderRadius: 2, bgcolor: 'error.lighter', color: 'error.main' }}>
-                        <CloudUploadOutlinedIcon />
+            <Grow in key={tabValue} timeout={theme.transitions.duration.shorter}>
+              <Box sx={{ transition: panelTransition }}>
+                {/* Panel PDF */}
+                <Box role="tabpanel" hidden={tabValue !== 0}>
+                  {tabValue === 0 && (
+                    !file ? (
+                      <Box
+                        {...getRootProps()}
+                        sx={{
+                          border: '2px dashed',
+                          borderColor: isDragActive ? 'primary.main' : 'divider',
+                          borderRadius: 3,
+                          p: 5,
+                          textAlign: 'center',
+                          cursor: 'pointer',
+                          bgcolor: isDragActive ? 'action.hover' : 'background.paper',
+                          transition: theme.transitions.create(['border-color', 'background-color', 'transform'], {
+                            duration: theme.transitions.duration.shorter,
+                            easing: theme.transitions.easing.easeInOut,
+                          }),
+                          '&:hover': {
+                            borderColor: 'primary.main',
+                            bgcolor: 'action.hover',
+                            transform: 'translateY(-1px)',
+                          }
+                        }}
+                      >
+                        <input {...getInputProps()} />
+                        <Box sx={{
+                          width: 60,
+                          height: 60,
+                          borderRadius: '50%',
+                          bgcolor: 'primary.lighter',
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'center',
+                          mx: 'auto',
+                          mb: 2,
+                          transition: theme.transitions.create('transform', {
+                            duration: theme.transitions.duration.shorter,
+                            easing: theme.transitions.easing.easeInOut,
+                          }),
+                          transform: isDragActive ? 'scale(1.08)' : 'scale(1)',
+                          '.MuiBox-root:hover &': {
+                            transform: 'scale(1.08)',
+                          },
+                        }}>
+                          <CloudUploadOutlinedIcon sx={{ fontSize: 32, color: 'primary.main' }} />
+                        </Box>
+                        <Typography variant="body1" fontWeight="600" gutterBottom>Click or drag PDF here</Typography>
+                        <Typography variant="caption" color="text.secondary">Supported formats: .pdf (Max 10MB)</Typography>
                       </Box>
-                      <Box>
-                        <Typography variant="subtitle2" fontWeight="600" noWrap sx={{ maxWidth: 200 }}>
-                          {file.name}
-                        </Typography>
-                        <Typography variant="caption" color="text.secondary">
-                          {(file.size / 1024 / 1024).toFixed(2)} MB
-                        </Typography>
-                      </Box>
-                    </Box>
-                    <IconButton size="small" onClick={() => setFile(null)} color="error">
-                      <CloseIcon fontSize="small" />
-                    </IconButton>
-                  </Paper>
-                )
-              )}
-            </Box>
+                    ) : (
+                      <Paper
+                        variant="outlined"
+                        sx={{
+                          p: 2,
+                          display: 'flex',
+                          alignItems: 'center',
+                          justifyContent: 'space-between',
+                          transition: theme.transitions.create(['border-color', 'box-shadow'], {
+                            duration: theme.transitions.duration.shorter,
+                            easing: theme.transitions.easing.easeInOut,
+                          }),
+                          '&:hover': {
+                            borderColor: 'primary.main',
+                            boxShadow: 1,
+                          },
+                        }}
+                      >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 2 }}>
+                          <Box sx={{ p: 1, borderRadius: 2, bgcolor: 'error.lighter', color: 'error.main' }}>
+                            <CloudUploadOutlinedIcon />
+                          </Box>
+                          <Box>
+                            <Typography variant="subtitle2" fontWeight="600" noWrap sx={{ maxWidth: 200 }}>
+                              {file.name}
+                            </Typography>
+                            <Typography variant="caption" color="text.secondary">
+                              {(file.size / 1024 / 1024).toFixed(2)} MB
+                            </Typography>
+                          </Box>
+                        </Box>
+                        <IconButton
+                          size="small"
+                          onClick={() => setFile(null)}
+                          color="error"
+                          sx={{
+                            transition: iconButtonTransition,
+                            '&:hover': {
+                              transform: 'rotate(90deg) scale(1.06)',
+                            },
+                          }}
+                        >
+                          <CloseIcon fontSize="small" />
+                        </IconButton>
+                      </Paper>
+                    )
+                  )}
+                </Box>
 
-            {/* Panel YouTube */}
-            <Box role="tabpanel" hidden={tabValue !== 1}>
-              {tabValue === 1 && (
-                <TextField
-                  fullWidth
-                  label="YouTube URL"
-                  placeholder="https://www.youtube.com/watch?v=..."
-                  value={youtubeLink}
-                  onChange={(e) => setYoutubeLink(e.target.value)}
-                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
-                />
-              )}
-            </Box>
+                {/* Panel YouTube */}
+                <Box role="tabpanel" hidden={tabValue !== 1}>
+                  {tabValue === 1 && (
+                    <TextField
+                      fullWidth
+                      label="YouTube URL"
+                      placeholder="https://www.youtube.com/watch?v=..."
+                      value={youtubeLink}
+                      onChange={(e) => setYoutubeLink(e.target.value)}
+                      sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
+                    />
+                  )}
+                </Box>
 
-            {/* Panel Text */}
-            <Box role="tabpanel" hidden={tabValue !== 2}>
-              {tabValue === 2 && (
-                <TextField
-                  fullWidth
-                  multiline
-                  rows={6}
-                  label="Paste Text Content"
-                  placeholder="Copy and paste your study notes here..."
-                  value={pastedText}
-                  onChange={(e) => setPastedText(e.target.value)}
-                  sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
-                />
-              )}
-            </Box>
+                {/* Panel Text */}
+                <Box role="tabpanel" hidden={tabValue !== 2}>
+                  {tabValue === 2 && (
+                    <TextField
+                      fullWidth
+                      multiline
+                      rows={6}
+                      label="Paste Text Content"
+                      placeholder="Copy and paste your study notes here..."
+                      value={pastedText}
+                      onChange={(e) => setPastedText(e.target.value)}
+                      sx={{ '& .MuiOutlinedInput-root': { borderRadius: 3 } }}
+                    />
+                  )}
+                </Box>
+              </Box>
+            </Grow>
           </DialogContent>
 
           <DialogActions sx={{ p: 3, pt: 0 }}>
-            <Button onClick={handleCloseDialog} color="inherit" sx={{ textTransform: 'none', fontWeight: 500, borderRadius: 2 }}>
+            <Button
+              onClick={handleCloseDialog}
+              color="inherit"
+              sx={{
+                textTransform: 'none',
+                fontWeight: 500,
+                borderRadius: 2,
+                transition: theme.transitions.create(['background-color', 'transform'], {
+                  duration: theme.transitions.duration.shortest,
+                }),
+                '&:hover': {
+                  transform: 'translateY(-1px)',
+                },
+              }}
+            >
               Cancel
             </Button>
             <Button
@@ -368,7 +465,18 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
                 py: 1,
                 borderRadius: 2,
                 fontWeight: 'bold',
-                boxShadow: 4
+                boxShadow: 4,
+                transition: theme.transitions.create(['transform', 'box-shadow'], {
+                  duration: theme.transitions.duration.shorter,
+                  easing: theme.transitions.easing.easeInOut,
+                }),
+                '&:hover': {
+                  transform: 'translateY(-1px)',
+                  boxShadow: 6,
+                },
+                '&:active': {
+                  transform: 'translateY(0)',
+                },
               }}
             >
               Generate Summary

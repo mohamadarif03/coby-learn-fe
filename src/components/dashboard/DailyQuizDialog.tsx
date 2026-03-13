@@ -11,7 +11,9 @@ import {
   IconButton,
   CircularProgress,
   Alert,
-  Fade
+  Fade,
+  Grow,
+  useTheme,
 } from '@mui/material';
 import CloseIcon from '@mui/icons-material/Close';
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
@@ -29,7 +31,12 @@ interface DailyQuizDialogProps {
 }
 
 function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Element {
+  const theme = useTheme();
   const queryClient = useQueryClient();
+  const optionTransition = theme.transitions.create(['transform', 'border-color', 'background-color', 'box-shadow'], {
+    duration: theme.transitions.duration.shorter,
+    easing: theme.transitions.easing.easeInOut,
+  });
 
   // State Game
   const [currentIdx, setCurrentIdx] = useState(0);
@@ -95,7 +102,7 @@ function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Ele
   };
 
   // Render helper untuk opsi yang struktur JSON-nya unik: [{"A": "Teks"}]
-  const renderOption = (optObj: DailyQuizOptionObj, correctKey: string) => {
+  const renderOption = (optObj: DailyQuizOptionObj, correctKey: string, index: number) => {
     // Sesuaikan dengan tipe DailyQuizOptionObj: { key: string, value: string }
     const { key, value } = optObj;
 
@@ -119,23 +126,26 @@ function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Ele
     }
 
     return (
-      <Paper
-        key={key}
-        variant="outlined"
-        onClick={() => {
-          // Hanya boleh pilih jika belum benar
-          if (answerStatus !== 'correct') {
-            handleCheckAnswer(key, correctKey);
-          }
-        }}
-        sx={{
-          display: 'flex', alignItems: 'center', p: 2, mb: 2, borderRadius: '12px',
-          border: '1px solid', borderColor, bgcolor,
-          cursor: answerStatus === 'correct' ? 'default' : 'pointer',
-          transition: '0.2s',
-          '&:hover': answerStatus === 'idle' ? { borderColor: 'primary.main' } : {}
-        }}
-      >
+      <Grow key={key} in timeout={theme.transitions.duration.shorter + index * 40}>
+        <Paper
+          variant="outlined"
+          onClick={() => {
+            // Hanya boleh pilih jika belum benar
+            if (answerStatus !== 'correct') {
+              handleCheckAnswer(key, correctKey);
+            }
+          }}
+          sx={{
+            display: 'flex', alignItems: 'center', p: 2, mb: 2, borderRadius: '12px',
+            border: '1px solid', borderColor, bgcolor,
+            cursor: answerStatus === 'correct' ? 'default' : 'pointer',
+            transition: optionTransition,
+            '&:hover': answerStatus === 'idle'
+              ? { borderColor: 'primary.main', transform: 'translateY(-1px)', boxShadow: 1 }
+              : {},
+            '&:active': answerStatus === 'idle' ? { transform: 'translateY(0)' } : {},
+          }}
+        >
         <Radio
           checked={selectedKey === key}
           sx={{ display: 'none' }} // Sembunyikan radio default
@@ -152,7 +162,8 @@ function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Ele
         <Typography sx={{ flexGrow: 1, fontWeight: 500 }}>{value}</Typography>
 
         {icon}
-      </Paper>
+        </Paper>
+      </Grow>
     );
   };
 
@@ -205,7 +216,7 @@ function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Ele
 
         {/* Opsi Jawaban */}
         <Box sx={{ mb: 2 }}>
-          {currentQ.pilihan.map((opt) => renderOption(opt, currentQ.jawaban_benar))}
+          {currentQ.pilihan.map((opt, index) => renderOption(opt, currentQ.jawaban_benar, index))}
         </Box>
 
         {/* Feedback & Next Button */}
@@ -224,7 +235,16 @@ function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Ele
                 fullWidth
                 variant="contained"
                 onClick={handleNext}
-                sx={{ bgcolor: 'primary.main', color: 'white', '&:hover': { bgcolor: 'primary.blue' } }}
+                sx={{
+                  bgcolor: 'primary.main',
+                  color: 'white',
+                  transition: theme.transitions.create(['transform', 'box-shadow', 'background-color'], {
+                    duration: theme.transitions.duration.shorter,
+                    easing: theme.transitions.easing.easeInOut,
+                  }),
+                  '&:hover': { bgcolor: 'primary.dark', transform: 'translateY(-1px)', boxShadow: 3 },
+                  '&:active': { transform: 'translateY(0)' },
+                }}
               >
                 {currentIdx === totalQ - 1 ? (claimMutation.isPending ? 'Claiming...' : 'Finish & Claim') : 'Next Question'}
               </Button>
@@ -245,7 +265,16 @@ function DailyQuizDialog({ open, onClose }: DailyQuizDialogProps): React.JSX.Ele
     >
       {/* Tombol Close di pojok */}
       <Box sx={{ display: 'flex', justifyContent: 'flex-end' }}>
-        <IconButton onClick={onClose} size="small">
+        <IconButton
+          onClick={onClose}
+          size="small"
+          sx={{
+            transition: theme.transitions.create(['transform', 'background-color'], {
+              duration: theme.transitions.duration.shortest,
+            }),
+            '&:hover': { transform: 'rotate(90deg)' },
+          }}
+        >
           <CloseIcon />
         </IconButton>
       </Box>

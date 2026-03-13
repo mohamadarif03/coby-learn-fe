@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { 
-  Box, Paper, Typography, IconButton, Chip, Menu, MenuItem, 
+  Box, Paper, Typography, IconButton, Chip, Menu, MenuItem, useTheme,
   Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button 
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom'; // Import useNavigate
@@ -40,8 +40,20 @@ const getTypeLabel = (type: string) => {
 };
 
 function MaterialItem({ material }: MaterialItemProps): React.JSX.Element {
+  const theme = useTheme();
   const navigate = useNavigate(); 
   const queryClient = useQueryClient();
+  const cardTransition = theme.transitions.create(
+    ['transform', 'box-shadow', 'border-color', 'background-color'],
+    {
+      duration: theme.transitions.duration.shorter,
+      easing: theme.transitions.easing.easeInOut,
+    }
+  );
+  const actionTransition = theme.transitions.create(['opacity', 'transform'], {
+    duration: theme.transitions.duration.shortest,
+    easing: theme.transitions.easing.easeInOut,
+  });
   
   const [anchorEl, setAnchorEl] = useState<null | HTMLElement>(null);
   const [isRenameOpen, setIsRenameOpen] = useState(false);
@@ -111,15 +123,42 @@ function MaterialItem({ material }: MaterialItemProps): React.JSX.Element {
           p: 2, mb: 2, borderRadius: '12px', border: '1px solid', borderColor: 'divider',
           bgcolor: 'background.paper', display: 'flex', alignItems: 'center', gap: 2,
           cursor: 'pointer',
-          transition: '0.2s', 
+          transition: cardTransition,
+          '& .material-actions': {
+            opacity: 0.75,
+            transform: 'translateX(2px)',
+            transition: actionTransition,
+          },
           '&:hover': { 
             borderColor: 'primary.main', 
             boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
-            transform: 'translateY(-2px)'
-          }
+            transform: 'translateY(-2px)',
+            '& .material-actions': {
+              opacity: 1,
+              transform: 'translateX(0)',
+            },
+          },
+          '&:active': {
+            transform: 'translateY(-1px)',
+          },
         }}
       >
-        <Box sx={{ width: 56, height: 56, borderRadius: '12px', bgcolor: 'action.hover', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+        <Box sx={{
+          width: 56,
+          height: 56,
+          borderRadius: '12px',
+          bgcolor: 'action.hover',
+          display: 'flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          flexShrink: 0,
+          transition: theme.transitions.create('transform', {
+            duration: theme.transitions.duration.shorter,
+          }),
+          '.MuiPaper-root:hover &': {
+            transform: 'scale(1.06)',
+          },
+        }}>
           {getIcon(material.type)}
         </Box>
 
@@ -140,13 +179,32 @@ function MaterialItem({ material }: MaterialItemProps): React.JSX.Element {
           )}
         </Box>
 
-        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+        <Box className="material-actions" sx={{ display: 'flex', alignItems: 'center' }}>
           {material.type !== 'quiz' && (
-            <IconButton  onClick={handleCardClick} title="Open Source" sx={{ color: 'primary.main' }}>
+            <IconButton
+              onClick={handleCardClick}
+              title="Open Source"
+              sx={{
+                color: 'primary.main',
+                transition: theme.transitions.create(['transform', 'background-color'], {
+                  duration: theme.transitions.duration.shortest,
+                }),
+                '&:hover': { transform: 'scale(1.08)' },
+              }}
+            >
               <OpenInNewIcon />
             </IconButton>
           )}
-          <IconButton onClick={handleMenuOpen} sx={{ color: 'text.secondary' }}>
+          <IconButton
+            onClick={handleMenuOpen}
+            sx={{
+              color: 'text.secondary',
+              transition: theme.transitions.create(['transform', 'background-color'], {
+                duration: theme.transitions.duration.shortest,
+              }),
+              '&:hover': { transform: 'scale(1.08)' },
+            }}
+          >
             <MoreVertIcon />
           </IconButton>
         </Box>

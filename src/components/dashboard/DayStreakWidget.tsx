@@ -1,13 +1,23 @@
 import React from 'react';
-import { Paper, Typography, Box, Skeleton } from '@mui/material';
+import { Paper, Typography, Box, Skeleton, useTheme } from '@mui/material';
 import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
 import { useQuery } from '@tanstack/react-query';
 import { getDailyQuizStatus } from '../../services/apiLibraryService';
 
 function DayStreakWidget(): React.JSX.Element {
+  const theme = useTheme();
   const { data: status, isLoading } = useQuery({
     queryKey: ['dailyQuizStatus'],
     queryFn: getDailyQuizStatus,
+  });
+
+  const widgetTransition = theme.transitions.create(['transform', 'box-shadow'], {
+    duration: theme.transitions.duration.shorter,
+    easing: theme.transitions.easing.easeInOut,
+  });
+  const accentTransition = theme.transitions.create(['background-color', 'color', 'transform'], {
+    duration: theme.transitions.duration.standard,
+    easing: theme.transitions.easing.easeInOut,
   });
 
   // Skeleton loading state
@@ -36,7 +46,11 @@ function DayStreakWidget(): React.JSX.Element {
         height: '100%',
         display: 'flex',       // Pastikan flex container
         alignItems: 'center',  // Vertikal center
-        transition: 'transform 0.2s',
+        transition: widgetTransition,
+        '&:hover': {
+          transform: 'translateY(-2px)',
+          boxShadow: 2,
+        },
       }}
     >
       {/* Icon Circle */}
@@ -51,11 +65,21 @@ function DayStreakWidget(): React.JSX.Element {
           bgcolor: isDone ? 'rgba(249, 115, 22, 0.15)' : 'rgba(255, 167, 38, 0.1)',
           borderRadius: '50%',
           mr: 3,
-          transition: '0.3s',
+          transition: accentTransition,
+          '.MuiPaper-root:hover &': {
+            transform: 'scale(1.06)',
+          },
         }}
       >
         <LocalFireDepartmentIcon
-          sx={{ color: isDone ? '#F97316' : '#FFA726', fontSize: 32, transition: '0.3s' }}
+          sx={{
+            color: isDone ? '#F97316' : '#FFA726',
+            fontSize: 32,
+            transition: accentTransition,
+            '.MuiPaper-root:hover &': {
+              transform: 'rotate(-8deg)',
+            },
+          }}
         />
       </Box>
 

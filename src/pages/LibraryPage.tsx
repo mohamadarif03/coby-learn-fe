@@ -7,6 +7,8 @@ import {
   IconButton,
   Skeleton,
   Alert,
+  Grow,
+  useTheme,
 } from '@mui/material';
 
 // Icons
@@ -27,8 +29,20 @@ import DeleteConfirmDialog from '../components/common/DeleteConfirmDialog'; // I
 import type { Folder } from '../types/folder.types';
 
 function LibraryPage(): React.JSX.Element {
+  const theme = useTheme();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
+  const folderCardTransition = theme.transitions.create(
+    ['transform', 'box-shadow', 'border-color', 'background-color'],
+    {
+      duration: theme.transitions.duration.shorter,
+      easing: theme.transitions.easing.easeInOut,
+    }
+  );
+  const actionRevealTransition = theme.transitions.create(['opacity', 'transform'], {
+    duration: theme.transitions.duration.shortest,
+    easing: theme.transitions.easing.easeInOut,
+  });
 
   // --- States ---
   const [openDialog, setOpenDialog] = useState(false);
@@ -152,7 +166,17 @@ function LibraryPage(): React.JSX.Element {
             fontWeight: 600,
             color: 'white',
             boxShadow: 'none',
-            '&:hover': { boxShadow: '0 4px 12px rgba(0,0,0,0.1)' }
+            transition: theme.transitions.create(['transform', 'box-shadow'], {
+              duration: theme.transitions.duration.shorter,
+              easing: theme.transitions.easing.easeInOut,
+            }),
+            '&:hover': {
+              boxShadow: '0 4px 12px rgba(0,0,0,0.1)',
+              transform: 'translateY(-1px)',
+            },
+            '&:active': {
+              transform: 'translateY(0)',
+            }
           }}
         >
           Add Folder
@@ -189,32 +213,38 @@ function LibraryPage(): React.JSX.Element {
             </Typography>
           </Paper>
         ) : (
-          folders?.map((folder) => (
-            <Paper
-              key={folder.id}
-              elevation={0}
-              onClick={() => navigate(`/library/${folder.id}`)}
-              sx={{
-                p: 3,
-                display: 'flex',
-                alignItems: 'center',
-                gap: 2,
-                border: '1px solid',
-                borderColor: 'divider',
-                transition: 'all 0.2s ease-in-out',
-                cursor: 'pointer',
-                bgcolor: 'background.paper',
-                position: 'relative',
-                overflow: 'hidden',
-                boxShadow: 'shadows[1]',
-                '&:hover': {
-                  transform: 'translateY(-3px)',
-                  boxShadow: '0 12px 24px rgba(0,0,0,0.06)',
-                  borderColor: 'primary.main',
-                  '& .folder-actions': { opacity: 0.6 } // Show actions on hover
-                },
-              }}
-            >
+          folders?.map((folder, index) => (
+            <Grow key={folder.id} in timeout={theme.transitions.duration.shorter + index * 40}>
+              <Paper
+                elevation={0}
+                onClick={() => navigate(`/library/${folder.id}`)}
+                sx={{
+                  p: 3,
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: 2,
+                  border: '1px solid',
+                  borderColor: 'divider',
+                  transition: folderCardTransition,
+                  cursor: 'pointer',
+                  bgcolor: 'background.paper',
+                  position: 'relative',
+                  overflow: 'hidden',
+                  boxShadow: 'shadows[1]',
+                  '&:hover': {
+                    transform: 'translateY(-3px)',
+                    boxShadow: '0 12px 24px rgba(0,0,0,0.06)',
+                    borderColor: 'primary.main',
+                    '& .folder-actions': {
+                      opacity: 1,
+                      transform: 'translateX(0)',
+                    }
+                  },
+                  '&:active': {
+                    transform: 'translateY(-1px)',
+                  },
+                }}
+              >
               <Box
                 sx={{
                   width: 50,
@@ -227,7 +257,14 @@ function LibraryPage(): React.JSX.Element {
                   display: 'flex',
                   alignItems: 'center',
                   justifyContent: 'center',
-                  color: folder.iconColor
+                  color: folder.iconColor,
+                  transition: theme.transitions.create('transform', {
+                    duration: theme.transitions.duration.shorter,
+                    easing: theme.transitions.easing.easeInOut,
+                  }),
+                  '.MuiPaper-root:hover &': {
+                    transform: 'scale(1.08)',
+                  },
                 }}
               >
                 <FolderOutlinedIcon sx={{ fontSize: 32 }} />
@@ -254,7 +291,14 @@ function LibraryPage(): React.JSX.Element {
                   sx={{
                     bgcolor: 'action.hover',
                     px: 1, py: 0.5,
-                    borderRadius: 1
+                    borderRadius: 1,
+                    transition: theme.transitions.create(['background-color', 'transform'], {
+                      duration: theme.transitions.duration.shortest,
+                    }),
+                    '.MuiPaper-root:hover &': {
+                      bgcolor: 'primary.lighter',
+                      transform: 'translateY(-1px)',
+                    },
                   }}
                 >
                   {folder.material_count} items
@@ -268,7 +312,8 @@ function LibraryPage(): React.JSX.Element {
                   display: 'flex',
                   flexDirection: 'column',
                   opacity: { xs: 1, md: 0 }, // Always visible on mobile, hover on desktop
-                  transition: '0.2s'
+                  transform: { xs: 'translateX(0)', md: 'translateX(6px)' },
+                  transition: actionRevealTransition,
                 }}
               >
                 <IconButton
@@ -278,7 +323,17 @@ function LibraryPage(): React.JSX.Element {
                     setEditingFolder(folder);
                     setOpenDialog(true);
                   }}
-                  sx={{ color: 'text.secondary', '&:hover': { color: 'primary.main', bgcolor: 'primary.lighter' } }}
+                  sx={{
+                    color: 'text.secondary',
+                    transition: theme.transitions.create(['transform', 'background-color', 'color'], {
+                      duration: theme.transitions.duration.shortest,
+                    }),
+                    '&:hover': {
+                      color: 'primary.main',
+                      bgcolor: 'primary.lighter',
+                      transform: 'scale(1.08)',
+                    },
+                  }}
                 >
                   <EditOutlinedIcon fontSize="small" />
                 </IconButton>
@@ -289,12 +344,23 @@ function LibraryPage(): React.JSX.Element {
                     e.stopPropagation();
                     handleDeleteClick(folder.id);
                   }}
-                  sx={{ color: 'text.secondary', '&:hover': { color: 'error.main', bgcolor: 'error.lighter' } }}
+                  sx={{
+                    color: 'text.secondary',
+                    transition: theme.transitions.create(['transform', 'background-color', 'color'], {
+                      duration: theme.transitions.duration.shortest,
+                    }),
+                    '&:hover': {
+                      color: 'error.main',
+                      bgcolor: 'error.lighter',
+                      transform: 'scale(1.08)',
+                    },
+                  }}
                 >
                   <DeleteOutlineIcon fontSize="small" />
                 </IconButton>
               </Box>
-            </Paper>
+              </Paper>
+            </Grow>
           ))
         )}
       </Box>
