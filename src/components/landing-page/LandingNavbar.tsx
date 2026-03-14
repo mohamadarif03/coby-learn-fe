@@ -173,7 +173,7 @@ function LandingNavbar({
               )}
 
               {isMobile && (
-                <IconButton onClick={() => setMobileMenuOpen(true)} sx={{ color: scrolled ? COLORS.textMain : '#FFFFFF' }}>
+                <IconButton onClick={() => setMobileMenuOpen(true)} sx={{ color: 'primary.main' }}>
                   <MenuIcon fontSize="large" />
                 </IconButton>
               )}

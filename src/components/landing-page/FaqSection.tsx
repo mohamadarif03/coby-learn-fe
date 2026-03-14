@@ -13,7 +13,7 @@ function FaqSection(): React.JSX.Element {
   return (
     <Box id="faq" sx={{ py: 12, bgcolor: 'background.paper' }}>
       <Container maxWidth="md">
-        <Typography variant="h3" fontWeight="bold" textAlign="center" sx={{ mb: 6 }}>Frequently Asked Questions</Typography>
+        <Typography variant="h3" fontWeight="600" textAlign="center" sx={{ mb: 6 }}>Frequently Asked Questions</Typography>
 
         {FAQ_ITEMS.map((faq) => (
           <Accordion key={faq.q} sx={{ bgcolor: 'background.paper', color: 'text.primary', mb: 2, border: `1px solid ${COLORS.border}`, '&:before': { display: 'none' }, borderRadius: '12px !important' }}>

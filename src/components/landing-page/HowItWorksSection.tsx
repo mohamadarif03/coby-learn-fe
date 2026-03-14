@@ -13,7 +13,7 @@ function HowItWorksSection(): React.JSX.Element {
   return (
     <Box id="how-it-works" sx={{ py: 12, bgcolor: COLORS.bgCard, borderTop: `1px solid ${COLORS.border}`, borderBottom: `1px solid ${COLORS.border}` }}>
       <Container maxWidth="lg">
-        <Typography variant="h3" fontWeight="bold" textAlign="center" sx={{ mb: 8 }}>How It Works</Typography>
+        <Typography variant="h3" fontWeight="600" textAlign="center" sx={{ mb: 8 }}>How It Works</Typography>
 
         <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} alignItems="center">
           <Stack spacing={4} sx={{ flex: 1 }}>

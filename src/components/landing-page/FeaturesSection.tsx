@@ -46,7 +46,7 @@ function FeaturesSection(): React.JSX.Element {
     <Box id="features" sx={{ py: 12, bgcolor: 'background.paper' }}>
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', mb: 8 }}>
-          <Typography variant="h3" fontWeight="bold" sx={{ mb: 2 }}>Why CobyLearnAi?</Typography>
+          <Typography variant="h3" fontWeight="600" sx={{ mb: 2 }}>Why CobyLearnAi?</Typography>
           <Typography variant="h6" sx={{ color: COLORS.textMuted }}>Everything you need to ace your exams in one platform.</Typography>
         </Box>
 

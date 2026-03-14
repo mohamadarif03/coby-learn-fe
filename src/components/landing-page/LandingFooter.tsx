@@ -1,16 +1,33 @@
 import React from 'react';
 import { Box, Container, Stack, Typography } from '@mui/material';
 import { COLORS } from './landingPage.constants';
+import logo from '../../assets/logo_1.svg';
 
 function LandingFooter(): React.JSX.Element {
   return (
     <Box sx={{ py: 8, borderTop: `1px solid ${COLORS.border}`, bgcolor: 'background.paper' }}>
       <Container maxWidth="lg">
         <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems="center">
-          <Box sx={{ mb: { xs: 4, md: 0 } }}>
-            <Typography variant="h5" fontWeight="bold" sx={{ mb: 1 }}>CobyLearnAi</Typography>
-            <Typography variant="body2" sx={{ color: COLORS.textMuted }}>Empowering students with AI.</Typography>
-          </Box>
+          <Box
+              sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 3, cursor: 'pointer' }}
+            >
+              <img src={logo} alt="CobyLearnAi" style={{ height: '40px' }} />
+              <Box>
+                <Typography
+                    variant="h6"
+                    fontWeight="700"
+                    sx={{ letterSpacing: '-0.5px', color: COLORS.textMain }}
+                >
+                    CobyLearn<Box component="span" sx={{ color: COLORS.accent }}>Ai</Box>
+                </Typography>
+                <Typography
+                    variant="subtitle2"
+                    sx={{ color: COLORS.textMuted }}
+                >
+                    Empower your learning journey with AI
+                </Typography>
+              </Box>
+            </Box>
 
           <Stack direction="row" spacing={4}>
             {['About', 'Privacy', 'Terms', 'Contact'].map((link) => (

@@ -8,12 +8,12 @@ interface FinalCtaSectionProps {
 
 function FinalCtaSection({ onClick }: FinalCtaSectionProps): React.JSX.Element {
   return (
-    <Box sx={{ py: 12, px: 2 }}>
+    <Box sx={{ py: 12, px: 2, bgcolor: 'white' }}>
       <Container maxWidth="lg">
         <Paper sx={{ p: { xs: 4, md: 8 }, textAlign: 'center', bgcolor: COLORS.primary, borderRadius: '40px', position: 'relative', overflow: 'hidden' }}>
           <Box sx={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />
 
-          <Typography variant="h3" fontWeight="500" sx={{ color: 'white', mb: 2, position: 'relative', zIndex: 1 }}>
+          <Typography variant="h3" fontWeight="500" sx={{  color: 'white', mb: 2, position: 'relative', zIndex: 1 }}>
             Ready to Transform Your Grades?
           </Typography>
           <Typography sx={{ color: 'rgba(255,255,255,0.9)', mb: 5, fontSize: '1.2rem', position: 'relative', zIndex: 1 }}>
