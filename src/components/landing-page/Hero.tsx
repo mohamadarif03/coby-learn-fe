@@ -80,6 +80,7 @@ function Hero({ isLoggedIn, onPrimaryClick, onSecondaryClick }: HeroProps): Reac
                 pt: { xs: 14, md: 16 },
                 pb: { xs: 8, md: 12 },
                 overflow: 'hidden',
+                minHeight: '90vh',
             }}
         >
             <Container maxWidth="lg">
@@ -92,7 +93,7 @@ function Hero({ isLoggedIn, onPrimaryClick, onSecondaryClick }: HeroProps): Reac
                             sx={{
                                 fontSize: { xs: '2.6rem', md: '3.6rem' },
                                 lineHeight: 1.15,
-                                color: '#1A2B5E',
+                                color: 'secondary.dark',
                             }}
                         >
                             Learn{' '}

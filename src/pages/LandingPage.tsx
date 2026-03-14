@@ -27,7 +27,7 @@ function LandingPage(): React.JSX.Element {
         bgcolor: 'background.default',
         minHeight: '100vh',
         color: 'text.primary',
-        overflowX: 'hidden',
+        overflowX: 'clip',
       }}
     >
       <LandingNavbar

@@ -1,43 +1,438 @@
-import React from 'react';
-import { Box, Container, Stack, Typography } from '@mui/material';
-import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
+import React, { useRef } from 'react';
+import { Box, Container, Grid, Paper, Stack, Typography, useMediaQuery, useTheme } from '@mui/material';
+import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded';
+import KeyboardDoubleArrowDownRoundedIcon from '@mui/icons-material/KeyboardDoubleArrowDownRounded';
+import RadioButtonUncheckedRoundedIcon from '@mui/icons-material/RadioButtonUncheckedRounded';
+import { motion, useScroll, useSpring, useTransform } from 'framer-motion';
 import { COLORS } from './landingPage.constants';
 
-const STEPS = [
-  { step: '01', title: 'Upload Material', desc: 'Upload your PDF notes, paste text, or provide a link.' },
-  { step: '02', title: 'AI Processing', desc: 'Our AI analyzes the content and extracts key concepts.' },
-  { step: '03', title: 'Start Learning', desc: 'Take quizzes or review summaries to master the topic.' },
-];
+const SOFT_BLUE_SHADOW = '0 24px 60px rgba(26, 43, 94, 0.1)';
+const SOFT_BLUE_SHADOW_STRONG = '0 26px 64px rgba(26, 43, 94, 0.16)';
+
+function SummaryVisual(): React.JSX.Element {
+    return (
+        <Paper
+            elevation={0}
+            sx={{
+                p: 2.5,
+                borderRadius: '16px',
+                bgcolor: '#F8FAFC',
+                border: '1px solid rgba(15, 23, 42, 0.06)',
+                boxShadow: SOFT_BLUE_SHADOW,
+            }}
+        >
+            <Box sx={{ display: 'flex', gap: 1, mb: 1.5 }}>
+                <Box sx={{ width: 9, height: 9, borderRadius: '50%', bgcolor: '#F97316' }} />
+                <Box sx={{ width: 9, height: 9, borderRadius: '50%', bgcolor: '#FBBF24' }} />
+                <Box sx={{ width: 9, height: 9, borderRadius: '50%', bgcolor: '#4ADE80' }} />
+            </Box>
+
+            <Paper
+                elevation={0}
+                sx={{
+                    borderRadius: '10px',
+                    p: 1.5,
+                    mb: 1.8,
+                    border: '1px solid rgba(15, 23, 42, 0.05)',
+                    bgcolor: '#FFFFFF',
+                }}
+            >
+                <Typography sx={{ fontWeight: 700, fontSize: '0.95rem', color: '#243B63', mb: 1.3, fontFamily: 'Poppins, sans-serif' }}>
+                    Original Document (45 pages)
+                </Typography>
+
+                {[84, 58, 52].map((w, idx) => (
+                    <motion.div
+                        key={w}
+                        animate={{ opacity: [1, 0.45, 1] }}
+                        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.12 }}
+                    >
+                        <Box
+                            sx={{
+                                height: 7,
+                                borderRadius: 10,
+                                mb: idx === 2 ? 0 : 0.9,
+                                width: `${w}%`,
+                                bgcolor: '#E8EEF7',
+                            }}
+                        />
+                    </motion.div>
+                ))}
+            </Paper>
+
+            <Box sx={{ display: 'flex', justifyContent: 'center', mb: 1.6 }}>
+                <KeyboardDoubleArrowDownRoundedIcon sx={{ color: '#3B82F6', fontSize: 24 }} />
+            </Box>
+
+            <Paper
+                elevation={0}
+                sx={{
+                    borderRadius: '10px',
+                    p: 1.5,
+                    border: '1px solid rgba(59, 130, 246, 0.2)',
+                    bgcolor: '#F1F6FF',
+                }}
+            >
+                <Typography sx={{ fontWeight: 700, fontSize: '0.95rem', color: '#3B82F6', mb: 1.3, fontFamily: 'Poppins, sans-serif' }}>
+                    AI Summary (5 Key Points)
+                </Typography>
+
+                {[96, 70, 56].map((w, idx) => (
+                    <motion.div
+                        key={w}
+                        animate={{ opacity: [1, 0.45, 1] }}
+                        transition={{ duration: 1.4, repeat: Infinity, ease: 'easeInOut', delay: idx * 0.12 }}
+                    >
+                        <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 0.8 }}>
+                            <RadioButtonUncheckedRoundedIcon sx={{ color: '#60A5FA', fontSize: 11 }} />
+                            <Box sx={{ height: 7, borderRadius: 10, width: `${w}%`, bgcolor: '#DBEAFE' }} />
+                        </Box>
+                    </motion.div>
+                ))}
+            </Paper>
+        </Paper>
+    );
+}
+
+function QuizVisual({
+    flashOpacity,
+    flashX,
+    flashY,
+}: {
+    flashOpacity: any;
+    flashX: any;
+    flashY: any;
+}): React.JSX.Element {
+    return (
+        <Box sx={{ position: 'relative' }}>
+            <Paper
+                elevation={0}
+                sx={{
+                    p: 2.5,
+                    borderRadius: '16px',
+                    bgcolor: '#F8FAFC',
+                    border: '1px solid rgba(15, 23, 42, 0.06)',
+                    boxShadow: SOFT_BLUE_SHADOW,
+                }}
+            >
+                <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontSize: '0.75rem', color: '#94A3B8', mb: 1, letterSpacing: '0.08em', fontWeight: 700 }}>
+                    QUESTION 1/10
+                </Typography>
+                <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '1.75rem', color: '#1E3A66', mb: 2, lineHeight: 1.28 }}>
+                    What is the primary function of the mitochondria in a cell?
+                </Typography>
+
+                {[
+                    { label: 'To control cell division', active: true },
+                    { label: 'To produce ATP (energy)', active: false },
+                    { label: 'To synthesize proteins', active: false },
+                ].map((item) => (
+                    <Box
+                        component={motion.div}
+                        key={item.label}
+                        animate={
+                            item.active
+                                ? {
+                                    borderColor: ['#3B82F6', '#22C55E', '#3B82F6'],
+                                    boxShadow: [
+                                        '0 0 0px rgba(59,130,246,0)',
+                                        '0 0 14px rgba(34,197,94,0.45)',
+                                        '0 0 0px rgba(59,130,246,0)',
+                                    ],
+                                    backgroundColor: ['#EFF6FF', '#ECFDF3', '#EFF6FF'],
+                                }
+                                : undefined
+                        }
+                        transition={{ duration: 3.5, repeat: Infinity, ease: 'easeInOut' }}
+                        sx={{
+                            py: 1.6,
+                            px: 1.8,
+                            borderRadius: '10px',
+                            border: item.active ? '2px solid #3B82F6' : '1px solid #E2E8F0',
+                            mb: 1.1,
+                            bgcolor: item.active ? '#EFF6FF' : '#FFFFFF',
+                            display: 'flex',
+                            alignItems: 'center',
+                            justifyContent: 'space-between',
+                        }}
+                    >
+                        <Typography sx={{ fontFamily: 'Poppins, sans-serif', color: '#334155', fontWeight: 500 }}>
+                            {item.label}
+                        </Typography>
+                        {item.active ? (
+                            <Stack direction="row" spacing={0.5} alignItems="center">
+                                <CheckCircleRoundedIcon sx={{ color: '#22C55E', fontSize: 16 }} />
+                                <Typography sx={{ color: '#16A34A', fontWeight: 700, fontSize: '0.75rem' }}>
+                                    Correct
+                                </Typography>
+                            </Stack>
+                        ) : (
+                            <Box sx={{ width: 14, height: 14, borderRadius: '50%', border: '2px solid #CBD5E1' }} />
+                        )}
+                    </Box>
+                ))}
+            </Paper>
+
+            <motion.div
+                style={{ opacity: flashOpacity, x: flashX, y: flashY }}
+            >
+                <Paper
+                    elevation={0}
+                    sx={{
+                        position: 'absolute',
+                        left: { xs: -12, md: -22 },
+                        bottom: { xs: -26, md: -34 },
+                        width: { xs: 208, md: 232 },
+                        p: 2,
+                        bgcolor: '#1A2B5E',
+                        color: 'white',
+                        borderRadius: '12px',
+                        boxShadow: SOFT_BLUE_SHADOW_STRONG,
+                        transform: 'rotate(-4deg)',
+                        zIndex: 4,
+                    }}
+                >
+                    <Typography sx={{ fontSize: '0.68rem', opacity: 0.75, mb: 1, fontFamily: 'Poppins, sans-serif' }}>
+                        Flashcard
+                    </Typography>
+                    <Typography sx={{ fontFamily: 'Poppins, sans-serif', fontWeight: 500, lineHeight: 1.5 }}>
+                        "What is the term for the movement of water across a semi-permeable membrane?"
+                    </Typography>
+                    <Typography sx={{ mt: 1.2, color: '#60A5FA', fontWeight: 700, fontSize: '0.8rem', fontFamily: 'Poppins, sans-serif' }}>
+                        Show Answer
+                    </Typography>
+                </Paper>
+            </motion.div>
+        </Box>
+    );
+}
 
 function HowItWorksSection(): React.JSX.Element {
-  return (
-    <Box id="how-it-works" sx={{ py: 12, bgcolor: COLORS.bgCard, borderTop: `1px solid ${COLORS.border}`, borderBottom: `1px solid ${COLORS.border}` }}>
-      <Container maxWidth="lg">
-        <Typography variant="h3" fontWeight="600" textAlign="center" sx={{ mb: 8 }}>How It Works</Typography>
+    const theme = useTheme();
+    const isMobile = useMediaQuery(theme.breakpoints.down('md'));
+    const trackRef = useRef<HTMLDivElement | null>(null);
 
-        <Stack direction={{ xs: 'column', md: 'row' }} spacing={4} alignItems="center">
-          <Stack spacing={4} sx={{ flex: 1 }}>
-            {STEPS.map((item, idx) => (
-              <Box key={item.step} sx={{ display: 'flex', gap: 3 }}>
-                <Typography variant="h2" fontWeight="900" sx={{ color: 'rgba(15, 23, 42, 0.1)' }}>{item.step}</Typography>
-                <Box>
-                  <Typography variant="h5" fontWeight="bold" sx={{ mb: 1, color: idx === 1 ? COLORS.primary : 'inherit' }}>{item.title}</Typography>
-                  <Typography sx={{ color: COLORS.textMuted }}>{item.desc}</Typography>
-                </Box>
-              </Box>
-            ))}
-          </Stack>
+    const { scrollYProgress } = useScroll({
+        target: trackRef,
+        offset: ['start start', 'end end'],
+    });
 
-          <Box sx={{ flex: 1, height: '400px', bgcolor: 'background.default', borderRadius: '32px', border: `1px solid ${COLORS.border}`, position: 'relative', overflow: 'hidden' }}>
-            <Box sx={{ position: 'absolute', inset: 0, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-              <AutoAwesomeIcon sx={{ fontSize: 100, color: COLORS.primary, opacity: 0.2 }} />
-              <Typography variant="h6" sx={{ position: 'absolute', bottom: 40, color: COLORS.textMuted }}>AI Processing Engine</Typography>
+    const visualAOpacity = useSpring(useTransform(scrollYProgress, [0.45, 0.55], [1, 0]), {
+        stiffness: 100,
+        damping: 20,
+    });
+    const visualAScale = useSpring(useTransform(scrollYProgress, [0.45, 0.55], [1, 0.9]), {
+        stiffness: 100,
+        damping: 20,
+    });
+
+    const visualBOpacity = useSpring(useTransform(scrollYProgress, [0.45, 0.55], [0, 1]), {
+        stiffness: 100,
+        damping: 20,
+    });
+    const visualBScale = useSpring(useTransform(scrollYProgress, [0.45, 0.55], [0.9, 1]), {
+        stiffness: 100,
+        damping: 20,
+    });
+
+    const flashOpacity = useSpring(useTransform(scrollYProgress, [0.58, 0.74], [0, 1]), {
+        stiffness: 100,
+        damping: 20,
+    });
+    const flashX = useSpring(useTransform(scrollYProgress, [0.58, 0.74], [-24, 0]), {
+        stiffness: 100,
+        damping: 20,
+    });
+    const flashY = useSpring(useTransform(scrollYProgress, [0.58, 0.74], [24, 0]), {
+        stiffness: 100,
+        damping: 20,
+    });
+
+    // const textTrackY = useTransform(scrollYProgress, [0, 0.5, 1], ['16vh', '-8vh', '-52vh']);
+    const textTrackY = useTransform(
+        scrollYProgress,
+        [0, 0.5, 1],
+        ['30vh', '-20vh', '-115vh'] // Increased negative value pulls the 2nd section up faster
+    );
+
+    if (isMobile) {
+        return (
+            <Box
+                id="how-it-works"
+                sx={{
+                    bgcolor: COLORS.bgCard,
+                    borderTop: `1px solid ${COLORS.border}`,
+                    borderBottom: `1px solid ${COLORS.border}`,
+                    py: 5,
+                    px: 3,
+                }}
+            >
+                <Typography
+                    variant="h4"
+                    fontWeight="700"
+                    textAlign="center"
+                    sx={{ mb: 7, color: '#1E3A66', fontFamily: 'Poppins, sans-serif' }}
+                >
+                    How It Works
+                </Typography>
+
+                <Stack spacing={8}>
+                    {/* Section 1: Summarization */}
+                    <Box>
+                        <SummaryVisual />
+                        <Box sx={{ mt: 3 }}>
+                            <Typography sx={{ color: '#3B82F6', fontFamily: 'Poppins, sans-serif', mb: 1, fontWeight: 500 }}>
+                                Save Hours Weekly
+                            </Typography>
+                            <Typography sx={{ color: '#1E3A66', fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '1.5rem', lineHeight: 1.3, mb: 1.5 }}>
+                                Instantly Turn Study Notes Into Clear Summaries
+                            </Typography>
+                            <Typography sx={{ color: COLORS.textMuted, fontFamily: 'Poppins, sans-serif' }}>
+                                Don't get buried in hundreds of pages. AI extracts core concepts and key takeaways so you can grasp the big picture in minutes.
+                            </Typography>
+                        </Box>
+                    </Box>
+
+                    {/* Section 2: Quiz */}
+                    <Box>
+                        {/* Extra bottom padding to give room for the absolute-positioned flashcard */}
+                        <Box sx={{ pb: '60px' }}>
+                            <QuizVisual flashOpacity={1} flashX={0} flashY={0} />
+                        </Box>
+                        <Box sx={{ mt: 3 }}>
+                            <Typography sx={{ color: '#3B82F6', fontFamily: 'Poppins, sans-serif', mb: 1, fontWeight: 500 }}>
+                                Active Recall
+                            </Typography>
+                            <Typography sx={{ color: '#1E3A66', fontFamily: 'Poppins, sans-serif', fontWeight: 700, fontSize: '1.5rem', lineHeight: 1.3, mb: 1.5 }}>
+                                Practice Smarter With AI Generated Quizzes
+                            </Typography>
+                            <Typography sx={{ color: COLORS.textMuted, fontFamily: 'Poppins, sans-serif' }}>
+                                Static reading is passive. The system generates dynamic quizzes and flashcards based on your own material to build long-term retention.
+                            </Typography>
+                        </Box>
+                    </Box>
+                </Stack>
             </Box>
-          </Box>
-        </Stack>
-      </Container>
-    </Box>
-  );
+        );
+    }
+
+    return (
+        <Box
+            id="how-it-works"
+            ref={trackRef}
+            sx={{
+                height: isMobile ? 'auto' : '300vh', // Mobile usually doesn't need the 300vh track
+                position: 'relative',
+                bgcolor: COLORS.bgCard,
+                borderTop: `1px solid ${COLORS.border}`,
+                borderBottom: `1px solid ${COLORS.border}`,
+                overflowX: 'clip'
+            }}
+        >
+            <Box
+                sx={{
+                    // This is the "Stage" that stays visible
+                    position: isMobile ? 'relative' : 'sticky',
+                    top: 0,
+                    height: isMobile ? 'auto' : '100vh',
+                    display: 'flex',
+                    alignItems: 'center',
+                    overflow: 'hidden', // Keeps the moving text track contained
+                    overflowX: 'clip'
+                }}
+            >
+                <Container maxWidth="lg" sx={{ py: isMobile ? 8 : 0 }}>
+                    <Grid container spacing={5} alignItems="center">
+                        {/* Visual Column */}
+                        <Grid size={{ xs: 12, md: 6 }}>
+                            {isMobile && (
+                                <Typography
+                                    variant="h3"
+                                    fontWeight="700"
+                                    textAlign="center"
+                                    sx={{ mb: 4, color: '#1E3A66', fontFamily: 'Poppins' }}
+                                >
+                                    How It Works
+                                </Typography>
+                            )}
+
+                            <Box sx={{
+                                display: 'grid',
+                                '& > *': { gridArea: '1 / 1' }, // Stack visuals on top of each other
+                                perspective: '1000px'
+                            }}>
+                                <motion.div
+                                    style={{
+                                        opacity: isMobile ? 1 : visualAOpacity,
+                                        scale: isMobile ? 1 : visualAScale,
+                                        zIndex: 2,
+                                    }}
+                                >
+                                    <SummaryVisual />
+                                </motion.div>
+
+                                {!isMobile && (
+                                    <motion.div
+                                        style={{
+                                            opacity: visualBOpacity,
+                                            scale: visualBScale,
+                                            zIndex: 3,
+                                        }}
+                                    >
+                                        <QuizVisual flashOpacity={flashOpacity} flashX={flashX} flashY={flashY} />
+                                    </motion.div>
+                                )}
+                            </Box>
+                        </Grid>
+
+                        {/* Text Column */}
+                        <Grid size={{ xs: 12, md: 6 }}>
+                            {!isMobile ? (
+                                <Box sx={{ height: '70vh', overflow: 'hidden', position: 'relative' }}>
+                                    <motion.div style={{ y: textTrackY }}>
+                                        {/* Section 1 */}
+                                        <Box sx={{ py: '35vh' }}>
+                                            <Typography sx={{ color: '#3B82F6', fontWeight: 500, mb: 1 }}>Save Hours Weekly</Typography>
+                                            <Typography variant="h3" sx={{ fontWeight: 600, color: '#1E3A66', mb: 2 }}>
+                                                Instantly Turn Study Notes Into Summaries
+                                            </Typography>
+                                            <Typography sx={{ color: COLORS.textMuted }}>
+                                                Don't get buried in hundreds of pages. Our AI extracts core concepts, definitions, and key takeaways so you can grasp the big picture in minutes.
+                                            </Typography>
+                                        </Box>
+
+                                        {/* Section 2 */}
+                                        <Box sx={{ py: '35vh' }}>
+                                            <Typography sx={{ color: '#3B82F6', fontWeight: 500, mb: 1 }}>Active Recall</Typography>
+                                            <Typography variant="h3" sx={{ fontWeight: 600, color: '#1E3A66', mb: 2 }}>
+                                                Practice Smarter With AI Quizzes
+                                            </Typography>
+                                            <Typography sx={{ color: COLORS.textMuted }}>
+                                                Static reading is passive. Our system generates dynamic quizzes and flashcards based specifically on your materials to ensure active recall and long-term retention.
+                                            </Typography>
+                                        </Box>
+                                    </motion.div>
+                                </Box>
+                            ) : (
+                                /* Mobile fallback: Simple vertical stack */
+                                <Stack spacing={4} sx={{ mt: 4 }}>
+                                    <Box>
+                                        <Typography variant="h5" fontWeight={700}>Save Hours Weekly</Typography>
+                                        <Typography sx={{ color: COLORS.textMuted }}>AI extracts core concepts instantly.</Typography>
+                                    </Box>
+                                    <Box>
+                                        <QuizVisual flashOpacity={1} flashX={0} flashY={0} />
+                                        <Typography variant="h5" fontWeight={700} sx={{ mt: 2 }}>Active Recall</Typography>
+                                        <Typography sx={{ color: COLORS.textMuted }}>Practice with generated quizzes.</Typography>
+                                    </Box>
+                                </Stack>
+                            )}
+                        </Grid>
+                    </Grid>
+                </Container>
+            </Box>
+        </Box>
+    );
 }
 
 export default HowItWorksSection;

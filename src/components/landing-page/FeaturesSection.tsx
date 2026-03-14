@@ -46,7 +46,7 @@ function FeaturesSection(): React.JSX.Element {
     <Box id="features" sx={{ py: 12, bgcolor: 'background.paper' }}>
       <Container maxWidth="lg">
         <Box sx={{ textAlign: 'center', mb: 8 }}>
-          <Typography variant="h3" fontWeight="600" sx={{ mb: 2 }}>Why CobyLearnAi?</Typography>
+          <Typography variant="h3" fontWeight="600" sx={{ mb: 2, color: 'secondary.dark'}}>Why CobyLearnAi?</Typography>
           <Typography variant="h6" sx={{ color: COLORS.textMuted }}>Everything you need to ace your exams in one platform.</Typography>
         </Box>
 
@@ -55,17 +55,17 @@ function FeaturesSection(): React.JSX.Element {
             <Box key={feature.title}>
               <Paper
                 sx={{
-                  p: 4,
+                  p: 3,
                   height: '100%',
                   bgcolor: COLORS.bgCard,
+                  textColor: 'secondary.dark',
                   border: `1px solid ${COLORS.border}`,
-                  borderRadius: 2,
                   transition: '0.3s',
                   '&:hover': { transform: 'translateY(-10px)', borderColor: COLORS.primary },
                 }}
               >
                 <Box sx={{ mb: 3 }}>{feature.icon}</Box>
-                <Typography variant="h5" fontWeight="bold" sx={{ mb: 1.5 }}>{feature.title}</Typography>
+                <Typography variant="h5" fontWeight="500" sx={{ mb: 1.5, color: 'secondary.dark' }}>{feature.title}</Typography>
                 <Typography variant="body1" sx={{ color: COLORS.textMuted, lineHeight: 1.7 }}>{feature.desc}</Typography>
               </Paper>
             </Box>

@@ -9,7 +9,7 @@ export const theme = createTheme({
       main: '#4A90E2',
       dark: '#386CAA'
     },
-    secondary: { main: '#386CAA' },    // Orange accent from original
+    secondary: { main: '#386CAA', dark: '#1A2B5E'},    // Orange accent from original
 
     background: {
       default: '#EDF4FC',  // Foundation Blue Light

@@ -13,12 +13,12 @@ function FaqSection(): React.JSX.Element {
   return (
     <Box id="faq" sx={{ py: 12, bgcolor: 'background.paper' }}>
       <Container maxWidth="md">
-        <Typography variant="h3" fontWeight="600" textAlign="center" sx={{ mb: 6 }}>Frequently Asked Questions</Typography>
+        <Typography variant="h3" fontWeight="600" textAlign="center" sx={{ mb: 5, color: 'secondary.dark' }}>Frequently Asked Questions</Typography>
 
         {FAQ_ITEMS.map((faq) => (
-          <Accordion key={faq.q} sx={{ bgcolor: 'background.paper', color: 'text.primary', mb: 2, border: `1px solid ${COLORS.border}`, '&:before': { display: 'none' }, borderRadius: '12px !important' }}>
+          <Accordion key={faq.q} sx={{ bgcolor: 'background.paper', color: 'secondary.dark', mb: 2, border: `1px solid ${COLORS.border}`, '&:before': { display: 'none' }, borderRadius: '12px !important', p: 1.5}}>
             <AccordionSummary expandIcon={<ExpandMoreIcon sx={{ color: COLORS.textMuted }} />}>
-              <Typography fontWeight="bold" fontSize="1.1rem">{faq.q}</Typography>
+              <Typography fontWeight="500" fontSize="1.1rem">{faq.q}</Typography>
             </AccordionSummary>
             <AccordionDetails>
               <Typography color={COLORS.textMuted}>{faq.a}</Typography>

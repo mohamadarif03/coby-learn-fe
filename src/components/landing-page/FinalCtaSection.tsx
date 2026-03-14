@@ -8,7 +8,7 @@ interface FinalCtaSectionProps {
 
 function FinalCtaSection({ onClick }: FinalCtaSectionProps): React.JSX.Element {
   return (
-    <Box sx={{ py: 12, px: 2, bgcolor: 'white' }}>
+    <Box sx={{ py: 12, pt:4,  px: 2, bgcolor: 'white' }}>
       <Container maxWidth="lg">
         <Paper sx={{ p: { xs: 4, md: 8 }, textAlign: 'center', bgcolor: COLORS.primary, borderRadius: '40px', position: 'relative', overflow: 'hidden' }}>
           <Box sx={{ position: 'absolute', top: -100, right: -100, width: 400, height: 400, borderRadius: '50%', bgcolor: 'rgba(255,255,255,0.1)' }} />

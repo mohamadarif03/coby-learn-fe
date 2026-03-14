@@ -278,6 +278,25 @@ function LoginPage(): React.JSX.Element {
               Sign Up
             </Link>
           </Typography>
+
+          <Box
+            sx={{
+              width: '100%',
+              borderRadius: 2,
+              px: 2,
+              py: 1.25,
+              bgcolor: 'grey.100',
+              border: '1px solid',
+              borderColor: 'divider',
+            }}
+          >
+            <Typography variant="body2" sx={{ color: 'text.secondary', textAlign: 'center' }}>
+              Dummy User: <strong>admin@gmail.com</strong>
+            </Typography>
+            <Typography variant="body2" sx={{ color: 'text.secondary', textAlign: 'center' }}>
+              Password: <strong>password</strong>
+            </Typography>
+          </Box>
         </Stack>
       </Paper>
     </Box>

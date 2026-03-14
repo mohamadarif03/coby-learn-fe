@@ -5,11 +5,11 @@ import logo from '../../assets/logo_1.svg';
 
 function LandingFooter(): React.JSX.Element {
   return (
-    <Box sx={{ py: 8, borderTop: `1px solid ${COLORS.border}`, bgcolor: 'background.paper' }}>
+    <Box sx={{ py: 4, borderTop: `1px solid ${COLORS.border}`, bgcolor: 'background.paper' }}>
       <Container maxWidth="lg">
         <Stack direction={{ xs: 'column', md: 'row' }} justifyContent="space-between" alignItems="center">
           <Box
-              sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 3, cursor: 'pointer' }}
+              sx={{ display: 'flex', alignItems: 'center', gap: 2, pb: 2, cursor: 'pointer' }}
             >
               <img src={logo} alt="CobyLearnAi" style={{ height: '40px' }} />
               <Box>
