@@ -16,7 +16,7 @@ import { useMutation } from '@tanstack/react-query';
 import { registerUser } from '../services/apiAuthService';
 import type { RegisterData } from '../services/apiAuthService';
 
-import { FlashOn as FlashOnIcon, MarkEmailRead as MarkEmailReadIcon } from '@mui/icons-material';
+import { MarkEmailRead as MarkEmailReadIcon } from '@mui/icons-material';
 
 
 

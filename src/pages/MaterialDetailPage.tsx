@@ -56,7 +56,6 @@ interface ChatWidgetProps {
 
 const ChatWidget = ({
   materialId,
-  withTopMargin = true,
   initialPrompt,
   onPromptConsumed,
 }: ChatWidgetProps) => {

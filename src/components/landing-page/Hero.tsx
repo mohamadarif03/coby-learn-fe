@@ -2,7 +2,7 @@ import React from 'react';
 import { Box, Button, Container, Grid, Paper, Stack, Typography } from '@mui/material';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SchoolIcon from '@mui/icons-material/School';
-import { motion } from 'framer-motion';
+import { motion, useScroll, useTransform } from 'framer-motion';
 import heroImage from '../../assets/hero_image.png';
 import { COLORS } from './landingPage.constants';
 
@@ -43,6 +43,10 @@ function StatCard({ icon, label, value }: { icon: React.ReactNode; label: string
 }
 
 function Hero({ isLoggedIn, onPrimaryClick, onSecondaryClick }: HeroProps): React.JSX.Element {
+    const { scrollY } = useScroll();
+    const topCardParallaxY = useTransform(scrollY, [0, 600], [0, 88]);
+    const bottomCardParallaxY = useTransform(scrollY, [0, 600], [0, 88]);
+
     return (
         <Box
             sx={{
@@ -162,29 +166,33 @@ function Hero({ isLoggedIn, onPrimaryClick, onSecondaryClick }: HeroProps): Reac
 
                             {/* Top-left stat card - Now anchored exactly to image top-left */}
                             <Box sx={{ position: 'absolute', top: { xs: 20, md: 40 }, left: { xs: -10, md: -24 } }}>
-                                <motion.div
-                                    animate={{ y: [0, -10, 0] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
-                                >
-                                    <StatCard
-                                        icon={<BarChartIcon />}
-                                        label="Study Progress"
-                                        value="87% Completed"
-                                    />
+                                <motion.div style={{ y: topCardParallaxY }}>
+                                    <motion.div
+                                        animate={{ y: [0, -10, 0] }}
+                                        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut' }}
+                                    >
+                                        <StatCard
+                                            icon={<BarChartIcon />}
+                                            label="Study Progress"
+                                            value="87% Completed"
+                                        />
+                                    </motion.div>
                                 </motion.div>
                             </Box>
 
                             {/* Bottom-right stat card - Anchored exactly to image bottom-right */}
                             <Box sx={{ position: 'absolute', bottom: { xs: 20, md: 40 }, right: { xs: -10, md: -24 } }}>
-                                <motion.div
-                                    animate={{ y: [0, 10, 0] }}
-                                    transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.25 }}
-                                >
-                                    <StatCard
-                                        icon={<SchoolIcon />}
-                                        label="AI Generated"
-                                        value="50+ Flashcards"
-                                    />
+                                <motion.div style={{ y: bottomCardParallaxY }}>
+                                    <motion.div
+                                        animate={{ y: [0, 10, 0] }}
+                                        transition={{ duration: 5, repeat: Infinity, ease: 'easeInOut', delay: 0.25 }}
+                                    >
+                                        <StatCard
+                                            icon={<SchoolIcon />}
+                                            label="AI Generated"
+                                            value="50+ Flashcards"
+                                        />
+                                    </motion.div>
                                 </motion.div>
                             </Box>
                         </Box>

@@ -3,6 +3,7 @@ import {
   Box,
   Typography,
   Button,
+  Fab,
   Paper,
   IconButton,
   Skeleton,
@@ -160,6 +161,7 @@ function LibraryPage(): React.JSX.Element {
             setOpenDialog(true);
           }}
           sx={{
+            display: { xs: 'none', sm: 'flex' },
             textTransform: 'none',
             px: 3,
             py: 1.2,
@@ -182,6 +184,37 @@ function LibraryPage(): React.JSX.Element {
           Add Folder
         </Button>
       </Box>
+
+      <Fab
+        color="primary"
+        aria-label="Add Folder"
+        onClick={() => {
+          setEditingFolder(null);
+          setOpenDialog(true);
+        }}
+        sx={{
+          display: { xs: 'flex', sm: 'none' },
+          position: 'fixed',
+          right: 20,
+          bottom: 120,
+          color: 'white',
+          boxShadow: '0 10px 24px rgba(25, 118, 210, 0.28)',
+          zIndex: theme.zIndex.fab ?? 1050,
+          transition: theme.transitions.create(['transform', 'box-shadow'], {
+            duration: theme.transitions.duration.shorter,
+            easing: theme.transitions.easing.easeInOut,
+          }),
+          '&:hover': {
+            boxShadow: '0 14px 30px rgba(25, 118, 210, 0.34)',
+            transform: 'translateY(-2px)',
+          },
+          '&:active': {
+            transform: 'translateY(0)',
+          },
+        }}
+      >
+        <AddIcon />
+      </Fab>
 
       {/* Grid Content */}
       <Box
@@ -219,7 +252,7 @@ function LibraryPage(): React.JSX.Element {
                 elevation={0}
                 onClick={() => navigate(`/library/${folder.id}`)}
                 sx={{
-                  p: 3,
+                  p: 2,
                   display: 'flex',
                   alignItems: 'center',
                   gap: 2,
@@ -233,7 +266,7 @@ function LibraryPage(): React.JSX.Element {
                   boxShadow: 'shadows[1]',
                   '&:hover': {
                     transform: 'translateY(-3px)',
-                    boxShadow: '0 12px 24px rgba(0,0,0,0.06)',
+                    boxShadow: '0 12px 24px rgba(0,0,0,0.05)',
                     borderColor: 'primary.main',
                     '& .folder-actions': {
                       opacity: 1,
@@ -273,10 +306,12 @@ function LibraryPage(): React.JSX.Element {
               {/* Text Info */}
               <Box sx={{ flexGrow: 1, minWidth: 0 }}>
                 <Typography
-                  variant="h5"
+                  variant="h6"
                   sx={{
-                    whiteSpace: 'nowrap',
+                    whiteSpace: 'wrap',
                     overflow: 'hidden',
+                    fontWeight: 500,
+                    lineHeight: 1.2,
                     textOverflow: 'ellipsis',
                     mb: 0.5
                   }}

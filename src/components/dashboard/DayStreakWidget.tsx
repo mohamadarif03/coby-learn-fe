@@ -106,7 +106,6 @@ function DayStreakWidget(): React.JSX.Element {
             dotLottieRefCallback={(instance) => {
               dotLottieRef.current = instance;
             }}
-            renderer="svg"
             style={{ width: '100%', height: '100%' }}
           />
         </Box>

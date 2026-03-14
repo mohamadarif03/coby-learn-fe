@@ -3,6 +3,7 @@ import {
   Box,
   Typography,
   Button,
+  Fab,
   ToggleButton,
   ToggleButtonGroup,
   Skeleton,
@@ -175,12 +176,36 @@ function TasksPage(): React.JSX.Element {
           variant="contained"
           color="primary"
           startIcon={<AddIcon />}
-          sx={{ textTransform: 'none', color: 'white', height: 40, px: 3 }}
+          sx={{ display: { xs: 'none', sm: 'inline-flex' }, textTransform: 'none', color: 'white', height: 40, px: 3 }}
           onClick={handleOpenCreate}
         >
           Add Task
         </Button>
       </Box>
+
+      <Fab
+        color="primary"
+        aria-label="Add Task"
+        onClick={handleOpenCreate}
+        sx={{
+          display: { xs: 'flex', sm: 'none' },
+          position: 'fixed',
+          right: 20,
+          bottom: 120,
+          color: 'white',
+          boxShadow: '0 10px 24px rgba(25, 118, 210, 0.28)',
+          zIndex: 1050,
+          '&:hover': {
+            boxShadow: '0 14px 30px rgba(25, 118, 210, 0.34)',
+            transform: 'translateY(-2px)',
+          },
+          '&:active': {
+            transform: 'translateY(0)',
+          },
+        }}
+      >
+        <AddIcon />
+      </Fab>
 
       <Box sx={{ width: '100%' }}>
         {viewMode === 'list' ? (
