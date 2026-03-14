@@ -11,7 +11,7 @@ import {
 } from '@mui/material';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from '@tanstack/react-query';
-import { FlashOn as FlashOnIcon } from '@mui/icons-material';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 
 
 import { loginUser, resendVerification } from '../services/apiAuthService';
@@ -130,7 +130,6 @@ function LoginPage(): React.JSX.Element {
         elevation={0}
         sx={{
           p: { xs: 4, md: 5 },
-          borderRadius: 5, // Lebih membulat agar modern
           maxWidth: 450,
           width: '100%',
           border: '1px solid',
@@ -142,8 +141,10 @@ function LoginPage(): React.JSX.Element {
 
           {/* Header */}
           <Box sx={{ textAlign: 'center' }}>
-            <FlashOnIcon sx={{ color: 'primary.main', fontSize: 48, mb: 1 }} />
-            <Typography variant="h4" fontWeight="800" sx={{ color: 'text.primary' }}>
+            <Box sx={{ width: 64, height: 64, mx: 'auto', mb: 1 }}>
+              <DotLottieReact src="src/assets/UserLogin.lottie" loop autoplay style={{ width: '100%', height: '100%' }} />
+            </Box>
+            <Typography variant="h4" fontWeight="600" sx={{ color: 'text.primary' }}>
               Welcome Back
             </Typography>
             <Typography variant="body2" color="text.secondary">

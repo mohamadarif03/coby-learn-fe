@@ -88,7 +88,6 @@ function ResetPasswordPage(): React.JSX.Element {
                 elevation={0}
                 sx={{
                     p: { xs: 4, md: 5 },
-                    borderRadius: 5,
                     maxWidth: 450,
                     width: '100%',
                     border: '1px solid',
@@ -100,7 +99,7 @@ function ResetPasswordPage(): React.JSX.Element {
 
                     <Box sx={{ textAlign: 'center' }}>
                         <LockIcon sx={{ color: 'primary.main', fontSize: 48, mb: 1 }} />
-                        <Typography variant="h4" fontWeight="800" sx={{ color: 'text.primary' }}>
+                        <Typography variant="h4" fontWeight="600" sx={{ color: 'text.primary' }}>
                             Set New Password
                         </Typography>
                         <Typography variant="body2" color="text.secondary">

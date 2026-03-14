@@ -52,7 +52,7 @@ function FlashcardPage(): React.JSX.Element {
   };
 
   return (
-    <Box sx={{ maxWidth: 800, mx: 'auto', height: '90vh', display: 'flex', flexDirection: 'column', py: 4 }}>
+    <Box sx={{ maxWidth: 600, mx: 'auto', height: '90vh', display: 'flex', flexDirection: 'column', py: 4 }}>
       
       {/* Header */}
       <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', mb: 4 }}>

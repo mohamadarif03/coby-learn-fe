@@ -166,7 +166,6 @@ function RegisterPage(): React.JSX.Element {
           elevation={0}
           sx={{
             p: { xs: 4, md: 5 },
-            borderRadius: 5,
             maxWidth: 450,
             width: '100%',
             textAlign: 'center',
@@ -187,7 +186,7 @@ function RegisterPage(): React.JSX.Element {
           >
             <MarkEmailReadIcon sx={{ fontSize: 48, color: 'primary.main' }} />
           </Box>
-          <Typography variant="h4" fontWeight="800" sx={{ mb: 2, color: 'text.primary' }}>
+          <Typography variant="h4" fontWeight="600" sx={{ mb: 2, color: 'text.primary' }}>
             Registration Successful!
           </Typography>
           <Typography variant="body1" color="text.secondary" sx={{ mb: 4 }}>
@@ -232,7 +231,6 @@ function RegisterPage(): React.JSX.Element {
         elevation={0}
         sx={{
           p: { xs: 4, md: 5 },
-          borderRadius: 5, // Lebih membulat agar modern
           maxWidth: 450,
           width: '100%',
           border: '1px solid',
@@ -242,8 +240,7 @@ function RegisterPage(): React.JSX.Element {
       >
         <Stack spacing={3} alignItems="center">
           <Box sx={{ textAlign: 'center' }}>
-            <FlashOnIcon sx={{ color: 'primary.main', fontSize: 48, mb: 1 }} />
-            <Typography variant="h4" fontWeight="800" sx={{ color: 'text.primary' }}>
+            <Typography variant="h4" fontWeight="600" sx={{ color: 'text.primary' }}>
               Create Account
             </Typography>
             <Typography variant="body2" color="text.secondary">

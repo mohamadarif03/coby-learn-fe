@@ -185,7 +185,7 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
             </Box>
           </Box>
 
-          <Typography variant="h5" fontWeight="800" gutterBottom sx={{
+          <Typography variant="h5" fontWeight="600" gutterBottom sx={{
             background: 'linear-gradient(45deg, #6366f1, #8b5cf6)',
             backgroundClip: 'text',
             textFillColor: 'transparent',
@@ -222,7 +222,7 @@ function FileUploadDialog({ open, onClose, onSubmit, isLoading }: FileUploadDial
       ) : (
         <>
           <DialogTitle sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', px: 3, pt: 3, pb: 1 }}>
-            <Typography variant="h6" component="div" fontWeight="800">
+            <Typography variant="h6" component="div" fontWeight="600">
               Upload Material
             </Typography>
             <IconButton

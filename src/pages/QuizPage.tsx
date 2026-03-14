@@ -143,7 +143,7 @@ function QuizPage(): React.JSX.Element {
 
   // === RENDER ===
   return (
-    <Box sx={{ maxWidth: 800, mx: 'auto', pb: 8 }}>
+    <Box sx={{ maxWidth: 600, mx: 'auto', pb: 8 }}>
 
       {!showResults && (
         <Button

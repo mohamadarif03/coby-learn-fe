@@ -73,7 +73,7 @@ function ForgotPasswordPage(): React.JSX.Element {
 
                     <Box sx={{ textAlign: 'center' }}>
                         <LockResetIcon sx={{ color: 'primary.main', fontSize: 48, mb: 1 }} />
-                        <Typography variant="h4" fontWeight="800" sx={{ color: 'text.primary' }}>
+                        <Typography variant="h4" fontWeight="600" sx={{ color: 'text.primary' }}>
                             Reset Password
                         </Typography>
                         <Typography variant="body2" color="text.secondary">

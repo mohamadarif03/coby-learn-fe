@@ -28,7 +28,7 @@ function QuizResultPage(): React.JSX.Element {
 
   if (isLoading) {
     return (
-      <Box sx={{ maxWidth: 800, mx: 'auto', p: 3 }}>
+      <Box sx={{ maxWidth: 600, mx: 'auto', p: 3 }}>
         <Skeleton height={100} sx={{ mb: 2 }} />
         <Skeleton height={300} sx={{ mb: 2 }} />
         <Skeleton height={300} />
@@ -53,7 +53,7 @@ function QuizResultPage(): React.JSX.Element {
   const totalCount = result.questions.length;
 
   return (
-    <Box sx={{ maxWidth: 800, mx: 'auto', pb: 8, px: 2 }}>
+    <Box sx={{ maxWidth: 600, mx: 'auto', pb: 8, px: 2 }}>
 
       <Button
         startIcon={<ArrowBackIcon />}

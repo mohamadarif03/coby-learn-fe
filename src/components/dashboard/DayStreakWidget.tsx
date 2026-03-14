@@ -1,15 +1,31 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { Paper, Typography, Box, Skeleton, useTheme } from '@mui/material';
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import { useQuery } from '@tanstack/react-query';
 import { getDailyQuizStatus } from '../../services/apiLibraryService';
 
 function DayStreakWidget(): React.JSX.Element {
   const theme = useTheme();
+  const [isWidgetHovered, setIsWidgetHovered] = useState(false);
+  const dotLottieRef = useRef<any>(null);
+
   const { data: status, isLoading } = useQuery({
     queryKey: ['dailyQuizStatus'],
     queryFn: getDailyQuizStatus,
   });
+
+  useEffect(() => {
+    if (!dotLottieRef.current) {
+      return;
+    }
+
+    if (isWidgetHovered) {
+      dotLottieRef.current.setLoop(true);
+      dotLottieRef.current.play();
+    } else {
+      dotLottieRef.current.pause();
+    }
+  }, [isWidgetHovered]);
 
   const widgetTransition = theme.transitions.create(['transform', 'box-shadow'], {
     duration: theme.transitions.duration.shorter,
@@ -39,6 +55,8 @@ function DayStreakWidget(): React.JSX.Element {
 
   return (
     <Paper
+      onMouseEnter={() => setIsWidgetHovered(true)}
+      onMouseLeave={() => setIsWidgetHovered(false)}
       sx={{
         p: 2,
         bgcolor: 'background.paper',
@@ -71,16 +89,27 @@ function DayStreakWidget(): React.JSX.Element {
           },
         }}
       >
-        <LocalFireDepartmentIcon
+        <Box
           sx={{
-            color: isDone ? '#F97316' : '#FFA726',
-            fontSize: 32,
+            width: 64,
+            height: 64,
             transition: accentTransition,
             '.MuiPaper-root:hover &': {
               transform: 'rotate(-8deg)',
             },
           }}
-        />
+        >
+          <DotLottieReact
+            src="src/assets/FireStreak.lottie"
+            loop={false}
+            autoplay={false}
+            dotLottieRefCallback={(instance) => {
+              dotLottieRef.current = instance;
+            }}
+            renderer="svg"
+            style={{ width: '100%', height: '100%' }}
+          />
+        </Box>
       </Box>
 
       {/* Text Info */}
