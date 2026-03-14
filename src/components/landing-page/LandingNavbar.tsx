@@ -68,10 +68,12 @@ function LandingNavbar({
         sx={{
           bgcolor: scrolled ? 'rgba(248, 250, 252, 0.9)' : 'transparent',
           backdropFilter: scrolled ? 'blur(16px)' : 'none',
-          borderBottom: scrolled ? `1px solid ${COLORS.border}` : 'none',
           transition: 'all 0.3s ease',
           borderRadius: 0,
+          border: "none",
           py: 1,
+          px: { xs: 0, md: 4 },
+          boxShadow: 'none',
         }}
       >
         <Container maxWidth="xl">
@@ -82,9 +84,9 @@ function LandingNavbar({
             >
               <img src={logo} alt="CobyLearnAi" style={{ height: '40px' }} />
               <Typography
-                variant="h5"
-                fontWeight="800"
-                sx={{ letterSpacing: '-0.5px', color: scrolled ? COLORS.textMain : '#FFFFFF' }}
+                variant="h6"
+                fontWeight="700"
+                sx={{ letterSpacing: '-0.5px', color: COLORS.textMain }}
               >
                 CobyLearn<Box component="span" sx={{ color: COLORS.accent }}>Ai</Box>
               </Typography>
@@ -97,9 +99,9 @@ function LandingNavbar({
                     key={item.id}
                     onClick={() => handleSectionClick(item.id)}
                     sx={{
-                      color: scrolled ? COLORS.textMuted : '#FFFFFF',
+                      color: COLORS.textMuted,
                       '&:hover': {
-                        color: scrolled ? COLORS.textMain : '#FFFFFF',
+                        color: COLORS.textMuted,
                         opacity: 0.8,
                       },
                       textTransform: 'none',
@@ -127,7 +129,6 @@ function LandingNavbar({
                         textTransform: 'none',
                         fontWeight: 'bold',
                         color: 'white',
-                        boxShadow: 4,
                         '&:hover': { bgcolor: '#2563EB' },
                       }}
                     >
@@ -139,13 +140,12 @@ function LandingNavbar({
                         variant="outlined"
                         onClick={onNavigateLogin}
                         sx={{
-                          color: scrolled ? COLORS.textMain : '#FFFFFF',
-                          borderColor: scrolled ? COLORS.border : 'rgba(255,255,255,0.5)',
+                          color: 'primary.blue',
+                          borderColor: 'primary.blue',
                           textTransform: 'none',
-                          fontWeight: 'bold',
                           borderRadius: '8px',
                           '&:hover': {
-                            borderColor: scrolled ? COLORS.textMain : '#FFFFFF',
+                            borderColor: 'primary.blue',
                             bgcolor: scrolled ? 'transparent' : 'rgba(255,255,255,0.1)',
                           },
                         }}
@@ -161,7 +161,6 @@ function LandingNavbar({
                           borderRadius: '8px',
                           px: 3,
                           textTransform: 'none',
-                          fontWeight: 'bold',
                           boxShadow: 'none',
                           '&:hover': { bgcolor: '#2563EB', boxShadow: 'none' },
                         }}

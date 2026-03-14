@@ -27,7 +27,6 @@ function LandingPage(): React.JSX.Element {
         bgcolor: 'background.default',
         minHeight: '100vh',
         color: 'text.primary',
-        fontFamily: '"Inter", sans-serif',
         overflowX: 'hidden',
       }}
     >
