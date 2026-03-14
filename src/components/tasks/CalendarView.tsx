@@ -269,8 +269,7 @@ function CalendarView({ tasks, onAddTask, onEditTask }: CalendarViewProps): Reac
           elevation={0}
           sx={{
             p: { xs: 2, md: 3 }, border: '1px solid', borderColor: 'divider',
-            height: '100%',
-            minHeight: { xs: 'auto', md: 500 },
+            minHeight: { xs: 'auto', md: 350 },
             display: 'flex', flexDirection: 'column'
           }}
         >

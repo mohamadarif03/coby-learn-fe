@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import {
   Box,
   Typography,
@@ -11,7 +11,7 @@ import {
   Alert
 } from '@mui/material';
 
-import LocalFireDepartmentIcon from '@mui/icons-material/LocalFireDepartment';
+import { DotLottieReact } from '@lottiefiles/dotlottie-react';
 import AccessTimeIcon from '@mui/icons-material/AccessTime';
 import CheckCircleOutlineIcon from '@mui/icons-material/CheckCircleOutline';
 import LibraryBooksIcon from '@mui/icons-material/LibraryBooks';
@@ -27,6 +27,8 @@ import StudyHeatmap from '../components/progress/StudyHeatmap';
 
 function ProgressPage(): React.JSX.Element {
   const theme = useTheme();
+  const [isStreakHovered, setIsStreakHovered] = useState(false);
+  const streakLottieRef = useRef<any>(null);
 
   const [filter, setFilter] = useState<'day' | 'week' | 'month' | 'year'>('week');
 
@@ -62,6 +64,19 @@ function ProgressPage(): React.JSX.Element {
 
   const isStreakDone = streakData?.is_done ?? false;
 
+  useEffect(() => {
+    if (!streakLottieRef.current) {
+      return;
+    }
+
+    if (isStreakHovered) {
+      streakLottieRef.current.setLoop(true);
+      streakLottieRef.current.play();
+    } else {
+      streakLottieRef.current.pause();
+    }
+  }, [isStreakHovered]);
+
   return (
     <Box>
       {/* Header */}
@@ -96,6 +111,8 @@ function ProgressPage(): React.JSX.Element {
 
           <Paper
             elevation={0}
+            onMouseEnter={() => setIsStreakHovered(true)}
+            onMouseLeave={() => setIsStreakHovered(false)}
             sx={{
               p: 3,
               display: 'flex',
@@ -116,8 +133,19 @@ function ProgressPage(): React.JSX.Element {
               </Typography>
             </Box>
 
-            <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
-              <LocalFireDepartmentIcon sx={{ fontSize: 40, color: '#FFA726', transition: 'color 0.3s' }} />
+            <Box sx={{ display: 'flex', alignItems: 'center', gap: 0 }}>
+              <Box sx={{ width: 64, height: 64 }}>
+                <DotLottieReact
+                  src="src/assets/FireStreak.lottie"
+                  loop={false}
+                  autoplay={false}
+                  dotLottieRefCallback={(instance) => {
+                    streakLottieRef.current = instance;
+                  }}
+                  renderer="svg"
+                  style={{ width: '100%', height: '100%' }}
+                />
+              </Box>
 
               <Typography variant="h3" fontWeight="bold" sx={{ color: '#FFA726', transition: 'color 0.3s' }}>
                 {adjustedStreak}

@@ -141,18 +141,17 @@ const ChatWidget = ({
     <Paper
       elevation={0}
       sx={{
-        bgcolor: 'background.paper',
-        border: '1px solid',
-        borderColor: 'divider',
+        bgcolor: '#EDF4FC',
         overflow: 'hidden',
         display: 'flex',
         flexDirection: 'column',
-        height: '500px',
-        mt: withTopMargin ? 4 : 0
+        height: '90%',
+        p: 1,
+        m: 0,
       }}
     >
       {/* Chat Header */}
-      <Box sx={{ p: 2, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: 'background.default' }}>
+      <Box sx={{ p: { sx: 1, md: 2 }, borderBottom: '1px solid', borderColor: 'divider', display: 'flex', alignItems: 'center', gap: 1.5, bgcolor: 'background.default' }}>
         <Avatar sx={{ bgcolor: 'secondary.main', width: 32, height: 32 }}>
           <SmartToyIcon sx={{ fontSize: 20 }} />
         </Avatar>
@@ -339,7 +338,7 @@ function MaterialDetailPage(): React.JSX.Element {
     });
   };
 
-  if (isLoading) return <Box sx={{ p: 4, bgcolor: 'background.default', minHeight: '100vh' }}><Skeleton height={400} sx={{ bgcolor: 'background.paper' }} /></Box>;
+  if (isLoading) return <Box sx={{ p: 4, bgcolor: 'background.default', minHeight: '100vh' }}><Skeleton height={400}/></Box>;
   if (isError || !material) return <Alert severity="error">Gagal memuat materi.</Alert>;
 
   return (
@@ -356,7 +355,7 @@ function MaterialDetailPage(): React.JSX.Element {
           </Button>
 
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1, mb: 1 }}>
-            <Typography variant="h4" sx={{ color: 'text.primary', fontSize: { xs: '1.8rem', md: '2.5rem' } }}>
+            <Typography variant="h4" sx={{ color: 'text.primary', fontSize: { xs: '1.8rem', md: '2.5rem' }, height: 'auto'}}>
               {material.title}
             </Typography>
 
@@ -392,7 +391,6 @@ function MaterialDetailPage(): React.JSX.Element {
               elevation={0}
               sx={{
                 p: { xs: 2, md: 4 }, // Standardizing padding: less on mobile
-                borderRadius: 2,
                 bgcolor: 'background.paper',
                 border: '1px solid',
                 borderColor: 'divider',
@@ -637,6 +635,9 @@ function MaterialDetailPage(): React.JSX.Element {
               bgcolor: 'transparent',
               boxShadow: 'none',
               overflow: 'visible',
+              height: '90%',
+              m: 0,
+              p: 0,
             },
           }}
         >

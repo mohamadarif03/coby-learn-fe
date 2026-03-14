@@ -73,11 +73,12 @@ function Navbar(): React.JSX.Element {
         position="sticky" // Sticky to the top, stays visible when scrolling
         elevation={1} // Use shadow elevation 1 from Material Design theme
         sx={{
+          display: { xs: 'none', md: 'block' },
           backgroundColor: 'rgba(255, 255, 255, 0.8)',
           backdropFilter: 'blur(12px)',
           borderBottom: '1px solid',
           borderColor: 'divider',
-          color: 'text.primary',
+          color: 'text.primary' ,
           px: 0, // Remove horizontal padding to let Container handle it
           py: { xs: 0.5, md: 1 },
           m: 0,
@@ -87,11 +88,17 @@ function Navbar(): React.JSX.Element {
         }}
       >
         <Container maxWidth={false}>
-          <Toolbar disableGutters sx={{ height: { xs: 30, md: 30 }, justifyContent: 'space-between' }}>
+          <Toolbar
+            disableGutters
+            sx={{
+              height: { xs: 30, md: 30 },
+              justifyContent: 'space-between',
+            }}
+          >
 
             {/* LEFT GROUP: LOGO */}
             <Box
-              sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 2 }}
+              sx={{ display: 'flex', alignItems: 'center', cursor: 'pointer', gap: 1.5 }}
               onClick={() => navigate('/dashboard')}
             >
               {/* Logo Image Responsive */}
@@ -120,47 +127,45 @@ function Navbar(): React.JSX.Element {
             </Box>
 
             {/* CENTER GROUP: DESKTOP MENU */}
-            {!isMobile && (
-              <Stack direction="row" spacing={1} sx={{ mr: 10 }}> {/* Margin kanan untuk memberi ruang ke avatar */}
-                {MENU_ITEMS.map((item) => (
-                  <Button
-                    key={item.text}
-                    onClick={() => navigate(item.path)}
-                    sx={{
-                      // 1. Give every button the exact same fixed width
-                      width: 100,
-                      fontWeight: isActive(item.path) ? 700 : 500,
-                      textTransform: 'none',
-                      fontSize: '0.95rem',
-                      color: isActive(item.path) ? 'primary.main' : 'text.disabled',
-                      position: 'relative',
-                      px: 0, // Reset padding since width is fixed
-                      '&:hover': {
-                        color: 'secondary.main',
-                        bgcolor: 'transparent' // Often looks cleaner on navbars
-                      },
-                      '&::after': {
-                        content: '""',
-                        position: 'absolute',
-                        bottom: 6,
-                        left: '50%',
-                        transform: 'translateX(-50%)',
-                        width: '40px', // Fixed width for indicator
-                        height: '2px',
-                        bgcolor: 'primary.main',
-                        borderRadius: '2px',
-                        // 2. Control visibility with opacity instead of conditional rendering
-                        // This prevents the "jump" when the element is added/removed
-                        opacity: isActive(item.path) ? 1 : 0,
-                        transition: 'opacity 0.2s ease'
-                      }
-                    }}
-                  >
-                    {item.text}
-                  </Button>
-                ))}
-              </Stack>
-            )}
+            <Stack direction="row" spacing={1} sx={{ mr: 10 }}> {/* Margin kanan untuk memberi ruang ke avatar */}
+              {MENU_ITEMS.map((item) => (
+                <Button
+                  key={item.text}
+                  onClick={() => navigate(item.path)}
+                  sx={{
+                    // 1. Give every button the exact same fixed width
+                    width: 100,
+                    fontWeight: isActive(item.path) ? 700 : 500,
+                    textTransform: 'none',
+                    fontSize: '0.95rem',
+                    color: isActive(item.path) ? 'primary.main' : 'text.disabled',
+                    position: 'relative',
+                    px: 0, // Reset padding since width is fixed
+                    '&:hover': {
+                      color: 'secondary.main',
+                      bgcolor: 'transparent' // Often looks cleaner on navbars
+                    },
+                    '&::after': {
+                      content: '""',
+                      position: 'absolute',
+                      bottom: 6,
+                      left: '50%',
+                      transform: 'translateX(-50%)',
+                      width: '40px', // Fixed width for indicator
+                      height: '2px',
+                      bgcolor: 'primary.main',
+                      borderRadius: '2px',
+                      // 2. Control visibility with opacity instead of conditional rendering
+                      // This prevents the "jump" when the element is added/removed
+                      opacity: isActive(item.path) ? 1 : 0,
+                      transition: 'opacity 0.2s ease'
+                    }
+                  }}
+                >
+                  {item.text}
+                </Button>
+              ))}
+            </Stack>
 
             {/* RIGHT GROUP: ACTIONS */}
             <Box sx={{ display: 'flex', alignItems: 'center', gap: { xs: 1, md: 2 } }}>
@@ -184,39 +189,68 @@ function Navbar(): React.JSX.Element {
                 </Avatar>
               </IconButton>
 
-              <Menu
-                anchorEl={anchorEl}
-                open={Boolean(anchorEl)}
-                onClose={() => setAnchorEl(null)}
-                PaperProps={{
-                  sx: {
-                    mt: 1.5,
-                    bgcolor: 'background.paper',
-                    color: 'text.primary',
-                    border: '1px solid',
-                    borderColor: 'divider'  ,
-                    minWidth: 50,
-                    p: 1,
-                  }
-                }}
-                transformOrigin={{ horizontal: 'right', vertical: 'top' }}
-                anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
-              >
-                <MenuItem onClick={() => { setAnchorEl(null); navigate('/profile'); }} sx={{ fontWeight: 600 }}>
-                  <Person3Outlined fontSize="small" sx={{ mr: 1 }} />
-                  My Profile
-                </MenuItem>
-                <MenuItem onClick={handleLogout} sx={{ color: 'error.main', fontWeight: 600 }}>
-                  <Logout fontSize="small" sx={{ mr: 1 }} />
-                  Log Out
-                </MenuItem>
-              </Menu>
-
             </Box>
 
           </Toolbar>
         </Container>
       </AppBar>
+
+      {isMobile && (
+        <Box
+          sx={{
+            position: 'fixed',
+            top: 12,
+            right: 12,
+            zIndex: 1200,
+          }}
+        >
+          <IconButton sx={{ p: 0 }} onClick={(e) => setAnchorEl(e.currentTarget)}>
+            <Avatar
+              alt="User"
+              sx={{
+                width: 36,
+                height: 36,
+                border: '2px solid',
+                boxShadow: 2,
+                bgcolor: 'primary.main',
+                fontSize: '1rem',
+                fontWeight: 'bold',
+                color: 'white'
+              }}
+            >
+              {dailyStatus?.username?.charAt(0).toUpperCase() || 'S'}
+            </Avatar>
+          </IconButton>
+        </Box>
+      )}
+
+      <Menu
+        anchorEl={anchorEl}
+        open={Boolean(anchorEl)}
+        onClose={() => setAnchorEl(null)}
+        PaperProps={{
+          sx: {
+            mt: 1.5,
+            bgcolor: 'background.paper',
+            color: 'text.primary',
+            border: '1px solid',
+            borderColor: 'divider',
+            minWidth: 50,
+            p: 1,
+          }
+        }}
+        transformOrigin={{ horizontal: 'right', vertical: 'top' }}
+        anchorOrigin={{ horizontal: 'right', vertical: 'bottom' }}
+      >
+        <MenuItem onClick={() => { setAnchorEl(null); navigate('/profile'); }} sx={{ fontWeight: 600 }}>
+          <Person3Outlined fontSize="small" sx={{ mr: 1 }} />
+          My Profile
+        </MenuItem>
+        <MenuItem onClick={handleLogout} sx={{ color: 'error.main', fontWeight: 600 }}>
+          <Logout fontSize="small" sx={{ mr: 1 }} />
+          Log Out
+        </MenuItem>
+      </Menu>
 
       {/* MOBILE BOTTOM NAVIGATION */}
       {isMobile && (

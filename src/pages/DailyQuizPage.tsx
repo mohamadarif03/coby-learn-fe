@@ -272,26 +272,26 @@ function DailyQuizPage(): React.JSX.Element {
   // 4. Setup Selection (No Data yet)
   if (!quizData) {
     return (
-      <Container maxWidth="sm" sx={{ py: 8 }}>
-        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate('/dashboard')} sx={{ mb: 4 }}>
+      <Container maxWidth="sm" sx={{ py: 0 }}>
+        <Button startIcon={<ArrowBackIcon />} onClick={() => navigate('/dashboard')} sx={{ mb: 2 }}>
           Back to Dashboard
         </Button>
 
         <Typography variant="h4" fontWeight="bold" gutterBottom>
           Daily Challenge
         </Typography>
-        <Typography color="text.secondary" sx={{ mb: 6 }}>
+        <Typography color="text.secondary" sx={{ mb: 4 }}>
           Choose how you want to test your knowledge today.
         </Typography>
 
         {errorMessage && (
-          <Alert severity="error" sx={{ mb: 4 }} onClose={() => setErrorMessage(null)}>
+          <Alert severity="error" sx={{ mb: 2 }} onClose={() => setErrorMessage(null)}>
             {errorMessage}
           </Alert>
         )}
 
         {setupMode === 'selection' ? (
-          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 3 }}>
+          <Box sx={{ display: 'flex', flexDirection: 'column', gap: 2 }}>
             {/* Option 1: Random */}
             <Paper
               variant="outlined"

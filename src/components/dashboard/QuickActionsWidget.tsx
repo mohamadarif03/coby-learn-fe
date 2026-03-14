@@ -29,7 +29,7 @@ function QuickActionsWidget(): React.JSX.Element {
             textTransform: 'none',
           }}
         >
-          Add Task
+          To Task Menu
         </Button>
         <Button
           variant="outlined"

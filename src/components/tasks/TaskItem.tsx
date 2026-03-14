@@ -103,7 +103,7 @@ function TaskItem({ task, onUpdateStatus, onDelete, onEdit }: TaskItemProps): Re
         </Box>
 
         {task.context && (
-          <Typography variant="body2" color="text.secondary" sx={{ mb: 1 }}>
+          <Typography variant="body2" color="text.secondary" sx={{ mb: 1, wordBreak: "break-word" }}>
             {task.context}
           </Typography>
         )}
