@@ -158,7 +158,7 @@ function FolderDetailsPage(): React.JSX.Element {
             }}
           >
             <FolderOpenIcon sx={{ fontSize: 60, opacity: 0.2, mb: 2 }} />
-            <Typography variant="h6" fontWeight="bold">Folder Kosong</Typography>
+            <Typography variant="h6" fontWeight="500">Folder Kosong</Typography>
             <Typography variant="body2">
               Paket "{packageData?.title}" belum memiliki materi.
             </Typography>

@@ -68,21 +68,21 @@ function QuizResultPage(): React.JSX.Element {
         sx={{
           p: 4,
           borderRadius: '16px',
-          bgcolor: '#1E293B',
-          border: '1px solid #334155',
+          bgcolor: '#ffffff',
+          border: '1px solid #e4e4e4',
           mb: 4,
           textAlign: 'center',
           color: 'white'
         }}
       >
-        <Typography variant="h6" sx={{ color: '#94A3B8', mb: 1 }}>Quiz Result</Typography>
+        <Typography variant="h6" sx={{ color: 'text.secondary', mb: 1 }}>Quiz Result</Typography>
         <Typography variant="h2" fontWeight="bold" sx={{ color: result.score >= 70 ? '#4ADE80' : '#F87171' }}>
           {result.score}
         </Typography>
-        <Typography variant="body1" sx={{ color: '#CBD5E1', mt: 1 }}>
+        <Typography variant="body1" sx={{ color: 'text.secondary', mt: 1 }}>
           You answered {correctCount} out of {totalCount} questions correctly.
         </Typography>
-        <Typography variant="caption" sx={{ color: '#64748B', display: 'block', mt: 2 }}>
+        <Typography variant="caption" sx={{ color: 'text.secondary', display: 'block', mt: 2 }}>
           Completed on {new Date(result.created_at).toLocaleString('id-ID')}
         </Typography>
       </Paper>

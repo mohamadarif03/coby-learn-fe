@@ -17,6 +17,9 @@ import {
   Dialog,
 } from '@mui/material';
 
+import { useMediaQuery } from '@mui/material';
+import { useSummaryScrollProgress } from '../utils/scroll-material';
+
 import ArrowBackIcon from '@mui/icons-material/ArrowBack';
 import AutoAwesomeIcon from '@mui/icons-material/AutoAwesome';
 import CloseIcon from '@mui/icons-material/Close';
@@ -257,10 +260,13 @@ function MaterialDetailPage(): React.JSX.Element {
   const queryClient = useQueryClient();
   const hasSeenChatSuggestions = useUiStore((state) => state.hasSeenChatSuggestions);
   const markChatSuggestionsSeen = useUiStore((state) => state.markChatSuggestionsSeen);
+  const { summaryPaperRef, summaryScrollProgress, onScroll: updateSummaryScrollProgress } =
+    useSummaryScrollProgress(materialId);
 
   const [openQuizDialog, setOpenQuizDialog] = useState(false);
   const [openChatDialog, setOpenChatDialog] = useState(false);
   const [selectedSuggestion, setSelectedSuggestion] = useState<string | null>(null);
+  const isMobile = useMediaQuery((theme: any) => theme.breakpoints.down('sm'));
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -388,6 +394,8 @@ function MaterialDetailPage(): React.JSX.Element {
             {/* Summary */}
             <Paper
               elevation={0}
+              ref={summaryPaperRef}
+              onScroll={updateSummaryScrollProgress}
               sx={{
                 p: { xs: 2, md: 4 }, // Standardizing padding: less on mobile
                 bgcolor: 'background.paper',
@@ -395,12 +403,36 @@ function MaterialDetailPage(): React.JSX.Element {
                 borderColor: 'divider',
                 minHeight: 500,
                 mb: 4,
+                position: 'relative',
                 // --- RESPONSIVE SCROLL LOGIC ---
                 maxHeight: { xs: 700, md: 'none' },
                 overflowY: { xs: 'auto', md: 'visible' },
                 // -------------------------------
               }}
             >
+              <Box
+                sx={{
+                  position: 'sticky',
+                  top: isMobile? '0': '100px',
+                  zIndex: 2,
+                  height: 4,
+                  borderRadius: 999,
+                  bgcolor: 'action.hover',
+                  overflow: 'hidden',
+                  mb: 2,
+                  z: 10
+                }}
+              >
+                <Box
+                  sx={{
+                    width: `${summaryScrollProgress}%`,
+                    height: '100%',
+                    bgcolor: '#9cadca',
+                    transition: 'width 120ms linear',
+                  }}
+                />
+              </Box>
+
               <Typography variant="h6" fontWeight="bold" sx={{ mb: 3, color: 'text.primary' }}>
                 Material Summary
               </Typography>

@@ -54,7 +54,7 @@ function Hero({ isLoggedIn, onPrimaryClick, onSecondaryClick }: HeroProps): Reac
     useEffect(() => {
         const timer = window.setInterval(() => {
             setWordIndex((prev) => (prev + 1) % HERO_WORDS.length);
-        }, 5500);
+        }, 4500); // Change word every 4.8 seconds
 
         return () => window.clearInterval(timer);
     }, []);

@@ -3,6 +3,7 @@ import { Box, Container, useMediaQuery } from '@mui/material';
 import { useQuery } from '@tanstack/react-query';
 
 import Header from '../components/dashboard/Header';
+import DashboardOnboardingModal from '../components/dashboard/DashboardOnboardingModal';
 import DailyQuizWidget from '../components/dashboard/DailyQuizWidget';
 import DayStreakWidget from '../components/dashboard/DayStreakWidget';
 import ToDoWidget from '../components/dashboard/ToDoWidget';
@@ -16,6 +17,7 @@ import { getDailyQuizStatus } from '../services/apiLibraryService';
 // Tetap import CSS agar button Add Task tidak rusak layout-nya
 import './dashboard.css';
 import { theme } from '../theme/theme';
+import { useDashboardOnboardingStore } from '../stores/useDashboardOnboardingStore';
 
 const getTodayDate = () => {
   const d = new Date();
@@ -28,6 +30,9 @@ const getTodayDate = () => {
 function Dashboard(): React.JSX.Element {
   const todayDate = getTodayDate();
   const isMobile = useMediaQuery(theme.breakpoints.down('lg'));
+  const hasCompletedOnboarding = useDashboardOnboardingStore((state) => state.hasCompletedOnboarding);
+  const hasHydrated = useDashboardOnboardingStore((state) => state.hasHydrated);
+  const completeOnboarding = useDashboardOnboardingStore((state) => state.completeOnboarding);
 
   const { data: dailyStatus } = useQuery({
     queryKey: ['dailyQuizStatus'],
@@ -41,10 +46,17 @@ function Dashboard(): React.JSX.Element {
 
   const totalTasks = tasks?.length || 0;
   const completedTasks = tasks?.filter((t) => t.completed).length || 0;
+  const shouldShowOnboarding = hasHydrated && !hasCompletedOnboarding;
 
   if (isMobile) {
     return (
       <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 8 }}>
+        <DashboardOnboardingModal
+          open={shouldShowOnboarding}
+          username={dailyStatus?.username}
+          onFinish={completeOnboarding}
+        />
+
         <Container maxWidth={false} sx={{ mt: 3, px: { xs: 0 } }}>
           <Header username={dailyStatus?.username} />
 
@@ -73,6 +85,12 @@ function Dashboard(): React.JSX.Element {
 
   return (
     <Box sx={{ bgcolor: 'background.default', minHeight: '100vh', pb: 8 }}>
+      <DashboardOnboardingModal
+        open={shouldShowOnboarding}
+        username={dailyStatus?.username}
+        onFinish={completeOnboarding}
+      />
+
       <Header username={dailyStatus?.username} />
 
       <Container maxWidth={false} sx={{ mt: 3, px: { xs: 0 } }}>
