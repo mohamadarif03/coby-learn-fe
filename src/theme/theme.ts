@@ -9,7 +9,7 @@ export const theme = createTheme({
       main: '#4A90E2',
       dark: '#386CAA'
     },
-    secondary: { main: '#386CAA', dark: '#1A2B5E'},    // Orange accent from original
+    secondary: { main: '#386CAA', dark: '#1A2B5E' },    // Orange accent from original
 
     background: {
       default: '#EDF4FC',  // Foundation Blue Light
@@ -83,10 +83,14 @@ export const theme = createTheme({
     h4: { fontWeight: 600 },
     h5: { fontWeight: 500 },
     h6: { fontWeight: 400 },
+    subtitle1: { fontSize: '1rem', fontWeight: 500 },
+    subtitle2: { fontSize: '1rem', fontWeight: 500 },
+    overline: { fontSize: '1rem', fontWeight: 500 },
 
     button: {
-      textTransform: 'none',
       fontWeight: 600,
+      textTransform: 'none',
+      letterSpacing: '0.04em',
     },
   },
 
@@ -109,9 +113,10 @@ export const theme = createTheme({
           borderRadius: 6,
           paddingTop: 10,
           paddingBottom: 10,
-          boxShadow: 'shadows[1]', 
+          boxShadow: 'shadows[1]',
           // This spreads all caption properties (fontSize, fontWeight, etc.)
           ...theme.typography.caption,
+          fontSize: '0.9rem', // Override caption's fontSize for buttons
           letterSpacing: '0.04em', // 3% spacing for that distinct feel
           textTransform: 'none', // Buttons are uppercase by default in MUI
         }),
