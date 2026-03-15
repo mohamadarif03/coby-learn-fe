@@ -7,7 +7,7 @@ import CssBaseline from '@mui/material/CssBaseline';
 import { theme } from './theme/theme';
 import GlobalStyles from "@mui/material/GlobalStyles";
 import App from './App';
-import { Analytics } from "@vercel/analytics/next"
+import { Analytics } from '@vercel/analytics/react';
 
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 
@@ -20,7 +20,6 @@ if (container) {
   const root = createRoot(container);
   root.render(
     <React.StrictMode>
-      <Analytics />
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <GlobalStyles
@@ -35,6 +34,7 @@ if (container) {
           {/* 3. Wrap <App /> with the provider (This is the fix) */}
           <QueryClientProvider client={queryClient}>
             <App />
+            <Analytics />
           </QueryClientProvider>
         </BrowserRouter>
       </ThemeProvider>
