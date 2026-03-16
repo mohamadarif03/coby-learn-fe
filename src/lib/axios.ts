@@ -12,14 +12,8 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
-    // Ensure token is genuinely a string and not the string literals 'undefined' or 'null'
-    if (token && token !== 'undefined' && token !== 'null') {
+    if (token) {
       config.headers.Authorization = `Bearer ${token}`;
-    } else {
-      // If the token is invalid literal, clean it up
-      if (token === 'undefined' || token === 'null') {
-        localStorage.removeItem('token');
-      }
     }
     return config;
   },
