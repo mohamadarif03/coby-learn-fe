@@ -12,7 +12,7 @@ CobyLearnAi is a integrated AI-assisted learning platform to bridge the gap betw
 
 ## **Main Features**
 
-### 📖 **Intelligent Material Management**
+### 1. **Intelligent Material Management**
 
 * **Multi-Source Input:** Seamlessly upload PDFs, raw text, or YouTube links.
 * **Smart Summarization:** AI extracts core concepts, definitions, and key takeaways for efficient learning.
@@ -20,7 +20,7 @@ CobyLearnAi is a integrated AI-assisted learning platform to bridge the gap betw
 
 ---
 
-### 🎯 **Active Learning & Evaluation**
+### 2. **Active Learning & Evaluation**
 
 * **Adaptive Quiz Generation:** Instantly generate multiple-choice quizzes from any material.
 * **Flashcard System:** Flashcards created automatically by AI.
@@ -28,7 +28,7 @@ CobyLearnAi is a integrated AI-assisted learning platform to bridge the gap betw
 
 ---
 
-### 📊 **Progress & Habit Tracker**
+### 3. **Progress & Habit Tracker**
 
 * **Personalized Dashboard:** One-glance view of daily quiz status, focus streaks, and pending tasks.
 * **Productivity Heatmap:** Comprehensive task planning with Google Calendar integration and visualization to track consistency over time.
@@ -36,9 +36,9 @@ CobyLearnAi is a integrated AI-assisted learning platform to bridge the gap betw
 
 ---
 
-### 🎨 **Intuitive User Experience**
+### 4. **Intuitive User Experience**
 
-* **Material UI Design:** Utilizes a native-based design to provide a familiar, intuitive, and high-performance interface.
+* **Material UI Design:** Utilizes a native-based design to provide a familiar and intuitive interface.
 * **PWA Support:** Full Progressive Web App support for seamless mobile use, ensuring students can stay productive anytime, anywhere with increased access.
 
 ---
@@ -90,29 +90,6 @@ public/
 ```bash
 npm install
 ```
-
-### Run Development Server
-
-```bash
-npm run dev
-```
-
-### Build Production
-
-```bash
-npm run build
-```
-
-## API and Proxy Setup
-
-This frontend uses relative API base path:
-- Axios base URL: `/api/v1`
-
-### Local Development
-- Vite proxy forwards `/api/v1/*` to backend target configured in [vite.config.ts](vite.config.ts).
-
-### Deployment
-- Vercel rewrites `/api/v1/:path*` to backend target configured in [vercel.json](vercel.json).
 
 ## Scripts
 
