@@ -1,0 +1,20 @@
+const http = require('https');
+const data = JSON.stringify({ email: 'test@test.com', password: 'password' });
+const options = {
+  hostname: 'distinguished-dusty-mohamadarif346-d2688a41.koyeb.app',
+  port: 443,
+  path: '/api/v1/auth/login',
+  method: 'POST',
+  headers: {
+    'Content-Type': 'application/json',
+    'Authorization': 'Bearer undefined',
+    'Content-Length': Buffer.byteLength(data)
+  }
+};
+const req = http.request(options, (res) => {
+  console.log('statusCode:', res.statusCode);
+  res.on('data', (d) => process.stdout.write(d));
+});
+req.on('error', (error) => console.error(error));
+req.write(data);
+req.end();

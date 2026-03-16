@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-// export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://distinguished-dusty-mohamadarif346-d2688a41.koyeb.app/api/v1';
-
-export const API_BASE_URL = '/api/v1';
+export const API_BASE_URL = import.meta.env.VITE_API_BASE_URL || 'https://distinguished-dusty-mohamadarif346-d2688a41.koyeb.app/api/v1';
 
 console.log('API Base URL:', API_BASE_URL);
 
@@ -14,8 +12,14 @@ const apiClient = axios.create({
 apiClient.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');
-    if (token) {
+    // Ensure token is genuinely a string and not the string literals 'undefined' or 'null'
+    if (token && token !== 'undefined' && token !== 'null') {
       config.headers.Authorization = `Bearer ${token}`;
+    } else {
+      // If the token is invalid literal, clean it up
+      if (token === 'undefined' || token === 'null') {
+        localStorage.removeItem('token');
+      }
     }
     return config;
   },

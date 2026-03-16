@@ -40,10 +40,17 @@ function LoginPage(): React.JSX.Element {
   // --- MUTATION LOGIN BIASA ---
   const mutation = useMutation({
     mutationFn: loginUser,
-    onSuccess: (data) => {
-      localStorage.setItem('token', data.token);
-      apiClient.defaults.headers.common['Authorization'] = `Bearer ${data.token}`;
-      navigate('/dashboard');
+    onSuccess: (data: any) => {
+      // Safely extract token even if backend names it differently (e.g., access_token), 
+      // or if it returns the token directly as a string.
+      const token = typeof data === 'string' ? data : (data?.token || data?.access_token || data?.accessToken);
+      if (token) {
+        localStorage.setItem('token', token);
+        apiClient.defaults.headers.common['Authorization'] = `Bearer ${token}`;
+        navigate('/dashboard');
+      } else {
+        setGeneralError('Invalid response from server: Missing token.');
+      }
     },
     onError: (error: any) => {
       // ... (Logika error handling tetap sama seperti kode Anda)
