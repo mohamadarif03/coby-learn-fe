@@ -14,7 +14,7 @@ export const useUiStore = create<UiStoreState>()(
     }),
     {
       name: 'coby-learn-ui',
-      partialize: (state) => ({
+      partialize: (state: UiStoreState) => ({
         hasSeenChatSuggestions: state.hasSeenChatSuggestions,
       }),
     }
