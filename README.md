@@ -9,31 +9,27 @@ Frontend web app for Coby Learn AI, an AI-assisted learning platform where stude
 **With Backend:** Not in code base, in seperate service
 
 **Main Features:**
-- Authentication flow with protected/public routes (sign up, sign in, forgot/reset password).
-- Personalized dashboard with daily quiz status, streak, tasks summary, quick actions, and onboarding modal state.
-- Library management for study packages/folders.
+- Personalized dashboard with daily quiz status, streak, tasks summary & quick actions.
 - Material upload and management for PDF, text, and YouTube sources.
 - AI-generated summary display and AI Tutor chat tied to a specific material.
 - AI quiz generation, quiz attempt submission, and detailed quiz result view.
-- AI flashcard generation and flashcard play mode.
-- Daily quiz mode with claim flow and streak support.
+- AI flashcard generation.
 - Task planner with list and calendar views, filtering, grouping, and Google Calendar shortcut.
 - Progress analytics with heatmap, streak card, and key learning stats.
-- Responsive navigation for desktop and mobile.
-- PWA support via Vite PWA plugin and web app manifest.
+- Responsive design for desktop and mobile.
+- Mobile PWA support via Vite PWA. 
 
 ## Tech Stack
 
 - React 19 + TypeScript
 - Vite 7
-- MUI 7 (Material UI) + Emotion
+- MUI 7 (Material UI)
 - React Router 7
-- TanStack React Query
+- TanStack Query
 - Axios
 - Zustand
 - Framer Motion
 - Vite PWA plugin
-- Vercel Analytics
 
 
 ## Project Structure
@@ -95,11 +91,6 @@ This frontend uses relative API base path:
 
 ### Deployment
 - Vercel rewrites `/api/v1/:path*` to backend target configured in [vercel.json](vercel.json).
-
-## PWA Support
-
-- Installation for Mobile Support by Vite PWA
-- Manifest available at [public/manifest.webmanifest](public/manifest.webmanifest).
 
 ## Scripts
 
